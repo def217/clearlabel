@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mark AI-generated images for EU AI Act Article 50(2) — free tool</title>
+<meta name="description" content="Free tool: write IPTC digitalSourceType provenance into your AI-generated PNGs and JPEGs, so they carry the machine-readable marking Article 50(2) requires from 2 December 2026. Runs in your browser, nothing is uploaded.">
+<link rel="canonical" href="https://clearlabel.eu/label/">
+<meta property="og:title" content="Mark AI-generated images for EU AI Act Article 50(2)">
+<meta property="og:description" content="Only 0.4% of EU sites carry machine-readable AI content marking. Fix yours in the browser, free.">
+<link rel="stylesheet" href="../styles.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231e3a8a'/%3E%3Cpath d='M18.6 12.4 12.4 18.6a1.6 1.6 0 0 1-2.3 0L4.5 13V4.5H13l5.6 5.6a1.6 1.6 0 0 1 0 2.3Z' fill='none' stroke='%23fff' stroke-width='1.7' stroke-linejoin='round'/%3E%3Ccircle cx='8.4' cy='8.4' r='1.15' fill='%23fff'/%3E%3C/svg%3E">
+<style>
+.drop{border:2px dashed var(--line-strong);border-radius:var(--radius);padding:var(--s5) var(--s3);
+  text-align:center;background:var(--panel);cursor:pointer;transition:border-color .18s ease,background .18s ease}
+.drop:hover,.drop.over{border-color:var(--navy);background:var(--accent-soft)}
+.drop svg{width:34px;height:34px;color:var(--muted);margin-bottom:10px}
+.drop .t{font-weight:600;margin-bottom:4px}
+.drop .s{font-size:.87rem;color:var(--muted)}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3);margin:var(--s4) 0}
+@media(max-width:760px){.opts{grid-template-columns:1fr}}
+.opt{border:1px solid var(--line);border-radius:7px;padding:14px 15px;cursor:pointer;background:var(--panel);
+  display:flex;gap:11px;align-items:flex-start;transition:border-color .18s ease}
+.opt:hover{border-color:var(--line-strong)}
+.opt.sel{border-color:var(--navy);border-width:2px;padding:13px 14px;background:var(--accent-soft)}
+.opt input{margin-top:4px;accent-color:var(--navy)}
+.opt .ol{font-weight:600;font-size:.95rem;margin-bottom:3px}
+.opt .oh{font-size:.85rem;color:var(--muted);line-height:1.45}
+.field{margin-bottom:var(--s3)}
+.field label{display:block;font-size:.85rem;font-weight:600;margin-bottom:6px}
+.field input{width:100%;font:inherit;font-size:.95rem;padding:11px 13px;border:1px solid var(--line-strong);
+  border-radius:7px;background:var(--bg);color:var(--ink)}
+pre.snip{background:var(--grey-soft);border:1px solid var(--line);border-radius:7px;padding:14px;
+  overflow-x:auto;font-family:var(--mono);font-size:.8rem;line-height:1.55;margin:0}
+.langrow{display:grid;grid-template-columns:44px 1fr;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:.92rem}
+.langrow:last-child{border-bottom:0}
+.langrow code{background:none;padding:0;color:var(--muted)}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap topbar">
+  <a class="brand" href="../"><svg class="tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41 13.42 20.6a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82Z"/><circle cx="7" cy="7" r="1.4" fill="currentColor"/></svg>ClearLabel</a>
+  <nav class="topnav"><a href="../#scan">Free scan</a><a href="../study/">Study</a><a href="../vendors/">Vendors</a><a href="../#pack">Compliance Pack</a></nav>
+</div></header>
+
+<div class="wrap hero">
+  <p class="eyebrow">Article 50(2) · due 2 December 2026</p>
+  <h1>Mark your AI-generated images</h1>
+  <p class="lede">Article 50(2) requires AI-generated content to be marked <strong>in a machine-readable format</strong> — a visible caption on its own does not satisfy it. In our scan of 703 EU sites, <a href="../study/">only 0.4% carried any such marking</a>. This writes the IPTC provenance straight into your file. It runs in your browser; the image is never uploaded.</p>
+</div>
+
+<div class="wrap">
+  <div id="drop" class="drop" tabindex="0" role="button" aria-label="Choose an image to mark">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5-5 5 5"/><path d="M12 5v12"/></svg>
+    <div class="t">Drop a PNG or JPEG here</div>
+    <div class="s">or click to choose · nothing leaves this page</div>
+    <input type="file" id="file" accept="image/png,image/jpeg" hidden>
+  </div>
+
+  <div class="opts" id="opts"></div>
+
+  <div class="field">
+    <label for="tool">Which tool generated it? <span style="font-weight:400;color:var(--muted)">(optional, recorded as xmp:CreatorTool)</span></label>
+    <input id="tool" type="text" placeholder="Midjourney v7, DALL·E 3, Firefly, Sora…">
+  </div>
+
+  <button class="btn" id="go" type="button" disabled>Mark the image and download</button>
+  <div id="out" style="margin-top:var(--s3)"></div>
+</div>
+
+<section class="tight">
+  <div class="wrap">
+    <h2>Also do these two things</h2>
+    <p>Machine-readable marking is the part with a deadline, but it is not the whole duty. Article 50(4) separately requires deployers to disclose deepfakes and AI-generated text published on matters of public interest.</p>
+
+    <h3 style="margin-top:var(--s4)">1. A visible label, in the reader's language</h3>
+    <div id="labels" style="margin:var(--s2) 0 var(--s3)"></div>
+
+    <h3 style="margin-top:var(--s4)">2. Structured data on the page</h3>
+    <p>So crawlers and platforms can read the claim without downloading the asset. Paste into the page that publishes the image.</p>
+    <pre class="snip" id="jsonld">…</pre>
+    <button class="btn ghost" id="copy-ld" type="button" style="margin-top:11px">Copy JSON-LD</button>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="wrap">
+    <h2>What this does and does not do</h2>
+    <p class="rule now"><strong>It writes IPTC <code>digitalSourceType</code></strong> into an XMP packet inside the file — an <code>iTXt</code> chunk for PNG, an <code>APP1</code> segment for JPEG. That is the vocabulary the AI Act's machine-readable requirement is generally read against, and the same one Adobe, Google and the major agencies use.</p>
+    <p class="rule soon"><strong>It does not sign anything.</strong> A full C2PA Content Credential is cryptographically signed and tamper-evident. XMP is a plain assertion — anyone can strip or forge it. For journalism or evidentiary use you want C2PA proper; for a marketing image, IPTC provenance is the proportionate step.</p>
+    <p class="rule later"><strong>Metadata gets stripped.</strong> Most social platforms and many CDNs discard XMP on re-encode. Keep the marking on the original and on what you serve from your own domain, and do not assume it survives a trip through someone else's pipeline.</p>
+    <div class="disclaim" style="margin-top:var(--s3)">Information and tooling, not legal advice. ClearLabel is not a law firm.</div>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="wrap">
+    <div class="offer">
+      <h3 style="margin-top:0">Is anything else on your site exposed?</h3>
+      <p>The free scan checks whether your site discloses AI chat under Article 50(1), and reports what it can and cannot see. Takes about ten seconds.</p>
+      <a class="btn" href="../#scan" style="display:inline-block;text-decoration:none">Scan your site</a>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap">
+  <p><strong>ClearLabel</strong> — EU AI Act Article 50 transparency checks. Information and document drafts only. Not legal advice, not a law firm.</p>
+  <p><a href="https://github.com/def217/clearlabel">Source</a> · <a href="../study/">703-site study</a> · <a href="https://artificialintelligenceact.eu/article/50/">Article 50 text</a></p>
+</div></footer>
+<script type="module" src="./label.js"></script>
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "621bef7b2c064047a614e54e630b07c8"}'></script>
+</body></html>
