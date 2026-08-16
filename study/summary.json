@@ -1,0 +1,176 @@
+{
+  "generated": "2026-08-16",
+  "sample": 703,
+  "readable": 532,
+  "with_vendor": 26,
+  "no_disclosure": 24,
+  "no_disclosure_pct": 92.3,
+  "vendor_pct_of_readable": 4.9,
+  "offhomepage": 18,
+  "offhomepage_pct": 69,
+  "content_marking": 2,
+  "content_marking_pct": 0.4,
+  "vendors": {
+    "Salesforce Embedded Service / Agentforce": 13,
+    "HubSpot Chat": 3,
+    "Zendesk / Zopim": 3,
+    "Intercom": 2,
+    "Freshchat / Freshworks": 1,
+    "Landbot": 1,
+    "LiveChat": 1,
+    "JivoChat": 1,
+    "Userlike": 1
+  },
+  "by_cctld": {
+    "\"de\r\"\r": {
+      "readable": 1,
+      "vendor": 0,
+      "no_disclosure": 0
+    },
+    "\"nl\r\"\r": {
+      "readable": 1,
+      "vendor": 0,
+      "no_disclosure": 0
+    },
+    "\"pt\r\"\r": {
+      "readable": 1,
+      "vendor": 0,
+      "no_disclosure": 0
+    },
+    "at\r": {
+      "readable": 24,
+      "vendor": 0,
+      "no_disclosure": 0
+    },
+    "be\r": {
+      "readable": 24,
+      "vendor": 3,
+      "no_disclosure": 3
+    },
+    "bg\r": {
+      "readable": 12,
+      "vendor": 0,
+      "no_disclosure": 0
+    },
+    "cz\r": {
+      "readable": 17,
+      "vendor": 0,
+      "no_disclosure": 0
+    },
+    "de\r": {
+      "readable": 43,
+      "vendor": 1,
+      "no_disclosure": 1
+    },
+    "dk\r": {
+      "readable": 21,
+      "vendor": 2,
+      "no_disclosure": 2
+    },
+    "ee\r": {
+      "readable": 10,
+      "vendor": 1,
+      "no_disclosure": 1
+    },
+    "es\r": {
+      "readable": 31,
+      "vendor": 3,
+      "no_disclosure": 2
+    },
+    "eu\r": {
+      "readable": 12,
+      "vendor": 1,
+      "no_disclosure": 1
+    },
+    "fi\r": {
+      "readable": 20,
+      "vendor": 1,
+      "no_disclosure": 1
+    },
+    "fr\r": {
+      "readable": 43,
+      "vendor": 3,
+      "no_disclosure": 3
+    },
+    "gr\r": {
+      "readable": 13,
+      "vendor": 0,
+      "no_disclosure": 0
+    },
+    "hr\r": {
+      "readable": 10,
+      "vendor": 0,
+      "no_disclosure": 0
+    },
+    "hu\r": {
+      "readable": 14,
+      "vendor": 0,
+      "no_disclosure": 0
+    },
+    "ie\r": {
+      "readable": 14,
+      "vendor": 0,
+      "no_disclosure": 0
+    },
+    "it\r": {
+      "readable": 35,
+      "vendor": 0,
+      "no_disclosure": 0
+    },
+    "lt\r": {
+      "readable": 11,
+      "vendor": 1,
+      "no_disclosure": 1
+    },
+    "lu": {
+      "readable": 1,
+      "vendor": 0,
+      "no_disclosure": 0
+    },
+    "lu\r": {
+      "readable": 6,
+      "vendor": 0,
+      "no_disclosure": 0
+    },
+    "lv\r": {
+      "readable": 11,
+      "vendor": 0,
+      "no_disclosure": 0
+    },
+    "nl\r": {
+      "readable": 44,
+      "vendor": 4,
+      "no_disclosure": 4
+    },
+    "pl\r": {
+      "readable": 33,
+      "vendor": 4,
+      "no_disclosure": 4
+    },
+    "pt\r": {
+      "readable": 14,
+      "vendor": 0,
+      "no_disclosure": 0
+    },
+    "ro\r": {
+      "readable": 18,
+      "vendor": 0,
+      "no_disclosure": 0
+    },
+    "se\r": {
+      "readable": 26,
+      "vendor": 2,
+      "no_disclosure": 1
+    },
+    "si\r": {
+      "readable": 9,
+      "vendor": 0,
+      "no_disclosure": 0
+    },
+    "sk\r": {
+      "readable": 13,
+      "vendor": 0,
+      "no_disclosure": 0
+    }
+  }
+}

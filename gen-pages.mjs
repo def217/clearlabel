@@ -190,6 +190,7 @@ const main = async () => {
   const urls = [
     { loc: `${BASE}/`, pri: '1.0' },
     { loc: `${BASE}/vendors/`, pri: '0.9' },
+    { loc: `${BASE}/study/`, pri: '0.9' },
     ...db.vendors.map((v) => ({ loc: `${BASE}/vendors/${v.id}.html`, pri: '0.8' })),
   ];
   await writeFile(

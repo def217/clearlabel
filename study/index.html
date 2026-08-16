@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>We scanned 703 EU websites for AI Act Article 50 compliance — ClearLabel study</title>
+<meta name="description" content="Open study of 703 Tranco-ranked EU websites: 92% of sites running a chat widget show no AI disclosure, and only 0.4% carry machine-readable AI content marking before the 2 December 2026 deadline.">
+<link rel="canonical" href="https://clearlabel.eu/study/">
+<meta property="og:title" content="We scanned 703 EU websites for AI Act Article 50 compliance">
+<meta property="og:description" content="92% of EU sites running a chat widget show no AI disclosure. Only 0.4% carry machine-readable AI content marking.">
+<link rel="stylesheet" href="../styles.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏷️</text></svg>">
+<style>
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin:26px 0}
+.stat{border:1px solid var(--line);background:var(--panel);border-radius:var(--radius);padding:18px}
+.stat .big{font-size:2.3rem;font-weight:680;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
+.stat .cap{font-size:.85rem;color:var(--muted);margin-top:8px;line-height:1.4}
+.stat.alarm .big{color:var(--red)} .stat.warn .big{color:var(--amber)}
+.bar{display:grid;grid-template-columns:180px 1fr 34px;gap:10px;align-items:center;margin-bottom:7px;font-size:.9rem}
+.bl{color:var(--muted);text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bt{background:var(--grey-soft);border-radius:4px;height:17px;overflow:hidden}
+.bt i{display:block;height:100%;background:var(--accent);border-radius:4px}
+.bn{font-variant-numeric:tabular-nums;color:var(--muted)}
+@media(max-width:600px){.bar{grid-template-columns:110px 1fr 30px}}
+.method{font-size:.93rem} .method li{margin-bottom:7px}
+table.data{width:100%;border-collapse:collapse;font-size:.9rem}
+table.data th,table.data td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+table.data th{font-size:.74rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+blockquote.cite{border-left:3px solid var(--line);margin:0;padding:10px 0 10px 16px;font-size:.88rem;color:var(--muted)}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Dataset", "name": "ClearLabel EU AI Act Article 50 compliance scan, August 2026", "description": "Scan of 703 Tranco-ranked EU-ccTLD websites for conversational-AI vendors, AI-disclosure wording and machine-readable synthetic-content marking.", "license": "https://creativecommons.org/licenses/by/4.0/", "creator": {"@type": "Organization", "name": "ClearLabel", "url": "https://clearlabel.eu"}, "dateCreated": "2026-08-16", "url": "https://clearlabel.eu/study/", "distribution": [{"@type": "DataDownload", "encodingFormat": "application/x-ndjson", "contentUrl": "https://github.com/def217/clearlabel/blob/main/study/results-final.jsonl"}]}</script>
+</head>
+<body>
+<header class="top"><div class="wrap topbar">
+  <a class="brand" href="../"><svg class="tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41 13.42 20.6a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82Z"/><circle cx="7" cy="7" r="1.4" fill="currentColor"/></svg>ClearLabel</a>
+  <nav class="topnav"><a href="../#scan">Free scan</a><a href="../vendors/">Vendors</a><a href="../#pack">Compliance Pack</a></nav>
+</div></header>
+
+<div class="wrap hero">
+  <p style="font-size:.85rem;color:var(--muted);margin-bottom:14px"><a href="../">ClearLabel</a> → Study</p>
+  <h1>We scanned 703 EU websites for Article&nbsp;50 compliance</h1>
+  <p class="lede">Article 50(1) has been binding since 2 August 2026 and machine-readable marking of AI content is due 2 December 2026. We wanted a number rather than an assumption, so we measured. Raw data and the scanner are open.</p>
+</div>
+
+<div class="wrap">
+  <div class="stat-grid">
+    <div class="stat alarm"><div class="big">92.3%</div><div class="cap">of sites running a chat or AI widget showed <strong>no AI-disclosure wording</strong> in any of 10 EU languages (24 of 26)</div></div>
+    <div class="stat alarm"><div class="big">0.4%</div><div class="cap">carried any <strong>machine-readable AI-content marking</strong> — 2 of 532 sites, with the duty landing 2 Dec 2026</div></div>
+    <div class="stat warn"><div class="big">69%</div><div class="cap">of chat widgets were <strong>not on the homepage</strong> — homepage-only scanning misses most of them</div></div>
+    <div class="stat"><div class="big">4.9%</div><div class="cap">of readable sites ran a detectable chat or AI widget at all (26 of 532)</div></div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <h2>What we found</h2>
+    <p>Two findings are worth separating, because they point at very different populations.</p>
+    <p class="rule"><strong>The chat-widget finding is narrow but sharp.</strong> Only 4.9% of readable sites ran a detectable chat or AI widget. But of those that did, <strong>92.3% had no AI-disclosure wording anywhere in the page copy</strong>. If the vendor's AI mode is switched on — and every vendor we found ships one — that is the exact gap Article 50(1) addresses.</p>
+    <p class="rule"><strong>The content-marking finding is broad and stark.</strong> Just <strong>2 sites out of 532</strong> carried C2PA Content Credentials or IPTC synthetic-media metadata. Article 50(2) requires machine-readable marking of AI-generated audio, image, video and text, with a transition ending <strong>2 December 2026</strong>. This one is not limited to sites with chatbots — it reaches every site publishing AI-assisted media, which in 2026 is most marketing sites.</p>
+
+    <h3 style="margin-top:30px">Vendors detected</h3>
+    <div style="margin:16px 0 8px"><div class="bar"><span class="bl">Salesforce Embedded Service / Agentforce</span><span class="bt"><i style="width:100%"></i></span><span class="bn">13</span></div>
+<div class="bar"><span class="bl">HubSpot Chat</span><span class="bt"><i style="width:23%"></i></span><span class="bn">3</span></div>
+<div class="bar"><span class="bl">Zendesk / Zopim</span><span class="bt"><i style="width:23%"></i></span><span class="bn">3</span></div>
+<div class="bar"><span class="bl">Intercom</span><span class="bt"><i style="width:15%"></i></span><span class="bn">2</span></div>
+<div class="bar"><span class="bl">Freshchat / Freshworks</span><span class="bt"><i style="width:8%"></i></span><span class="bn">1</span></div>
+<div class="bar"><span class="bl">Landbot</span><span class="bt"><i style="width:8%"></i></span><span class="bn">1</span></div>
+<div class="bar"><span class="bl">LiveChat</span><span class="bt"><i style="width:8%"></i></span><span class="bn">1</span></div>
+<div class="bar"><span class="bl">JivoChat</span><span class="bt"><i style="width:8%"></i></span><span class="bn">1</span></div>
+<div class="bar"><span class="bl">Userlike</span><span class="bt"><i style="width:8%"></i></span><span class="bn">1</span></div></div>
+    <p style="font-size:.88rem;color:var(--muted)">Every vendor detected ships an AI-agent mode. None of the sites in this sample used a purpose-built LLM-only widget such as Chatbase or Voiceflow, which we read as those tools being more common further down the long tail than in Tranco's upper ranks.</p>
+
+    <h3 style="margin-top:30px">Where the widget actually lives</h3>
+    <p>Of the 26 sites with a widget, <strong>18 had nothing on the homepage</strong> — the widget only appeared on a contact, help or support page. Any Article 50 audit that checks the homepage alone will under-report by roughly two thirds.</p>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="wrap">
+    <h2>By country</h2>
+    <div class="tablewrap"><table class="data">
+      <thead><tr><th>ccTLD</th><th>Readable</th><th>With widget</th><th>Rate</th><th>No disclosure</th></tr></thead>
+      <tbody><tr><td><code>.be</code></td><td>24</td><td>3</td><td>12%</td><td>3</td></tr>
+<tr><td><code>.pl</code></td><td>33</td><td>4</td><td>12%</td><td>4</td></tr>
+<tr><td><code>.ee</code></td><td>10</td><td>1</td><td>10%</td><td>1</td></tr>
+<tr><td><code>.es</code></td><td>31</td><td>3</td><td>10%</td><td>2</td></tr>
+<tr><td><code>.dk</code></td><td>21</td><td>2</td><td>10%</td><td>2</td></tr>
+<tr><td><code>.lt</code></td><td>11</td><td>1</td><td>9%</td><td>1</td></tr>
+<tr><td><code>.nl</code></td><td>44</td><td>4</td><td>9%</td><td>4</td></tr>
+<tr><td><code>.eu</code></td><td>12</td><td>1</td><td>8%</td><td>1</td></tr>
+<tr><td><code>.se</code></td><td>26</td><td>2</td><td>8%</td><td>1</td></tr>
+<tr><td><code>.fr</code></td><td>43</td><td>3</td><td>7%</td><td>3</td></tr>
+<tr><td><code>.fi</code></td><td>20</td><td>1</td><td>5%</td><td>1</td></tr>
+<tr><td><code>.de</code></td><td>43</td><td>1</td><td>2%</td><td>1</td></tr>
+<tr><td><code>.at</code></td><td>24</td><td>0</td><td>0%</td><td>0</td></tr>
+<tr><td><code>.bg</code></td><td>12</td><td>0</td><td>0%</td><td>0</td></tr>
+<tr><td><code>.cz</code></td><td>17</td><td>0</td><td>0%</td><td>0</td></tr>
+<tr><td><code>.gr</code></td><td>13</td><td>0</td><td>0%</td><td>0</td></tr>
+<tr><td><code>.hr</code></td><td>10</td><td>0</td><td>0%</td><td>0</td></tr>
+<tr><td><code>.hu</code></td><td>14</td><td>0</td><td>0%</td><td>0</td></tr>
+<tr><td><code>.ie</code></td><td>14</td><td>0</td><td>0%</td><td>0</td></tr>
+<tr><td><code>.it</code></td><td>35</td><td>0</td><td>0%</td><td>0</td></tr>
+<tr><td><code>.lv</code></td><td>11</td><td>0</td><td>0%</td><td>0</td></tr>
+<tr><td><code>.pt</code></td><td>14</td><td>0</td><td>0%</td><td>0</td></tr>
+<tr><td><code>.ro</code></td><td>18</td><td>0</td><td>0%</td><td>0</td></tr>
+<tr><td><code>.sk</code></td><td>13</td><td>0</td><td>0%</td><td>0</td></tr></tbody>
+    </table></div>
+    <p style="font-size:.87rem;color:var(--muted);margin-top:12px">Countries with fewer than 10 readable sites are omitted. Per-country counts are small; treat the ordering as indicative, not as a ranking.</p>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="wrap">
+    <h2>Method</h2>
+    <ul class="method">
+      <li><strong>Sampling frame.</strong> The Tranco top-1M list, filtered to 26 EU ccTLDs, taking the highest-ranked domains per country up to a per-country quota. 703 domains in total. Tranco was chosen because it is a published, reproducible ranking rather than a hand-picked list.</li>
+      <li><strong>Collection.</strong> 16 August 2026. Each domain's homepage was fetched; where no vendor was found, up to three country-appropriate contact/help paths were tried (<code>/kontakt</code>, <code>/contacto</code>, <code>/contatti</code> and so on).</li>
+      <li><strong>Detection.</strong> Regex fingerprints for 36 conversational-AI vendors against page source, plus AI-disclosure phrase matching in 10 EU languages, plus C2PA and IPTC marking signals. The scanner is <a href="https://github.com/def217/clearlabel">open source</a>; the vendor dataset is CC-BY-4.0.</li>
+      <li><strong>Coverage.</strong> 532 of 703 domains (76%) returned readable HTML. The rest were bot-protected (HTTP 403), did not resolve, or refused connections.</li>
+    </ul>
+
+    <h3 style="margin-top:26px">Limitations, stated plainly</h3>
+    <ul class="method">
+      <li><strong>This measures signals, not compliance.</strong> We cannot see inside anyone's vendor console. A site running Zendesk with the AI agent switched off has no Article 50(1) duty, and our scan cannot tell the difference. "No disclosure wording found" is evidence of a gap worth checking, not a finding of breach.</li>
+      <li><strong>The frame skews away from e-commerce.</strong> Tranco's upper ranks are dominated by news, banking, government and infrastructure. The 4.9% widget rate is therefore a floor for the general web, and almost certainly understates online retail, where chat widgets are far more common.</li>
+      <li><strong>Disclosure detection is a proxy.</strong> We search visible page copy. Wording that appears only inside the chat window after it opens will be missed, so the 92.3% figure may overstate the true gap.</li>
+      <li><strong>Bot protection is not random.</strong> The 171 unreadable domains skew toward larger sites, which likely have more compliance resource. This may bias findings pessimistically.</li>
+      <li><strong>We sell a product in this space.</strong> Treat the framing accordingly, and check the raw data — it is published precisely so you do not have to take our word for it.</li>
+    </ul>
+
+    <h3 style="margin-top:26px">Data and reuse</h3>
+    <p>Per-domain results, the sample frame and the scanner are in the <a href="https://github.com/def217/clearlabel/tree/main/study">public repository</a>. Licensed CC-BY-4.0 — reuse it, and corrections by pull request are welcome.</p>
+    <blockquote class="cite">ClearLabel (2026). <em>Article 50 compliance signals across 703 EU websites.</em> https://clearlabel.eu/study/</blockquote>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="wrap">
+    <div class="offer">
+      <h3 style="margin-top:0">Check your own site against the same scanner</h3>
+      <p>Same detection engine, same 36 vendors, same 10 languages. Free, no signup, runs in your browser.</p>
+      <a class="btn" href="../#scan" style="display:inline-block;text-decoration:none">Scan your site</a>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap">
+  <p><strong>ClearLabel</strong> — EU AI Act Article 50 transparency checks. Information and document drafts only. Not legal advice, not a law firm.</p>
+  <p>Study run 16 August 2026 · <a href="https://github.com/def217/clearlabel">Source and raw data</a> · <a href="https://artificialintelligenceact.eu/article/50/">Article 50 text</a></p>
+</div></footer>
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "621bef7b2c064047a614e54e630b07c8"}'></script>
+</body></html>

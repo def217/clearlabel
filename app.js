@@ -1,4 +1,4 @@
-import { scanHtml, STATUS } from './scanner/core.mjs';
+import { scanHtml, assess, STATUS } from './scanner/core.mjs';
 
 /* Checkout target. STORE_LIVE gates the CTA: flip to false to take the store
    offline without removing the wiring. */
@@ -10,12 +10,30 @@ const DEADLINE_MARK = Date.UTC(2026, 11, 2);  // Art.50(2) machine-readable mark
 const DAY = 86400000;
 
 /* Readers must return RAW HTML: vendor fingerprints live in <script src>, and a
-   markdown-rendering reader silently strips exactly the evidence we need. */
+   markdown-rendering reader silently strips exactly the evidence we need.
+   More than one provider because the free tiers rate-limit. */
 const READERS = [
-  (url) => [`https://r.jina.ai/${url}`, { 'x-respond-with': 'html' }],
-  (url) => [`https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`, {}],
-  (url) => [`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`, {}],
+  {
+    build: (url) => [`https://r.jina.ai/${url}`, { 'x-respond-with': 'html' }],
+    unwrap: (body) => body,
+  },
+  {
+    build: (url) => [`https://www.whateverorigin.org/get?url=${encodeURIComponent(url)}`, {}],
+    unwrap: (body) => {
+      try { return JSON.parse(body).contents ?? ''; } catch { return ''; }
+    },
+  },
+  {
+    build: (url) => [`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`, {}],
+    unwrap: (body) => body,
+  },
 ];
+
+/* Chat widgets usually live on a contact or help page rather than the homepage,
+   so we offer to follow a few likely paths - on request, not automatically,
+   because every extra fetch spends a shared rate limit. */
+const FALLBACK_PATHS = ['/contact', '/kontakt', '/help', '/support', '/contacto', '/contatti'];
+const MAX_FALLBACKS = 3;
 
 const $ = (sel) => document.querySelector(sel);
 
@@ -81,15 +99,15 @@ const normalise = (raw) => {
 
 const fetchThroughReader = async (url) => {
   const errors = [];
-  for (const build of READERS) {
-    const [endpoint, headers] = build(url);
+  for (const reader of READERS) {
+    const [endpoint, headers] = reader.build(url);
     try {
       const res = await fetch(endpoint, { redirect: 'follow', headers });
       if (!res.ok) {
-        errors.push(`HTTP ${res.status}`);
+        errors.push(res.status === 429 ? 'reader busy (429)' : `HTTP ${res.status}`);
         continue;
       }
-      const body = await res.text();
+      const body = reader.unwrap(await res.text());
       if (body && body.length > 200 && /<\s*(script|html|body|head|div)\b/i.test(body)) {
         return { ok: true, body };
       }
@@ -159,10 +177,42 @@ const render = (url, result) => {
   return `<div class="verdict v-${esc(result.overall)}">
       <div class="vi">${v.icon}</div>
       <div><h3>${esc(v.head)}</h3><p>${esc(v.sub)}</p>
-      <p style="margin-top:6px;font-size:.85rem;color:var(--muted)">Scanned: <code>${esc(url)}</code></p></div>
+      <p style="margin-top:6px;font-size:.85rem;color:var(--muted)">Scanned: <code>${esc(url)}</code>${
+      result.pagesRead && result.pagesRead.length > 1
+        ? ` — also checked ${result.pagesRead.slice(1).map((p) => `<code>${esc(p)}</code>`).join(', ')}`
+        : ''
+    }</p></div>
     </div>
     ${findings}${found}${renderSample(result.vendors)}${table}
+    ${
+      result.vendors.length === 0
+        ? `<div class="finding" style="border-color:var(--accent)">
+             <h4 style="margin-bottom:6px">Widgets are usually not on the homepage</h4>
+             <p style="margin-bottom:11px">In our scan of 703 EU sites, <strong>69% of chat widgets were found on a contact or help page</strong>, not the homepage. Worth checking those before concluding you have none.</p>
+             <button class="btn ghost" type="button" id="deep-scan">Also check /contact, /kontakt and /help</button>
+           </div>`
+        : ''
+    }
     <p class="hint" style="padding:14px 0 0">Page-source heuristics, not an audit or a legal opinion. It cannot see inside your vendor console or open your chat widget.</p>`;
+};
+
+/** Combine findings from several pages of the same site without duplicating vendors. */
+const mergeScans = (acc, next, path) => {
+  const seen = new Set(acc.vendors.map((v) => v.id));
+  return {
+    ...acc,
+    vendors: [...acc.vendors, ...next.vendors.filter((v) => !seen.has(v.id)).map((v) => ({ ...v, foundOn: path }))],
+    disclosures: [...acc.disclosures, ...next.disclosures.filter((d) => !acc.disclosures.some((x) => x.lang === d.lang))],
+    contentSignals: [...acc.contentSignals, ...next.contentSignals.filter((c) => !acc.contentSignals.some((x) => x.id === c.id))],
+    pagesRead: [...acc.pagesRead, path],
+  };
+};
+
+/** Paths worth trying on this origin, skipping the one already scanned. */
+const fallbacksFor = (url) => {
+  const u = new URL(url);
+  const already = u.pathname.replace(/\/$/, '');
+  return FALLBACK_PATHS.filter((p) => p !== already).slice(0, MAX_FALLBACKS).map((p) => ({ path: p, href: `${u.origin}${p}` }));
 };
 
 const setBusy = (busy) => {
@@ -188,6 +238,40 @@ const loadDb = async () => {
 
 let lastResult = null;
 
+const wireCopyButton = () => {
+  const copy = $('#copy-sample');
+  if (!copy) return;
+  copy.addEventListener('click', async () => {
+    await navigator.clipboard.writeText(DISCLOSURE.en);
+    copy.textContent = 'Copied';
+    setTimeout(() => (copy.textContent = 'Copy English version'), 1800);
+  });
+};
+
+const progress = (text) =>
+  showRaw(`<p style="color:var(--muted);margin:0"><span class="spin" style="border-color:var(--line);border-top-color:var(--accent)"></span>${esc(text)}</p>`);
+
+/** Runs the extra contact/help pages only when the visitor asks for it. */
+const wireDeepScan = (db) => {
+  const btn = $('#deep-scan');
+  if (!btn) return;
+  btn.addEventListener('click', async () => {
+    btn.disabled = true;
+    let acc = lastResult;
+    for (const { path, href } of fallbacksFor(lastResult.url)) {
+      btn.innerHTML = `<span class="spin"></span>Checking ${esc(path)}`;
+      const extra = await fetchThroughReader(href);
+      if (!extra.ok) continue;
+      acc = mergeScans(acc, scanHtml(extra.body, db), path);
+      if (acc.vendors.length > 0) break;
+    }
+    lastResult = { ...acc, ...assess(acc) };
+    showRaw(render(lastResult.url, lastResult));
+    wireCopyButton();
+    wireDeepScan(db);
+  });
+};
+
 const onSubmit = async (event) => {
   event.preventDefault();
   const url = normalise($('#url').value);
@@ -196,7 +280,7 @@ const onSubmit = async (event) => {
     return;
   }
   setBusy(true);
-  showRaw('<p style="color:var(--muted);margin:0"><span class="spin" style="border-color:var(--line);border-top-color:var(--accent)"></span>Fetching the page and fingerprinting vendors…</p>');
+  progress('Fetching the page and fingerprinting vendors…');
   try {
     const db = await loadDb();
     const page = await fetchThroughReader(url);
@@ -205,16 +289,14 @@ const onSubmit = async (event) => {
         <p>${esc(page.error)}. Some sites block automated reads. You can still check by hand: open the page, view source, and search it for your chat vendor's script.</p></div></div>`);
       return;
     }
-    lastResult = { url, ...scanHtml(page.body, db) };
+
+    const first = scanHtml(page.body, db);
+    const combined = { ...first, pagesRead: [new URL(url).pathname || '/'] };
+
+    lastResult = { url, ...combined };
     showRaw(render(url, lastResult));
-    const copy = $('#copy-sample');
-    if (copy) {
-      copy.addEventListener('click', async () => {
-        await navigator.clipboard.writeText(DISCLOSURE.en);
-        copy.textContent = 'Copied';
-        setTimeout(() => (copy.textContent = 'Copy English version'), 1800);
-      });
-    }
+    wireCopyButton();
+    wireDeepScan(db);
   } catch (err) {
     showRaw(`<div class="verdict v-no-signal"><div class="vi">\u{26A0}\u{FE0F}</div><div><h3>Scan failed</h3><p>${esc(err.message)}</p></div></div>`);
   } finally {
