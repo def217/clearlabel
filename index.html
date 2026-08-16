@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ClearLabel — EU AI Act Article 50 website check</title>
+<meta name="description" content="Free scan: does your website disclose that visitors are talking to AI? EU AI Act Article 50 has applied since 2 August 2026. Machine-readable AI content marking is due 2 December 2026.">
+<link rel="canonical" href="https://def217.github.io/clearlabel/">
+<meta property="og:title" content="ClearLabel — EU AI Act Article 50 website check">
+<meta property="og:description" content="Free scan for the AI-disclosure rule that went live on 2 August 2026.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏷️</text></svg>">
+<style>
+:root{
+  --bg:#fbfaf8; --panel:#ffffff; --ink:#14181f; --muted:#5b6472; --line:#e3e2dd;
+  --accent:#1f4fd8; --accent-soft:#eef2fe;
+  --red:#b4232a; --red-soft:#fdf0ef; --amber:#8a5a04; --amber-soft:#fdf5e5;
+  --green:#1d6a45; --green-soft:#eaf6ef; --grey-soft:#f2f2ef;
+  --radius:10px; --wrap:1080px;
+  --sans:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+:root:not([data-theme="light"]) { }
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0e1116; --panel:#151a21; --ink:#e9ecf1; --muted:#98a2b3; --line:#252c36;
+    --accent:#6b93ff; --accent-soft:#16223d;
+    --red:#ff8a86; --red-soft:#2a1618; --amber:#e5b567; --amber-soft:#2a2114;
+    --green:#6fd39b; --green-soft:#12261c; --grey-soft:#1b2027;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6;font-size:17px;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 22px}
+a{color:var(--accent)}
+h1,h2,h3{line-height:1.2;letter-spacing:-.02em;margin:0 0 .5em}
+h1{font-size:clamp(2rem,5vw,3.05rem);font-weight:660}
+h2{font-size:clamp(1.4rem,3vw,1.95rem);font-weight:640;margin-top:0}
+h3{font-size:1.08rem;font-weight:640}
+p{margin:0 0 1em}
+
+header.top{border-bottom:1px solid var(--line);background:var(--panel);position:sticky;top:0;z-index:20}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:13px 0}
+.brand{display:flex;align-items:center;gap:9px;font-weight:680;letter-spacing:-.02em;font-size:1.06rem;text-decoration:none;color:var(--ink)}
+.brand .tag{width:20px;height:20px;flex:none}
+.topnav{display:flex;gap:20px;font-size:.92rem}
+.topnav a{color:var(--muted);text-decoration:none}
+.topnav a:hover{color:var(--ink)}
+@media(max-width:640px){.topnav{display:none}}
+
+.hero{padding:58px 0 12px}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:.78rem;font-weight:640;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--red);background:var(--red-soft);border:1px solid color-mix(in srgb,var(--red) 25%,transparent);
+  padding:5px 11px;border-radius:100px;margin-bottom:20px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--red);animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.lede{font-size:1.16rem;color:var(--muted);max-width:60ch}
+
+.counters{display:flex;flex-wrap:wrap;gap:10px;margin:26px 0 0}
+.counter{border:1px solid var(--line);background:var(--panel);border-radius:var(--radius);padding:12px 15px;min-width:170px}
+.counter .n{font-size:1.42rem;font-weight:680;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.counter .l{font-size:.79rem;color:var(--muted);line-height:1.35}
+.counter.live .n{color:var(--red)}
+.counter.due .n{color:var(--amber)}
+
+/* scanner */
+.scanner{margin:34px 0 10px;border:1px solid var(--line);background:var(--panel);border-radius:14px;overflow:hidden}
+.scanner-head{padding:20px 22px 0}
+.scanform{display:flex;gap:9px;padding:14px 22px 20px;flex-wrap:wrap}
+.scanform input{flex:1 1 320px;min-width:0;font:inherit;font-size:1rem;padding:12px 14px;border:1px solid var(--line);
+  border-radius:9px;background:var(--bg);color:var(--ink)}
+.scanform input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.btn{font:inherit;font-weight:620;font-size:.97rem;padding:12px 20px;border-radius:9px;border:1px solid transparent;
+  background:var(--accent);color:#fff;cursor:pointer;white-space:nowrap}
+.btn:hover{filter:brightness(1.07)}
+.btn[disabled]{opacity:.55;cursor:progress}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.hint{padding:0 22px 18px;font-size:.84rem;color:var(--muted);margin:0}
+
+#out{display:none;border-top:1px solid var(--line);padding:22px}
+#out.on{display:block}
+.verdict{display:flex;gap:13px;align-items:flex-start;padding:15px 17px;border-radius:10px;margin-bottom:18px;border:1px solid}
+.verdict .vi{font-size:1.4rem;line-height:1}
+.verdict h3{margin:0 0 3px}
+.verdict p{margin:0;font-size:.93rem}
+.v-action-required{background:var(--red-soft);border-color:color-mix(in srgb,var(--red) 30%,transparent)}
+.v-action-required h3{color:var(--red)}
+.v-check-required{background:var(--amber-soft);border-color:color-mix(in srgb,var(--amber) 30%,transparent)}
+.v-check-required h3{color:var(--amber)}
+.v-likely-ok{background:var(--green-soft);border-color:color-mix(in srgb,var(--green) 30%,transparent)}
+.v-likely-ok h3{color:var(--green)}
+.v-no-signal{background:var(--grey-soft);border-color:var(--line)}
+
+.finding{border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:11px;background:var(--bg)}
+.finding .meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px}
+.pill{font-size:.71rem;font-weight:660;letter-spacing:.03em;text-transform:uppercase;padding:3px 8px;border-radius:5px;
+  background:var(--grey-soft);color:var(--muted);border:1px solid var(--line)}
+.pill.art{background:var(--accent-soft);color:var(--accent);border-color:color-mix(in srgb,var(--accent) 25%,transparent)}
+.pill.s-action-required{background:var(--red-soft);color:var(--red);border-color:color-mix(in srgb,var(--red) 28%,transparent)}
+.pill.s-check-required{background:var(--amber-soft);color:var(--amber);border-color:color-mix(in srgb,var(--amber) 28%,transparent)}
+.pill.s-likely-ok{background:var(--green-soft);color:var(--green);border-color:color-mix(in srgb,var(--green) 28%,transparent)}
+.finding h4{margin:0 0 5px;font-size:1rem;font-weight:640}
+.finding p{margin:0;font-size:.92rem;color:var(--muted)}
+.detected{margin-top:14px}
+.detected table{width:100%;border-collapse:collapse;font-size:.9rem}
+.detected th,.detected td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.detected th{font-size:.74rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:640}
+.detected code{font-family:var(--mono);font-size:.83em;background:var(--grey-soft);padding:1px 5px;border-radius:4px}
+.tablewrap{overflow-x:auto}
+
+section{padding:52px 0;border-top:1px solid var(--line)}
+section.tight{padding:40px 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:820px){.grid2,.grid3{grid-template-columns:1fr}}
+.card{border:1px solid var(--line);background:var(--panel);border-radius:var(--radius);padding:20px}
+.card p:last-child{margin-bottom:0}
+.card .num{font-family:var(--mono);font-size:.8rem;color:var(--accent);font-weight:600;margin-bottom:7px}
+
+.rule{border-left:3px solid var(--accent);padding:4px 0 4px 17px;margin:0 0 20px;color:var(--muted);font-size:.97rem}
+.rule strong{color:var(--ink)}
+
+.offer{border:1px solid var(--accent);background:var(--panel);border-radius:14px;padding:26px;position:relative}
+.price{font-size:2.1rem;font-weight:680;letter-spacing:-.02em}
+.price s{color:var(--muted);font-weight:400;font-size:1.15rem;margin-right:9px}
+.offer ul{margin:16px 0 20px;padding:0;list-style:none}
+.offer li{padding:7px 0 7px 27px;position:relative;font-size:.95rem;border-bottom:1px solid var(--line)}
+.offer li:last-child{border-bottom:0}
+.offer li::before{content:"";position:absolute;left:4px;top:15px;width:10px;height:5px;border-left:2px solid var(--green);
+  border-bottom:2px solid var(--green);transform:rotate(-45deg)}
+
+details{border:1px solid var(--line);border-radius:9px;margin-bottom:9px;background:var(--panel)}
+summary{cursor:pointer;padding:13px 16px;font-weight:600;font-size:.97rem;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+";float:right;color:var(--muted);font-weight:400}
+details[open] summary::before{content:"−"}
+details .body{padding:0 16px 15px;font-size:.94rem;color:var(--muted)}
+details .body p:last-child{margin-bottom:0}
+
+.disclaim{background:var(--grey-soft);border:1px solid var(--line);border-radius:9px;padding:15px 17px;font-size:.87rem;color:var(--muted)}
+footer{border-top:1px solid var(--line);padding:30px 0 46px;font-size:.87rem;color:var(--muted)}
+footer a{color:var(--muted)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.spin{display:inline-block;width:13px;height:13px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;
+  border-radius:50%;animation:sp .7s linear infinite;vertical-align:-2px;margin-right:7px}
+@keyframes sp{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap topbar">
+    <a class="brand" href="./">
+      <svg class="tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41 13.42 20.6a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82Z"/><circle cx="7" cy="7" r="1.4" fill="currentColor"/></svg>
+      ClearLabel
+    </a>
+    <nav class="topnav">
+      <a href="#scan">Free scan</a>
+      <a href="#rules">The rules</a>
+      <a href="#pack">Compliance Pack</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap hero">
+  <span class="kicker"><span class="dot"></span> Article 50 is in force now</span>
+  <h1>Your site must say when a visitor is talking to AI.</h1>
+  <p class="lede">EU AI Act Article 50(1) has applied since <strong>2 August 2026</strong>. If you run a chatbot, an AI phone or voice agent, or publish AI-generated content to people in the EU, you owe them a clear disclosure. Scan any page free — no signup, nothing stored.</p>
+
+  <div class="counters">
+    <div class="counter live"><div class="n" id="c-live">—</div><div class="l">days Article 50(1) disclosure<br>has already been binding</div></div>
+    <div class="counter due"><div class="n" id="c-due">—</div><div class="l">days until 2 Dec 2026 deadline<br>for machine-readable AI marking</div></div>
+    <div class="counter"><div class="n">30%</div><div class="l">of 30 EU consumer sites we scanned run a chat<br>widget with no AI disclosure on the page</div></div>
+  </div>
+</div>
+
+<div class="wrap" id="scan">
+  <div class="scanner">
+    <div class="scanner-head">
+      <h2>Scan a page</h2>
+      <p style="color:var(--muted);font-size:.95rem;margin-bottom:0">We read the page's public HTML, fingerprint known chat and voice-AI vendors, and look for AI-disclosure wording in 10 EU languages.</p>
+    </div>
+    <form class="scanform" id="form">
+      <label class="sr" for="url">Website URL</label>
+      <input id="url" name="url" type="text" inputmode="url" placeholder="yourshop.de  ·  or  yourshop.de/contact" autocomplete="url" required>
+      <button class="btn" id="go" type="submit">Scan free</button>
+    </form>
+    <p class="hint">Runs entirely in your browser. Chat widgets often live on <code>/contact</code> or <code>/help</code> rather than the homepage — scan those too.</p>
+    <div id="out" aria-live="polite"></div>
+  </div>
+</div>
+
+<section id="rules">
+  <div class="wrap">
+    <h2>What actually changed, and when</h2>
+    <p class="rule"><strong>2 August 2026 — in force now.</strong> Article 50(1): providers must design AI systems that interact with people so those people are informed they are dealing with an AI, unless it is obvious to a reasonably well-informed person. Article 50(4): deployers must disclose deepfakes, and AI-generated text published to inform the public on matters of public interest.</p>
+    <p class="rule"><strong>2 December 2026 — 
+      <span id="c-due-inline">soon</span>.</strong> Article 50(2) machine-readable marking of synthetic audio, image, video and text. Systems already on the market before 2 August 2026 got a four-month transition under the Digital Omnibus, ending on this date.</p>
+    <p class="rule"><strong>2 December 2027 — deferred.</strong> The Digital Omnibus, given final Council approval on 29 June 2026, pushed most standalone high-risk (Annex III) obligations back by 16 months. <strong>Article 50 transparency was not deferred.</strong> This is the part most compliance content still gets wrong.</p>
+
+    <div class="grid3" style="margin-top:30px">
+      <div class="card"><div class="num">WHO</div><h3>Deployers, not just AI vendors</h3><p>If you switched on an AI agent in Zendesk, Intercom, Gorgias, Tidio or HubSpot, you are a deployer. The duty is yours, not your vendor's.</p></div>
+      <div class="card"><div class="num">WHERE</div><h3>Anyone selling into the EU</h3><p>The Act follows the user. A US or UK company with EU customers is in scope for the people it serves in the EU.</p></div>
+      <div class="card"><div class="num">HOW MUCH</div><h3>Set by each member state</h3><p>Penalties are national, not EU-wide. Article 99(4) caps transparency breaches at €15m or 3% of worldwide turnover, whichever is higher.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="pack" class="tight">
+  <div class="wrap grid2">
+    <div>
+      <h2>Fix it in an afternoon, not a quarter</h2>
+      <p>A scan tells you where you stand. The gap after that is paperwork: the disclosure wording, where to paste it in your specific vendor's console, a published transparency notice, and a dated record proving when you decided all this — because under Article 4 the documentation <em>is</em> the evidence.</p>
+      <p>The Compliance Pack is generated from your scan result, so it arrives pre-filled with the vendors actually found on your site instead of blank templates you have to research yourself.</p>
+      <div class="disclaim" style="margin-top:18px">ClearLabel gives you structured information and document drafts. It is not a law firm and this is not legal advice. For a binding view on your specific exposure, have the output reviewed by a qualified adviser in your member state.</div>
+    </div>
+    <div class="offer">
+      <h3 style="margin-top:0">Article 50 Compliance Pack</h3>
+      <div class="price">€49</div>
+      <p style="font-size:.88rem;color:var(--muted);margin-top:4px">One-off. Instant download. No subscription.</p>
+      <ul>
+        <li>Disclosure wording in EN/DE/FR/ES/IT/NL, written for the exact vendors found on your site</li>
+        <li>Step-by-step: where to paste it in your console (Zendesk, Intercom, Gorgias, Crisp, Tidio, HubSpot and 30 more)</li>
+        <li>Ready-to-publish AI Transparency Notice page (HTML + Markdown)</li>
+        <li>AI system register, pre-filled with your detected vendors</li>
+        <li>Synthetic-content labelling policy covering the 2 Dec 2026 marking duty</li>
+        <li>Dated compliance evidence record for Article 4 documentation</li>
+        <li>Re-scan and updated pack free for 12 months</li>
+      </ul>
+      <button class="btn" id="buy" type="button" style="width:100%">Get the Compliance Pack</button>
+      <p id="buynote" style="font-size:.82rem;color:var(--muted);margin:10px 0 0;text-align:center"></p>
+    </div>
+  </div>
+</section>
+
+<section id="faq" class="tight">
+  <div class="wrap">
+    <h2>Questions</h2>
+    <details><summary>Does this apply to me if I only use a normal support chat?</summary><div class="body"><p>If a human answers, Article 50(1) does not bite. It bites the moment an AI system is what the visitor is actually talking to — including the AI agents that Zendesk, Intercom, Gorgias, Tidio and HubSpot now enable by default on many plans. That is why the scanner reports those vendors as "check required" rather than guessing: only you can confirm whether the AI mode is switched on.</p></div></details>
+    <details><summary>Wasn't the AI Act delayed?</summary><div class="body"><p>Partly. The Digital Omnibus, approved by the Council on 29 June 2026, deferred most standalone high-risk obligations to 2 December 2027 and product-embedded ones by 12 months. The Article 50 transparency duties were not deferred and applied from 2 August 2026. The one Article 50 element that moved is the machine-readable marking in 50(2), which gets a transition to 2 December 2026 for systems already on the market.</p></div></details>
+    <details><summary>Is "obvious from the circumstances" an escape hatch?</summary><div class="body"><p>It is narrow. The test is what is obvious to a reasonably well-informed, observant and circumspect person, judged in context. A widget labelled with a human first name and a photo is the opposite of obvious. If you are relying on this exemption, write down why — that reasoning is what an authority will ask to see.</p></div></details>
+    <details><summary>What does the scanner actually see?</summary><div class="body"><p>Only the public HTML of the URL you enter. It fingerprints known vendor scripts and searches visible page copy for disclosure wording in ten EU languages. It cannot open your chat widget, cannot see inside your vendor console, and cannot tell whether your AI mode is on. It will miss widgets injected later by a tag manager. Treat it as a fast first pass, not an audit.</p></div></details>
+    <details><summary>Do you store my URL or scan results?</summary><div class="body"><p>No. The scan runs in your browser. There is no account, no analytics on the result, and nothing is written to a server we control. The page fetch is routed through a public read-only text proxy because browsers block direct cross-site reads.</p></div></details>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p><strong>ClearLabel</strong> — EU AI Act Article 50 transparency checks.<br>
+    Information and document drafts only. Not legal advice, not a law firm.</p>
+    <p>Vendor fingerprint data is open source under CC-BY-4.0 ·
+      <a href="https://github.com/def217/clearlabel">Source and dataset on GitHub</a> ·
+      Primary sources: <a href="https://artificialintelligenceact.eu/article/50/">AI Act Art. 50</a>,
+      <a href="https://artificialintelligenceact.eu/article/99/">Art. 99 penalties</a></p>
+  </div>
+</footer>
+
+<script type="module" src="./app.js"></script>
+</body>
+</html>

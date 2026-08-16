@@ -1,0 +1,544 @@
+{
+  "schemaVersion": "1.0.0",
+  "updated": "2026-08-16",
+  "license": "CC-BY-4.0",
+  "note": "Fingerprints for conversational-AI and synthetic-content tooling detectable in page source. aiNature drives EU AI Act Article 50(1) applicability reasoning.",
+  "aiNatureLegend": {
+    "ai-native": "Product is an LLM/AI agent by design. Art.50(1) disclosure duty applies to the deployer.",
+    "ai-optional": "Vendor ships both scripted and AI/LLM modes. Duty applies if AI mode is enabled - requires operator confirmation.",
+    "rule-based": "Scripted flows, no LLM by default. Art.50(1) may still apply where the interface presents as human.",
+    "content-gen": "Generates or edits synthetic media. Engages Art.50(2) machine-readable marking duty."
+  },
+  "vendors": [
+    {
+      "id": "intercom",
+      "name": "Intercom",
+      "aiNature": "ai-optional",
+      "aiProduct": "Fin AI Agent",
+      "patterns": [
+        "widget\\.intercom\\.io",
+        "js\\.intercomcdn\\.com",
+        "window\\.Intercom",
+        "intercomSettings",
+        "api-iam\\.intercom\\.io"
+      ],
+      "vendorDocs": "https://www.intercom.com/help",
+      "disclosureHook": "intercomSettings custom launcher greeting / Fin identity name"
+    },
+    {
+      "id": "crisp",
+      "name": "Crisp",
+      "aiNature": "ai-optional",
+      "aiProduct": "MagicReply / Crisp AI",
+      "patterns": [
+        "client\\.crisp\\.chat",
+        "\\$crisp",
+        "CRISP_WEBSITE_ID"
+      ],
+      "vendorDocs": "https://docs.crisp.chat",
+      "disclosureHook": "Operator nickname + welcome message in Crisp settings"
+    },
+    {
+      "id": "tidio",
+      "name": "Tidio",
+      "aiNature": "ai-optional",
+      "aiProduct": "Lyro AI",
+      "patterns": [
+        "code\\.tidio\\.co",
+        "widget\\.tidio",
+        "tidioChatApi"
+      ],
+      "vendorDocs": "https://help.tidio.com",
+      "disclosureHook": "Lyro bot display name and greeting"
+    },
+    {
+      "id": "hubspot",
+      "name": "HubSpot Chat",
+      "aiNature": "ai-optional",
+      "aiProduct": "Breeze / AI Chatbot",
+      "patterns": [
+        "js\\.hs-scripts\\.com",
+        "js\\.usemessages\\.com",
+        "js-eu1\\.hs-scripts\\.com",
+        "js\\.hs-banner\\.com"
+      ],
+      "vendorDocs": "https://knowledge.hubspot.com",
+      "disclosureHook": "Chatflow welcome message"
+    },
+    {
+      "id": "zendesk",
+      "name": "Zendesk / Zopim",
+      "aiNature": "ai-optional",
+      "aiProduct": "Zendesk AI agents",
+      "patterns": [
+        "static\\.zdassets\\.com",
+        "v2\\.zopim\\.com",
+        "zEmbed",
+        "zendesk\\.com/embeddable"
+      ],
+      "vendorDocs": "https://support.zendesk.com",
+      "disclosureHook": "Messaging bot name + first response"
+    },
+    {
+      "id": "livechat",
+      "name": "LiveChat",
+      "aiNature": "ai-optional",
+      "aiProduct": "LiveChat AI / ChatBot.com",
+      "patterns": [
+        "cdn\\.livechatinc\\.com",
+        "__lc\\.license",
+        "livechatinc"
+      ],
+      "vendorDocs": "https://www.livechat.com/help/",
+      "disclosureHook": "Agent display name"
+    },
+    {
+      "id": "chatbot-com",
+      "name": "ChatBot.com",
+      "aiNature": "ai-native",
+      "patterns": [
+        "cdn\\.chatbot\\.com",
+        "static\\.chatbot\\.com"
+      ],
+      "vendorDocs": "https://www.chatbot.com/help/",
+      "disclosureHook": "Bot greeting message"
+    },
+    {
+      "id": "freshchat",
+      "name": "Freshchat / Freshworks",
+      "aiNature": "ai-optional",
+      "aiProduct": "Freddy AI",
+      "patterns": [
+        "wchat\\.freshchat\\.com",
+        "fw-cdn\\.com",
+        "freshchat",
+        "widget\\.freshworks\\.com"
+      ],
+      "vendorDocs": "https://support.freshchat.com",
+      "disclosureHook": "Freddy bot persona name"
+    },
+    {
+      "id": "tawk",
+      "name": "Tawk.to",
+      "aiNature": "ai-optional",
+      "aiProduct": "Tawk AI Assist",
+      "patterns": [
+        "embed\\.tawk\\.to",
+        "Tawk_API"
+      ],
+      "vendorDocs": "https://help.tawk.to",
+      "disclosureHook": "Agent alias / AI Assist replies"
+    },
+    {
+      "id": "olark",
+      "name": "Olark",
+      "aiNature": "rule-based",
+      "patterns": [
+        "static\\.olark\\.com",
+        "olark\\.identify"
+      ],
+      "vendorDocs": "https://www.olark.com/help",
+      "disclosureHook": "Operator nickname"
+    },
+    {
+      "id": "smartsupp",
+      "name": "Smartsupp",
+      "aiNature": "ai-optional",
+      "aiProduct": "Mira AI",
+      "patterns": [
+        "smartsuppchat\\.com",
+        "_smartsupp"
+      ],
+      "vendorDocs": "https://www.smartsupp.com/help/",
+      "disclosureHook": "Mira AI chatbot name"
+    },
+    {
+      "id": "jivochat",
+      "name": "JivoChat",
+      "aiNature": "ai-optional",
+      "patterns": [
+        "code\\.jivosite\\.com",
+        "jivo_api",
+        "code\\.jivo\\.ru"
+      ],
+      "vendorDocs": "https://www.jivochat.com/help/",
+      "disclosureHook": "Agent display name"
+    },
+    {
+      "id": "gorgias",
+      "name": "Gorgias",
+      "aiNature": "ai-optional",
+      "aiProduct": "Gorgias AI Agent",
+      "patterns": [
+        "config\\.gorgias\\.chat",
+        "gorgias\\.chat"
+      ],
+      "vendorDocs": "https://docs.gorgias.com",
+      "disclosureHook": "AI Agent persona name"
+    },
+    {
+      "id": "helpscout",
+      "name": "Help Scout Beacon",
+      "aiNature": "ai-optional",
+      "patterns": [
+        "beacon-v2\\.helpscout\\.net",
+        "helpscout\\.net/beacon"
+      ],
+      "vendorDocs": "https://docs.helpscout.com",
+      "disclosureHook": "Beacon greeting"
+    },
+    {
+      "id": "chatbase",
+      "name": "Chatbase",
+      "aiNature": "ai-native",
+      "patterns": [
+        "chatbase\\.co",
+        "chatbaseConfig"
+      ],
+      "vendorDocs": "https://www.chatbase.co/docs",
+      "disclosureHook": "Initial message + bot display name"
+    },
+    {
+      "id": "voiceflow",
+      "name": "Voiceflow",
+      "aiNature": "ai-native",
+      "patterns": [
+        "cdn\\.voiceflow\\.com",
+        "voiceflow\\.chat"
+      ],
+      "vendorDocs": "https://docs.voiceflow.com",
+      "disclosureHook": "Assistant name + launch message"
+    },
+    {
+      "id": "botpress",
+      "name": "Botpress",
+      "aiNature": "ai-native",
+      "patterns": [
+        "cdn\\.botpress\\.cloud",
+        "botpress\\.com/webchat",
+        "bpWebchat"
+      ],
+      "vendorDocs": "https://botpress.com/docs",
+      "disclosureHook": "Webchat botName + description config"
+    },
+    {
+      "id": "landbot",
+      "name": "Landbot",
+      "aiNature": "ai-optional",
+      "aiProduct": "Landbot AI",
+      "patterns": [
+        "cdn\\.landbot\\.io",
+        "landbot\\.io/v3"
+      ],
+      "vendorDocs": "https://help.landbot.io",
+      "disclosureHook": "Bot welcome block"
+    },
+    {
+      "id": "typebot",
+      "name": "Typebot",
+      "aiNature": "ai-optional",
+      "patterns": [
+        "typebot\\.io",
+        "@typebot\\.io/js"
+      ],
+      "vendorDocs": "https://docs.typebot.io",
+      "disclosureHook": "First bubble block"
+    },
+    {
+      "id": "ada",
+      "name": "Ada Support",
+      "aiNature": "ai-native",
+      "patterns": [
+        "static\\.ada\\.support",
+        "adaEmbed",
+        "ada\\.support/embed"
+      ],
+      "vendorDocs": "https://docs.ada.cx",
+      "disclosureHook": "Ada bot greeting"
+    },
+    {
+      "id": "chatsimple",
+      "name": "Chatsimple",
+      "aiNature": "ai-native",
+      "patterns": [
+        "chatsimple\\.ai"
+      ],
+      "vendorDocs": "https://www.chatsimple.ai",
+      "disclosureHook": "Agent intro message"
+    },
+    {
+      "id": "wonderchat",
+      "name": "Wonderchat",
+      "aiNature": "ai-native",
+      "patterns": [
+        "wonderchat\\.io"
+      ],
+      "vendorDocs": "https://wonderchat.io",
+      "disclosureHook": "Chatbot welcome message"
+    },
+    {
+      "id": "sitegpt",
+      "name": "SiteGPT",
+      "aiNature": "ai-native",
+      "patterns": [
+        "sitegpt\\.ai"
+      ],
+      "vendorDocs": "https://sitegpt.ai",
+      "disclosureHook": "Welcome message config"
+    },
+    {
+      "id": "chatling",
+      "name": "Chatling",
+      "aiNature": "ai-native",
+      "patterns": [
+        "chatling\\.ai",
+        "chtl\\.ai"
+      ],
+      "vendorDocs": "https://chatling.ai",
+      "disclosureHook": "Chatbot intro"
+    },
+    {
+      "id": "customgpt",
+      "name": "CustomGPT.ai",
+      "aiNature": "ai-native",
+      "patterns": [
+        "customgpt\\.ai"
+      ],
+      "vendorDocs": "https://customgpt.ai",
+      "disclosureHook": "Agent greeting"
+    },
+    {
+      "id": "kommunicate",
+      "name": "Kommunicate",
+      "aiNature": "ai-native",
+      "patterns": [
+        "kommunicate\\.io",
+        "kommunicateSettings"
+      ],
+      "vendorDocs": "https://docs.kommunicate.io",
+      "disclosureHook": "Bot display name"
+    },
+    {
+      "id": "manychat",
+      "name": "ManyChat",
+      "aiNature": "ai-optional",
+      "patterns": [
+        "mccdn\\.me",
+        "manychat\\.com/widget"
+      ],
+      "vendorDocs": "https://help.manychat.com",
+      "disclosureHook": "Widget greeting"
+    },
+    {
+      "id": "userlike",
+      "name": "Userlike",
+      "aiNature": "ai-optional",
+      "aiProduct": "Userlike AI Automation",
+      "patterns": [
+        "userlike-cdn-widgets",
+        "userlike\\.com/api"
+      ],
+      "vendorDocs": "https://www.userlike.com/en/support",
+      "disclosureHook": "AI Assistant operator name"
+    },
+    {
+      "id": "chaport",
+      "name": "Chaport",
+      "aiNature": "ai-optional",
+      "patterns": [
+        "app\\.chaport\\.com",
+        "chaport\\.com/js"
+      ],
+      "vendorDocs": "https://www.chaport.com/help",
+      "disclosureHook": "Bot name"
+    },
+    {
+      "id": "salesforce-embedded",
+      "name": "Salesforce Embedded Service / Agentforce",
+      "aiNature": "ai-optional",
+      "aiProduct": "Agentforce",
+      "patterns": [
+        "embeddedservice",
+        "esw\\.min\\.js",
+        "embeddedservice_bootstrap"
+      ],
+      "vendorDocs": "https://help.salesforce.com",
+      "disclosureHook": "Agent alias in Embedded Service deployment"
+    },
+    {
+      "id": "drift",
+      "name": "Drift / Salesloft",
+      "aiNature": "ai-optional",
+      "patterns": [
+        "js\\.driftt\\.com",
+        "drift\\.com/include",
+        "driftt\\.com"
+      ],
+      "vendorDocs": "https://gethelp.drift.com",
+      "disclosureHook": "Playbook opening message"
+    },
+    {
+      "id": "reamaze",
+      "name": "Re:amaze",
+      "aiNature": "ai-optional",
+      "patterns": [
+        "cdn\\.reamaze\\.com",
+        "reamaze\\.com/assets"
+      ],
+      "vendorDocs": "https://www.reamaze.com/kb",
+      "disclosureHook": "Cue / bot greeting"
+    },
+    {
+      "id": "elevenlabs-widget",
+      "name": "ElevenLabs Conversational AI",
+      "aiNature": "ai-native",
+      "patterns": [
+        "elevenlabs\\.io/convai",
+        "convai-widget",
+        "elevenlabs-convai"
+      ],
+      "vendorDocs": "https://elevenlabs.io/docs",
+      "disclosureHook": "Voice agent first utterance - Art.50(1) applies to voice too"
+    },
+    {
+      "id": "openai-widget",
+      "name": "Custom OpenAI-backed widget",
+      "aiNature": "ai-native",
+      "patterns": [
+        "api\\.openai\\.com"
+      ],
+      "vendorDocs": "https://platform.openai.com/docs",
+      "disclosureHook": "Client-side OpenAI call detected - custom assistant likely"
+    },
+    {
+      "id": "dialogflow",
+      "name": "Google Dialogflow",
+      "aiNature": "ai-native",
+      "patterns": [
+        "df-messenger",
+        "dialogflow\\.cloud\\.google\\.com",
+        "console\\.dialogflow"
+      ],
+      "vendorDocs": "https://cloud.google.com/dialogflow/docs",
+      "disclosureHook": "df-messenger chat-title attribute"
+    },
+    {
+      "id": "watson",
+      "name": "IBM watsonx Assistant",
+      "aiNature": "ai-native",
+      "patterns": [
+        "watsonassistant",
+        "web-chat\\.global\\.assistant\\.watson"
+      ],
+      "vendorDocs": "https://cloud.ibm.com/docs/watson-assistant",
+      "disclosureHook": "Assistant name in web chat config"
+    }
+  ],
+  "disclosurePhrases": {
+    "en": [
+      "ai assistant",
+      "ai-powered",
+      "powered by ai",
+      "automated assistant",
+      "virtual assistant",
+      "this is a bot",
+      "chatbot",
+      "ai agent",
+      "artificial intelligence",
+      "chatting with an ai",
+      "automated chat",
+      "ai chat"
+    ],
+    "de": [
+      "ki-assistent",
+      "ki-gestützt",
+      "automatisierter assistent",
+      "virtueller assistent",
+      "künstliche intelligenz",
+      "ki-chat",
+      "chatbot",
+      "ki-agent"
+    ],
+    "fr": [
+      "assistant ia",
+      "assistant virtuel",
+      "intelligence artificielle",
+      "agent ia",
+      "assistant automatisé",
+      "robot conversationnel",
+      "chatbot"
+    ],
+    "es": [
+      "asistente de ia",
+      "asistente virtual",
+      "inteligencia artificial",
+      "agente de ia",
+      "asistente automatizado",
+      "chatbot"
+    ],
+    "it": [
+      "assistente ia",
+      "assistente virtuale",
+      "intelligenza artificiale",
+      "agente ia",
+      "assistente automatizzato",
+      "chatbot"
+    ],
+    "nl": [
+      "ai-assistent",
+      "virtuele assistent",
+      "kunstmatige intelligentie",
+      "geautomatiseerde assistent",
+      "chatbot"
+    ],
+    "pt": [
+      "assistente de ia",
+      "assistente virtual",
+      "inteligência artificial",
+      "agente de ia",
+      "chatbot"
+    ],
+    "pl": [
+      "asystent ai",
+      "sztuczna inteligencja",
+      "wirtualny asystent",
+      "chatbot"
+    ],
+    "sv": [
+      "ai-assistent",
+      "artificiell intelligens",
+      "virtuell assistent",
+      "chattbot"
+    ],
+    "da": [
+      "ai-assistent",
+      "kunstig intelligens",
+      "virtuel assistent",
+      "chatbot"
+    ]
+  },
+  "contentGenSignals": [
+    {
+      "id": "c2pa",
+      "name": "C2PA / Content Credentials",
+      "patterns": [
+        "c2pa",
+        "contentauthenticity",
+        "content-credentials"
+      ],
+      "meaning": "positive",
+      "note": "Machine-readable provenance present - supports Art.50(2) compliance."
+    },
+    {
+      "id": "iptc-digitalsource",
+      "name": "IPTC digitalSourceType",
+      "patterns": [
+        "digitalsourcetype",
+        "trainedAlgorithmicMedia",
+        "compositeSynthetic"
+      ],
+      "meaning": "positive",
+      "note": "IPTC synthetic-media marking present."
+    }
+  ]
+}
