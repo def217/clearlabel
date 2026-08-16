@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Generate your Article 50 Compliance Pack — ClearLabel</title>
+<meta name="description" content="Generate your EU AI Act Article 50 Compliance Pack: disclosure wording, per-vendor implementation steps, transparency notice, AI register, labelling policy and a dated evidence record.">
+<link rel="canonical" href="https://def217.github.io/clearlabel/pack/">
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="../styles.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏷️</text></svg>">
+</head>
+<body>
+<header class="top"><div class="wrap topbar">
+  <a class="brand" href="../"><svg class="tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41 13.42 20.6a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82Z"/><circle cx="7" cy="7" r="1.4" fill="currentColor"/></svg>ClearLabel</a>
+  <nav class="topnav"><a href="../#scan">Free scan</a><a href="../vendors/">Vendors</a></nav>
+</div></header>
+
+<div class="wrap hero">
+  <h1>Generate your Compliance Pack</h1>
+  <p class="lede">Enter the site you scanned and your licence key. We re-scan, then build the pack in your browser and hand you a ZIP. Nothing is uploaded and nothing is stored.</p>
+</div>
+
+<div class="wrap">
+  <div class="scanner">
+    <div class="scanner-head"><h2 style="font-size:1.25rem">Your pack</h2></div>
+    <form class="scanform" id="packform" style="flex-direction:column;align-items:stretch">
+      <label for="psite" style="font-size:.85rem;color:var(--muted);font-weight:600">Website</label>
+      <input id="psite" type="text" placeholder="yourshop.de/contact" required>
+      <label for="pkey" style="font-size:.85rem;color:var(--muted);font-weight:600;margin-top:6px">Licence key</label>
+      <input id="pkey" type="text" placeholder="XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX" required>
+      <button class="btn" id="pgo" type="submit" style="margin-top:10px">Build my pack</button>
+    </form>
+    <div id="pout" style="padding:0 22px 20px"></div>
+  </div>
+
+  <div class="offer" style="margin:26px 0 40px">
+    <h3 style="margin-top:0">Want to see it first?</h3>
+    <p>Build a complete sample pack against a demo scan — all eight documents, exactly what a buyer receives. Free, no key needed.</p>
+    <button class="btn ghost" id="sample" type="button">Download a sample pack (.zip)</button>
+    <p style="font-size:.85rem;color:var(--muted);margin:14px 0 0">Contains: START-HERE guide · disclosure wording in 6 languages · per-vendor console paths · AI Transparency Notice · AI system register (CSV) · synthetic-content labelling policy · dated evidence record · raw scan JSON.</p>
+  </div>
+</div>
+
+<footer><div class="wrap"><p><strong>ClearLabel</strong> — Document drafts and structured information. Not legal advice, not a law firm.</p></div></footer>
+<script type="module" src="./pack-app.js"></script>
+</body></html>
