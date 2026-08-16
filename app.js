@@ -1,7 +1,7 @@
 import { scanHtml, STATUS } from './scanner/core.mjs';
 
-/* Checkout target. STORE_LIVE stays false until payouts are connected on
-   Gumroad; while false the CTA says so rather than sending people to a dead page. */
+/* Checkout target. STORE_LIVE gates the CTA: flip to false to take the store
+   offline without removing the wiring. */
 const CHECKOUT_URL = 'https://clearlabel.gumroad.com/l/article-50-compliance-pack';
 const STORE_LIVE = true;
 

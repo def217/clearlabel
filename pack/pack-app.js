@@ -2,8 +2,8 @@ import { scanHtml } from '../scanner/core.mjs';
 import { buildPack } from '../scanner/pack.mjs';
 import { makeZip } from '../scanner/zip.mjs';
 
-/* Live product. STORE_LIVE flips to true once payouts are connected and the
-   product is published on Gumroad - that is the only remaining switch. */
+/* Live product. STORE_LIVE gates licence checking; flip to false to take the
+   store offline without removing the wiring. */
 const GUMROAD_PRODUCT_ID = '0EQRheFtJ8PMpFMR34QXJQ==';
 const STORE_URL = 'https://clearlabel.gumroad.com/l/article-50-compliance-pack';
 const STORE_LIVE = true;
