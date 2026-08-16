@@ -39,22 +39,22 @@ const $ = (sel) => document.querySelector(sel);
 
 const VERDICT_COPY = {
   [STATUS.ACTION_REQUIRED]: {
-    icon: '\u{1F534}',
+    icon: `<svg class="vi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>`,
     head: 'Action required',
     sub: 'We found an AI system a visitor can talk to, and no disclosure wording anywhere in the page copy.',
   },
   [STATUS.CHECK_REQUIRED]: {
-    icon: '\u{1F7E0}',
+    icon: `<svg class="vi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>`,
     head: 'Check required',
     sub: 'Something here depends on settings we cannot see from outside. Confirm it, then write down what you confirmed.',
   },
   [STATUS.LIKELY_OK]: {
-    icon: '\u{1F7E2}',
+    icon: `<svg class="vi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8.5 12.5 2.5 2.5 4.5-5"/></svg>`,
     head: 'No obvious gap on this page',
     sub: 'Disclosure wording is present. Confirm it appears at first interaction, inside the chat window itself.',
   },
   [STATUS.NO_SIGNAL]: {
-    icon: '\u{26AA}',
+    icon: `<svg class="vi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>`,
     head: 'Nothing detected on this page',
     sub: 'No known AI chat vendor was fingerprinted here. Try your /contact or /help page — that is where widgets usually live.',
   },
@@ -175,7 +175,7 @@ const render = (url, result) => {
     : '';
 
   return `<div class="verdict v-${esc(result.overall)}">
-      <div class="vi">${v.icon}</div>
+      ${v.icon}
       <div><h3>${esc(v.head)}</h3><p>${esc(v.sub)}</p>
       <p style="margin-top:6px;font-size:.85rem;color:var(--muted)">Scanned: <code>${esc(url)}</code>${
       result.pagesRead && result.pagesRead.length > 1
@@ -276,7 +276,7 @@ const onSubmit = async (event) => {
   event.preventDefault();
   const url = normalise($('#url').value);
   if (!url) {
-    showRaw('<div class="verdict v-check-required"><div class="vi">\u{26A0}\u{FE0F}</div><div><h3>That does not look like a web address</h3><p>Try something like <code>yourshop.de</code> or <code>yourshop.de/contact</code>.</p></div></div>');
+    showRaw('<div class="verdict v-check-required"><svg class="vi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><div><h3>That does not look like a web address</h3><p>Try something like <code>yourshop.de</code> or <code>yourshop.de/contact</code>.</p></div></div>');
     return;
   }
   setBusy(true);
@@ -285,7 +285,7 @@ const onSubmit = async (event) => {
     const db = await loadDb();
     const page = await fetchThroughReader(url);
     if (!page.ok) {
-      showRaw(`<div class="verdict v-no-signal"><div class="vi">\u{26A0}\u{FE0F}</div><div><h3>Could not read that page</h3>
+      showRaw(`<div class="verdict v-no-signal"><svg class="vi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><div><h3>Could not read that page</h3>
         <p>${esc(page.error)}. Some sites block automated reads. You can still check by hand: open the page, view source, and search it for your chat vendor's script.</p></div></div>`);
       return;
     }
@@ -298,7 +298,7 @@ const onSubmit = async (event) => {
     wireCopyButton();
     wireDeepScan(db);
   } catch (err) {
-    showRaw(`<div class="verdict v-no-signal"><div class="vi">\u{26A0}\u{FE0F}</div><div><h3>Scan failed</h3><p>${esc(err.message)}</p></div></div>`);
+    showRaw(`<div class="verdict v-no-signal"><svg class="vi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><div><h3>Scan failed</h3><p>${esc(err.message)}</p></div></div>`);
   } finally {
     setBusy(false);
   }
