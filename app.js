@@ -2,8 +2,8 @@ import { scanHtml, STATUS } from './scanner/core.mjs';
 
 /* Checkout target. STORE_LIVE stays false until payouts are connected on
    Gumroad; while false the CTA says so rather than sending people to a dead page. */
-const CHECKOUT_URL = 'https://killermind1.gumroad.com/l/article-50-compliance-pack';
-const STORE_LIVE = false;
+const CHECKOUT_URL = 'https://clearlabel.gumroad.com/l/article-50-compliance-pack';
+const STORE_LIVE = true;
 
 const DEADLINE_LIVE = Date.UTC(2026, 7, 2);   // Art.50(1) applied
 const DEADLINE_MARK = Date.UTC(2026, 11, 2);  // Art.50(2) machine-readable marking

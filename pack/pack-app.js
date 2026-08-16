@@ -5,8 +5,8 @@ import { makeZip } from '../scanner/zip.mjs';
 /* Live product. STORE_LIVE flips to true once payouts are connected and the
    product is published on Gumroad - that is the only remaining switch. */
 const GUMROAD_PRODUCT_ID = '0EQRheFtJ8PMpFMR34QXJQ==';
-const STORE_URL = 'https://killermind1.gumroad.com/l/article-50-compliance-pack';
-const STORE_LIVE = false;
+const STORE_URL = 'https://clearlabel.gumroad.com/l/article-50-compliance-pack';
+const STORE_LIVE = true;
 
 const READERS = [
   (url) => [`https://r.jina.ai/${url}`, { 'x-respond-with': 'html' }],
