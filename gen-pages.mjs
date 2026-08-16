@@ -142,7 +142,7 @@ ${related.length ? `<section class="tight"><div class="wrap"><h2>Same situation,
   <p><strong>ClearLabel</strong> — EU AI Act Article 50 transparency checks. Information and document drafts only. Not legal advice, not a law firm.</p>
   <p>Last reviewed ${TODAY} · <a href="https://github.com/def217/clearlabel">Open dataset on GitHub</a> · <a href="https://artificialintelligenceact.eu/article/50/">Article 50 text</a></p>
 </div></footer>
-</body></html>`;
+<!-- Cloudflare Web Analytics: cookieless, no fingerprinting -->\n<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "621bef7b2c064047a614e54e630b07c8"}'></script>\n</body></html>`;
 };
 
 const hub = (vendors) => {
@@ -178,7 +178,7 @@ ${group('ai-optional', 'Chat platforms with an AI mode', 'These ship both human-
 ${group('rule-based', 'Scripted widgets', 'Likely outside the AI-system definition, but the "obvious to a reasonably well-informed person" test still applies.')}
 </div></section>
 <footer><div class="wrap"><p><strong>ClearLabel</strong> — Information only, not legal advice. <a href="https://github.com/def217/clearlabel">Open dataset on GitHub</a></p></div></footer>
-</body></html>`;
+<!-- Cloudflare Web Analytics: cookieless, no fingerprinting -->\n<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "621bef7b2c064047a614e54e630b07c8"}'></script>\n</body></html>`;
 };
 
 const main = async () => {

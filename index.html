@@ -107,7 +107,7 @@
     <details><summary>Wasn't the AI Act delayed?</summary><div class="body"><p>Partly. The Digital Omnibus, approved by the Council on 29 June 2026, deferred most standalone high-risk obligations to 2 December 2027 and product-embedded ones by 12 months. The Article 50 transparency duties were not deferred and applied from 2 August 2026. The one Article 50 element that moved is the machine-readable marking in 50(2), which gets a transition to 2 December 2026 for systems already on the market.</p></div></details>
     <details><summary>Is "obvious from the circumstances" an escape hatch?</summary><div class="body"><p>It is narrow. The test is what is obvious to a reasonably well-informed, observant and circumspect person, judged in context. A widget labelled with a human first name and a photo is the opposite of obvious. If you are relying on this exemption, write down why — that reasoning is what an authority will ask to see.</p></div></details>
     <details><summary>What does the scanner actually see?</summary><div class="body"><p>Only the public HTML of the URL you enter. It fingerprints known vendor scripts and searches visible page copy for disclosure wording in ten EU languages. It cannot open your chat widget, cannot see inside your vendor console, and cannot tell whether your AI mode is on. It will miss widgets injected later by a tag manager. Treat it as a fast first pass, not an audit.</p></div></details>
-    <details><summary>Do you store my URL or scan results?</summary><div class="body"><p>No. The scan runs in your browser. There is no account, no analytics on the result, and nothing is written to a server we control. The page fetch is routed through a public read-only text proxy because browsers block direct cross-site reads.</p></div></details>
+    <details><summary>Do you store my URL or scan results?</summary><div class="body"><p>The URL you type and the result it produces stay in your browser — they are never sent to us, and there is no account. We do count page views with Cloudflare Web Analytics, which is cookieless, does not fingerprint you and does not track you across sites; we would rather disclose that than claim a purity we do not have. The page fetch itself is routed through a public read-only text proxy because browsers block direct cross-site reads.</p></div></details>
   </div>
 </section>
 
@@ -123,5 +123,7 @@
 </footer>
 
 <script type="module" src="./app.js"></script>
+<!-- Cloudflare Web Analytics: cookieless, no fingerprinting, no cross-site tracking -->
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "621bef7b2c064047a614e54e630b07c8"}'></script>
 </body>
 </html>
