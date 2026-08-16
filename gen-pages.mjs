@@ -2,7 +2,7 @@
 /** Generates one Article 50 guidance page per vendor from data/vendors.json. */
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 
-const BASE = 'https://def217.github.io/clearlabel';
+const BASE = 'https://clearlabel.eu';
 const TODAY = '2026-08-16';
 
 const DISCLOSURE = {

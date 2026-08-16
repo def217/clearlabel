@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://def217.github.io/clearlabel/sitemap.xml
+Sitemap: https://clearlabel.eu/sitemap.xml

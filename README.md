@@ -2,7 +2,7 @@
 
 **Free scanner + open vendor dataset for the AI-disclosure rule that has applied since 2 August 2026.**
 
-👉 **[Run a scan](https://def217.github.io/clearlabel/)** — no signup, nothing stored, runs in your browser.
+👉 **[Run a scan](https://clearlabel.eu/)** — no signup, nothing stored, runs in your browser.
 
 ---
 
