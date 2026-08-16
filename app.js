@@ -1,7 +1,9 @@
 import { scanHtml, STATUS } from './scanner/core.mjs';
 
-/* Wire this to the live checkout the moment it exists; null keeps the CTA honest. */
-const CHECKOUT_URL = null;
+/* Checkout target. STORE_LIVE stays false until payouts are connected on
+   Gumroad; while false the CTA says so rather than sending people to a dead page. */
+const CHECKOUT_URL = 'https://killermind1.gumroad.com/l/article-50-compliance-pack';
+const STORE_LIVE = false;
 
 const DEADLINE_LIVE = Date.UTC(2026, 7, 2);   // Art.50(1) applied
 const DEADLINE_MARK = Date.UTC(2026, 11, 2);  // Art.50(2) machine-readable marking
@@ -221,13 +223,15 @@ const onSubmit = async (event) => {
 };
 
 const onBuy = () => {
-  if (CHECKOUT_URL) {
+  if (STORE_LIVE && CHECKOUT_URL) {
     const q = lastResult ? `?site=${encodeURIComponent(lastResult.url)}` : '';
     window.location.href = `${CHECKOUT_URL}${q}`;
     return;
   }
   $('#buynote').innerHTML =
-    'Checkout is not open yet — the pack ships as soon as it is. Nothing is charged and no email is collected here. In the meantime the scan, the disclosure wording above and the full rule breakdown on this page are free to use.';
+    'Checkout opens shortly. Nothing is charged and no email is collected here. ' +
+    'Meanwhile you can <a href="./pack/">build the complete sample pack</a> — all eight documents, free — ' +
+    'and the scan and full rule breakdown on this page stay free either way.';
 };
 
 paintCounters();

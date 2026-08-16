@@ -2,9 +2,11 @@ import { scanHtml } from '../scanner/core.mjs';
 import { buildPack } from '../scanner/pack.mjs';
 import { makeZip } from '../scanner/zip.mjs';
 
-/* Set both the moment the storefront product exists. Until then the gate stays shut. */
-const GUMROAD_PRODUCT_ID = null;
-const STORE_URL = null;
+/* Live product. STORE_LIVE flips to true once payouts are connected and the
+   product is published on Gumroad - that is the only remaining switch. */
+const GUMROAD_PRODUCT_ID = '0EQRheFtJ8PMpFMR34QXJQ==';
+const STORE_URL = 'https://killermind1.gumroad.com/l/article-50-compliance-pack';
+const STORE_LIVE = false;
 
 const READERS = [
   (url) => [`https://r.jina.ai/${url}`, { 'x-respond-with': 'html' }],
@@ -84,7 +86,7 @@ $('#packform').addEventListener('submit', async (e) => {
     const lic = await verifyLicence(key);
     if (!lic.ok) {
       say(
-        lic.reason === 'store-not-open'
+        !STORE_LIVE
           ? note('check-required', 'The storefront is not open yet', 'Licence keys cannot be checked until checkout is live. The <strong>free sample pack below is the complete document set</strong> — build it against a demo scan and see exactly what you would receive.')
           : note('check-required', 'That licence key was not accepted', `Check it against your receipt${STORE_URL ? `, or <a href="${STORE_URL}">buy a licence</a>` : ''}.`)
       );
