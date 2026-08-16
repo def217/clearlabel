@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "1.0.0",
+  "schemaVersion": "1.1.0",
   "updated": "2026-08-16",
   "license": "CC-BY-4.0",
   "note": "Fingerprints for conversational-AI and synthetic-content tooling detectable in page source. aiNature drives EU AI Act Article 50(1) applicability reasoning.",
@@ -23,7 +23,9 @@
         "api-iam\\.intercom\\.io"
       ],
       "vendorDocs": "https://www.intercom.com/help",
-      "disclosureHook": "intercomSettings custom launcher greeting / Fin identity name"
+      "disclosureHook": "intercomSettings custom launcher greeting / Fin identity name",
+      "consolePath": "Settings → AI → Fin → Persona, set the identity name; and Messenger → Home → intro text.",
+      "note": "Fin is on by default on many plans. If Fin answers first, the duty applies even when a human takes over later."
     },
     {
       "id": "crisp",
@@ -36,7 +38,9 @@
         "CRISP_WEBSITE_ID"
       ],
       "vendorDocs": "https://docs.crisp.chat",
-      "disclosureHook": "Operator nickname + welcome message in Crisp settings"
+      "disclosureHook": "Operator nickname + welcome message in Crisp settings",
+      "consolePath": "Settings → Website Settings → Chatbox → Operator alias, plus the welcome message.",
+      "note": "A human-sounding operator alias with a photo is the clearest way to fail the 'obvious' test."
     },
     {
       "id": "tidio",
@@ -49,7 +53,9 @@
         "tidioChatApi"
       ],
       "vendorDocs": "https://help.tidio.com",
-      "disclosureHook": "Lyro bot display name and greeting"
+      "disclosureHook": "Lyro bot display name and greeting",
+      "consolePath": "Settings → Lyro AI → bot name; Channels → Live Chat → greeting message.",
+      "note": "Lyro is an LLM agent. Where Lyro answers, Article 50(1) applies to you as deployer."
     },
     {
       "id": "hubspot",
@@ -63,7 +69,9 @@
         "js\\.hs-banner\\.com"
       ],
       "vendorDocs": "https://knowledge.hubspot.com",
-      "disclosureHook": "Chatflow welcome message"
+      "disclosureHook": "Chatflow welcome message",
+      "consolePath": "Automation → Chatflows → your chatflow → Build → Welcome message.",
+      "note": "Breeze AI chat answers autonomously; the welcome message is the first thing a visitor reads."
     },
     {
       "id": "zendesk",
@@ -77,7 +85,9 @@
         "zendesk\\.com/embeddable"
       ],
       "vendorDocs": "https://support.zendesk.com",
-      "disclosureHook": "Messaging bot name + first response"
+      "disclosureHook": "Messaging bot name + first response",
+      "consolePath": "Admin Center → Channels → Messaging → your Web Widget → Responses → bot name and greeting.",
+      "note": "Zendesk AI agents are enabled per-brand. Check each brand separately."
     },
     {
       "id": "livechat",
@@ -90,7 +100,9 @@
         "livechatinc"
       ],
       "vendorDocs": "https://www.livechat.com/help/",
-      "disclosureHook": "Agent display name"
+      "disclosureHook": "Agent display name",
+      "consolePath": "Settings → Chat page → agent display name; in ChatBot, the bot name and welcome message.",
+      "note": "If ChatBot.com handles first contact, disclose there, not only after handover."
     },
     {
       "id": "chatbot-com",
@@ -101,7 +113,9 @@
         "static\\.chatbot\\.com"
       ],
       "vendorDocs": "https://www.chatbot.com/help/",
-      "disclosureHook": "Bot greeting message"
+      "disclosureHook": "Bot greeting message",
+      "consolePath": "Bot → Settings → bot name; and the first Welcome block message.",
+      "note": "Purpose-built bot platform - the duty clearly applies."
     },
     {
       "id": "freshchat",
@@ -115,7 +129,9 @@
         "widget\\.freshworks\\.com"
       ],
       "vendorDocs": "https://support.freshchat.com",
-      "disclosureHook": "Freddy bot persona name"
+      "disclosureHook": "Freddy bot persona name",
+      "consolePath": "Admin → Web Messenger → Appearance and Greeting; Freddy AI → persona name.",
+      "note": "Freddy Self-Service answers before a human is routed."
     },
     {
       "id": "tawk",
@@ -127,7 +143,9 @@
         "Tawk_API"
       ],
       "vendorDocs": "https://help.tawk.to",
-      "disclosureHook": "Agent alias / AI Assist replies"
+      "disclosureHook": "Agent alias / AI Assist replies",
+      "consolePath": "Administration → Chat Widget → Widget Content → greeting; AI Assist persona.",
+      "note": "AI Assist drafts and can auto-send. Confirm which mode you run."
     },
     {
       "id": "olark",
@@ -138,7 +156,9 @@
         "olark\\.identify"
       ],
       "vendorDocs": "https://www.olark.com/help",
-      "disclosureHook": "Operator nickname"
+      "disclosureHook": "Operator nickname",
+      "consolePath": "Settings → Chatbox → operator name and greeting message.",
+      "note": "Scripted by default, but a human first name still risks the 'obvious' test."
     },
     {
       "id": "smartsupp",
@@ -150,7 +170,9 @@
         "_smartsupp"
       ],
       "vendorDocs": "https://www.smartsupp.com/help/",
-      "disclosureHook": "Mira AI chatbot name"
+      "disclosureHook": "Mira AI chatbot name",
+      "consolePath": "Settings → Chatbox → agent name; Mira AI → assistant settings.",
+      "note": "Mira AI is an LLM shopping assistant."
     },
     {
       "id": "jivochat",
@@ -162,7 +184,9 @@
         "code\\.jivo\\.ru"
       ],
       "vendorDocs": "https://www.jivochat.com/help/",
-      "disclosureHook": "Agent display name"
+      "disclosureHook": "Agent display name",
+      "consolePath": "Settings → Channels → Chat on site → agent name and greeting.",
+      "note": "Check whether the AI agent add-on is active on your plan."
     },
     {
       "id": "gorgias",
@@ -174,7 +198,9 @@
         "gorgias\\.chat"
       ],
       "vendorDocs": "https://docs.gorgias.com",
-      "disclosureHook": "AI Agent persona name"
+      "disclosureHook": "AI Agent persona name",
+      "consolePath": "Settings → Chat → Appearance and Greeting; AI Agent → persona name.",
+      "note": "Gorgias AI Agent resolves tickets autonomously on Shopify stores."
     },
     {
       "id": "helpscout",
@@ -185,7 +211,9 @@
         "helpscout\\.net/beacon"
       ],
       "vendorDocs": "https://docs.helpscout.com",
-      "disclosureHook": "Beacon greeting"
+      "disclosureHook": "Beacon greeting",
+      "consolePath": "Beacon → Contact → greeting text and Beacon name.",
+      "note": "Check whether AI drafting or AI answers are enabled on your Beacon."
     },
     {
       "id": "chatbase",
@@ -196,7 +224,9 @@
         "chatbaseConfig"
       ],
       "vendorDocs": "https://www.chatbase.co/docs",
-      "disclosureHook": "Initial message + bot display name"
+      "disclosureHook": "Initial message + bot display name",
+      "consolePath": "Chatbot → Settings → Chat Interface → Display name and Initial messages.",
+      "note": "Chatbase is an LLM agent by definition. Article 50(1) applies."
     },
     {
       "id": "voiceflow",
@@ -207,7 +237,9 @@
         "voiceflow\\.chat"
       ],
       "vendorDocs": "https://docs.voiceflow.com",
-      "disclosureHook": "Assistant name + launch message"
+      "disclosureHook": "Assistant name + launch message",
+      "consolePath": "Assistant → Settings → Web chat → Assistant name and Launch message.",
+      "note": "Voiceflow builds LLM agents. The duty applies to the deployer."
     },
     {
       "id": "botpress",
@@ -219,7 +251,9 @@
         "bpWebchat"
       ],
       "vendorDocs": "https://botpress.com/docs",
-      "disclosureHook": "Webchat botName + description config"
+      "disclosureHook": "Webchat botName + description config",
+      "consolePath": "Webchat → Configuration → botName, botDescription and the initial message.",
+      "note": "Botpress agents are LLM-backed. Disclose in botDescription and the first message."
     },
     {
       "id": "landbot",
@@ -231,7 +265,9 @@
         "landbot\\.io/v3"
       ],
       "vendorDocs": "https://help.landbot.io",
-      "disclosureHook": "Bot welcome block"
+      "disclosureHook": "Bot welcome block",
+      "consolePath": "Builder → first Welcome block; AI Assistant block persona.",
+      "note": "If any AI block is in the flow, disclose before it runs."
     },
     {
       "id": "typebot",
@@ -242,7 +278,9 @@
         "@typebot\\.io/js"
       ],
       "vendorDocs": "https://docs.typebot.io",
-      "disclosureHook": "First bubble block"
+      "disclosureHook": "First bubble block",
+      "consolePath": "Flow → first Bubble block text.",
+      "note": "If an OpenAI or AI block appears anywhere in the flow, disclose up front."
     },
     {
       "id": "ada",
@@ -254,7 +292,9 @@
         "ada\\.support/embed"
       ],
       "vendorDocs": "https://docs.ada.cx",
-      "disclosureHook": "Ada bot greeting"
+      "disclosureHook": "Ada bot greeting",
+      "consolePath": "Dashboard → Settings → Bot name and Greeting.",
+      "note": "Ada is a purpose-built AI agent. The duty applies."
     },
     {
       "id": "chatsimple",
@@ -264,7 +304,9 @@
         "chatsimple\\.ai"
       ],
       "vendorDocs": "https://www.chatsimple.ai",
-      "disclosureHook": "Agent intro message"
+      "disclosureHook": "Agent intro message",
+      "consolePath": "Dashboard → Agent → Display name and Welcome message.",
+      "note": "LLM sales agent - duty applies."
     },
     {
       "id": "wonderchat",
@@ -274,7 +316,9 @@
         "wonderchat\\.io"
       ],
       "vendorDocs": "https://wonderchat.io",
-      "disclosureHook": "Chatbot welcome message"
+      "disclosureHook": "Chatbot welcome message",
+      "consolePath": "Chatbot → Settings → Bot name and Welcome message.",
+      "note": "LLM agent trained on your site - duty applies."
     },
     {
       "id": "sitegpt",
@@ -284,7 +328,9 @@
         "sitegpt\\.ai"
       ],
       "vendorDocs": "https://sitegpt.ai",
-      "disclosureHook": "Welcome message config"
+      "disclosureHook": "Welcome message config",
+      "consolePath": "Chatbot → Settings → Welcome message and bot name.",
+      "note": "LLM agent - duty applies."
     },
     {
       "id": "chatling",
@@ -295,7 +341,9 @@
         "chtl\\.ai"
       ],
       "vendorDocs": "https://chatling.ai",
-      "disclosureHook": "Chatbot intro"
+      "disclosureHook": "Chatbot intro",
+      "consolePath": "Chatbot → Interface → Display name and Welcome message.",
+      "note": "LLM agent - duty applies."
     },
     {
       "id": "customgpt",
@@ -305,7 +353,9 @@
         "customgpt\\.ai"
       ],
       "vendorDocs": "https://customgpt.ai",
-      "disclosureHook": "Agent greeting"
+      "disclosureHook": "Agent greeting",
+      "consolePath": "Agent → Settings → Persona name and Welcome message.",
+      "note": "LLM agent - duty applies."
     },
     {
       "id": "kommunicate",
@@ -316,7 +366,9 @@
         "kommunicateSettings"
       ],
       "vendorDocs": "https://docs.kommunicate.io",
-      "disclosureHook": "Bot display name"
+      "disclosureHook": "Bot display name",
+      "consolePath": "Settings → Chat widget → Bot name and Welcome message.",
+      "note": "Kompose bots are AI-backed - duty applies."
     },
     {
       "id": "manychat",
@@ -327,7 +379,9 @@
         "manychat\\.com/widget"
       ],
       "vendorDocs": "https://help.manychat.com",
-      "disclosureHook": "Widget greeting"
+      "disclosureHook": "Widget greeting",
+      "consolePath": "Flow → Welcome message; AI Step persona.",
+      "note": "Disclose before any AI Step executes."
     },
     {
       "id": "userlike",
@@ -339,7 +393,9 @@
         "userlike\\.com/api"
       ],
       "vendorDocs": "https://www.userlike.com/en/support",
-      "disclosureHook": "AI Assistant operator name"
+      "disclosureHook": "AI Assistant operator name",
+      "consolePath": "Config → Widget → Chat behaviour and greeting; AI Automation Hub persona.",
+      "note": "AI Automation Hub answers before routing to a human."
     },
     {
       "id": "chaport",
@@ -350,7 +406,9 @@
         "chaport\\.com/js"
       ],
       "vendorDocs": "https://www.chaport.com/help",
-      "disclosureHook": "Bot name"
+      "disclosureHook": "Bot name",
+      "consolePath": "Settings → Widget → Welcome message; Chatbot → bot name.",
+      "note": "Check whether the AI chatbot tier is active."
     },
     {
       "id": "salesforce-embedded",
@@ -363,7 +421,9 @@
         "embeddedservice_bootstrap"
       ],
       "vendorDocs": "https://help.salesforce.com",
-      "disclosureHook": "Agent alias in Embedded Service deployment"
+      "disclosureHook": "Agent alias in Embedded Service deployment",
+      "consolePath": "Embedded Service Deployment → Chat Settings → agent alias; Agentforce → persona.",
+      "note": "Agentforce agents act autonomously. Disclose in the deployment's agent alias."
     },
     {
       "id": "drift",
@@ -375,7 +435,9 @@
         "driftt\\.com"
       ],
       "vendorDocs": "https://gethelp.drift.com",
-      "disclosureHook": "Playbook opening message"
+      "disclosureHook": "Playbook opening message",
+      "consolePath": "Playbooks → your playbook → welcome message; Drift AI persona.",
+      "note": "Drift/Salesloft AI qualifies leads before a rep joins."
     },
     {
       "id": "reamaze",
@@ -386,7 +448,9 @@
         "reamaze\\.com/assets"
       ],
       "vendorDocs": "https://www.reamaze.com/kb",
-      "disclosureHook": "Cue / bot greeting"
+      "disclosureHook": "Cue / bot greeting",
+      "consolePath": "Settings → Cues and Chatbots → greeting; AI persona.",
+      "note": "Re:amaze AI answers and drafts - confirm which is live."
     },
     {
       "id": "elevenlabs-widget",
@@ -398,7 +462,9 @@
         "elevenlabs-convai"
       ],
       "vendorDocs": "https://elevenlabs.io/docs",
-      "disclosureHook": "Voice agent first utterance - Art.50(1) applies to voice too"
+      "disclosureHook": "Voice agent first utterance - Art.50(1) applies to voice too",
+      "consolePath": "Agent → Widget → First message; and the agent's system prompt.",
+      "note": "Voice agents are squarely in scope. Say it in the first spoken utterance."
     },
     {
       "id": "openai-widget",
@@ -408,7 +474,9 @@
         "api\\.openai\\.com"
       ],
       "vendorDocs": "https://platform.openai.com/docs",
-      "disclosureHook": "Client-side OpenAI call detected - custom assistant likely"
+      "disclosureHook": "Client-side OpenAI call detected - custom assistant likely",
+      "consolePath": "Your own front-end: render a static disclosure line above the input, and state it in the system prompt.",
+      "note": "A custom LLM widget is unambiguously an AI system you deploy."
     },
     {
       "id": "dialogflow",
@@ -420,7 +488,9 @@
         "console\\.dialogflow"
       ],
       "vendorDocs": "https://cloud.google.com/dialogflow/docs",
-      "disclosureHook": "df-messenger chat-title attribute"
+      "disclosureHook": "df-messenger chat-title attribute",
+      "consolePath": "df-messenger chat-title attribute, plus the Default Welcome Intent response.",
+      "note": "Generative playbooks make this an LLM agent."
     },
     {
       "id": "watson",
@@ -431,7 +501,9 @@
         "web-chat\\.global\\.assistant\\.watson"
       ],
       "vendorDocs": "https://cloud.ibm.com/docs/watson-assistant",
-      "disclosureHook": "Assistant name in web chat config"
+      "disclosureHook": "Assistant name in web chat config",
+      "consolePath": "Web chat → Configure → Assistant name and greeting.",
+      "note": "watsonx Assistant is an AI system - duty applies."
     }
   ],
   "disclosurePhrases": {

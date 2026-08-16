@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Custom OpenAI-backed widget and EU AI Act Article 50 — what you must disclose</title>
+<meta name="description" content="Yes — this is an AI system by design. Where to put the AI disclosure in Custom OpenAI-backed widget, in six languages, and the deadlines that actually apply after the Digital Omnibus.">
+<link rel="canonical" href="https://def217.github.io/clearlabel/vendors/openai-widget.html">
+<meta property="og:title" content="Custom OpenAI-backed widget and EU AI Act Article 50 — what you must disclose">
+<meta property="og:description" content="Yes — this is an AI system by design. Where to put the AI disclosure in Custom OpenAI-backed widget, in six languages, and the deadlines that actually apply after the Digital Omnibus.">
+<link rel="stylesheet" href="../styles.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏷️</text></svg>">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does Custom OpenAI-backed widget need an AI disclosure under the EU AI Act?","acceptedAnswer":{"@type":"Answer","text":"Yes — this is an AI system by design. Custom OpenAI-backed widget is an LLM-based agent. There is no configuration in which it is not an AI system. If it speaks to people in the EU, Article 50(1) requires you to tell them they are dealing with an AI, clearly and no later than the first interaction."}},{"@type":"Question","name":"Is my vendor responsible, or am I?","acceptedAnswer":{"@type":"Answer","text":"You are. Article 50(1) places the duty on the provider of the AI system and, for deepfakes and public-interest text under 50(4), on the deployer. In practice, if you enabled the AI mode in Custom OpenAI-backed widget and pointed it at your customers, the exposure is yours."}},{"@type":"Question","name":"When did this start applying?","acceptedAnswer":{"@type":"Answer","text":"Article 50(1) has applied since 2 August 2026. The machine-readable marking duty in Article 50(2) has a transition to 2 December 2026 for systems already on the market. The Digital Omnibus deferred most high-risk obligations to 2 December 2027 but did not defer Article 50."}}]}</script>
+</head>
+<body>
+<header class="top"><div class="wrap topbar">
+  <a class="brand" href="../">
+    <svg class="tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41 13.42 20.6a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82Z"/><circle cx="7" cy="7" r="1.4" fill="currentColor"/></svg>
+    ClearLabel</a>
+  <nav class="topnav"><a href="../#scan">Free scan</a><a href="./">All vendors</a><a href="../#pack">Compliance Pack</a></nav>
+</div></header>
+
+<div class="wrap hero">
+  <p style="font-size:.85rem;color:var(--muted);margin-bottom:14px"><a href="../">ClearLabel</a> → <a href="./">Vendors</a> → Custom OpenAI-backed widget</p>
+  <h1>Custom OpenAI-backed widget and EU AI&nbsp;Act Article&nbsp;50</h1>
+  <p class="lede">Yes — this is an AI system by design.</p>
+</div>
+
+<div class="wrap">
+  <div class="verdict v-action-required" style="margin-bottom:26px">
+    <div class="vi">🔴</div>
+    <div><h3>Does the disclosure duty apply?</h3>
+    <p>Custom OpenAI-backed widget is an LLM-based agent. There is no configuration in which it is not an AI system. If it speaks to people in the EU, Article 50(1) requires you to tell them they are dealing with an AI, clearly and no later than the first interaction.</p></div>
+  </div>
+  <p class="rule">A custom LLM widget is unambiguously an AI system you deploy.</p>
+</div>
+
+<section>
+  <div class="wrap">
+    <h2>Where the disclosure goes in Custom OpenAI-backed widget</h2>
+    <div class="card" style="margin-bottom:20px">
+      <div class="num">CONSOLE PATH</div>
+      <p style="margin-bottom:0;font-size:1.03rem">Your own front-end: render a static disclosure line above the input, and state it in the system prompt.</p>
+    </div>
+    <p>Article 50(1) requires the information to be given <strong>clearly and distinguishably, at the latest at the time of the first interaction</strong>. A line buried in your privacy policy does not satisfy that. It has to be where the conversation starts.</p>
+
+    <h3 style="margin-top:26px">Wording you can paste in</h3>
+    <div class="tablewrap"><table class="detected" style="width:100%;border-collapse:collapse;font-size:.93rem"><tbody><tr><td style="width:54px"><code>en</code></td><td>You're chatting with an AI assistant. It can make mistakes — ask for a human at any time.</td></tr><tr><td style="width:54px"><code>de</code></td><td>Sie chatten mit einem KI-Assistenten. Er kann Fehler machen — fragen Sie jederzeit nach einem Menschen.</td></tr><tr><td style="width:54px"><code>fr</code></td><td>Vous discutez avec un assistant IA. Il peut se tromper — demandez un conseiller humain à tout moment.</td></tr><tr><td style="width:54px"><code>es</code></td><td>Estás hablando con un asistente de IA. Puede cometer errores — pide hablar con una persona cuando quieras.</td></tr><tr><td style="width:54px"><code>it</code></td><td>Stai parlando con un assistente IA. Può commettere errori — puoi chiedere un operatore umano in qualsiasi momento.</td></tr><tr><td style="width:54px"><code>nl</code></td><td>Je chat met een AI-assistent. Deze kan fouten maken — vraag altijd om een medewerker.</td></tr></tbody></table></div>
+    <p style="font-size:.88rem;color:var(--muted);margin-top:12px">Serve the language your customer is browsing in. Article 50 also requires the disclosure to meet accessibility requirements, so do not deliver it as an image.</p>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="wrap">
+    <h2>Deadlines that actually apply</h2>
+    <p class="rule"><strong>2 August 2026 — in force.</strong> Art. 50(1) AI-interaction disclosure. Art. 50(4) deepfake and public-interest text disclosure.</p>
+    <p class="rule"><strong>2 December 2026.</strong> Art. 50(2) machine-readable marking of synthetic audio, image, video and text, for systems already on the market before 2 Aug 2026.</p>
+    <p class="rule"><strong>2 December 2027 — deferred.</strong> Most standalone high-risk (Annex III) duties, pushed back 16 months by the Digital Omnibus approved on 29 June 2026. <strong>Article 50 was not deferred.</strong></p>
+    <p>Penalties for transparency breaches sit under Art. 99(4): up to €15m or 3% of worldwide annual turnover, whichever is higher, with the actual amounts set by each member state.</p>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="wrap">
+    <div class="offer">
+      <h3 style="margin-top:0">Check what your live site is actually doing</h3>
+      <p>The scan reads your public HTML, fingerprints Custom OpenAI-backed widget and 35 other vendors, and looks for disclosure wording in ten EU languages. Free, no signup, runs in your browser.</p>
+      <a class="btn" href="../#scan" style="display:inline-block;text-decoration:none">Scan your site free</a>
+    </div>
+  </div>
+</section>
+
+<section class="tight"><div class="wrap"><h2>Same situation, other vendors</h2><div class="grid3"><div class="card"><h3 style="margin-bottom:6px"><a href="./chatbot-com.html" style="text-decoration:none">ChatBot.com</a></h3><p style="font-size:.89rem;color:var(--muted);margin:0">ai-native</p></div><div class="card"><h3 style="margin-bottom:6px"><a href="./chatbase.html" style="text-decoration:none">Chatbase</a></h3><p style="font-size:.89rem;color:var(--muted);margin:0">ai-native</p></div><div class="card"><h3 style="margin-bottom:6px"><a href="./voiceflow.html" style="text-decoration:none">Voiceflow</a></h3><p style="font-size:.89rem;color:var(--muted);margin:0">ai-native</p></div><div class="card"><h3 style="margin-bottom:6px"><a href="./botpress.html" style="text-decoration:none">Botpress</a></h3><p style="font-size:.89rem;color:var(--muted);margin:0">ai-native</p></div><div class="card"><h3 style="margin-bottom:6px"><a href="./ada.html" style="text-decoration:none">Ada Support</a></h3><p style="font-size:.89rem;color:var(--muted);margin:0">ai-native</p></div><div class="card"><h3 style="margin-bottom:6px"><a href="./chatsimple.html" style="text-decoration:none">Chatsimple</a></h3><p style="font-size:.89rem;color:var(--muted);margin:0">ai-native</p></div></div></div></section>
+
+<section class="tight"><div class="wrap">
+  <h2>Questions</h2>
+  <details><summary>Does Custom OpenAI-backed widget need an AI disclosure under the EU AI Act?</summary><div class="body"><p>Yes — this is an AI system by design. Custom OpenAI-backed widget is an LLM-based agent. There is no configuration in which it is not an AI system. If it speaks to people in the EU, Article 50(1) requires you to tell them they are dealing with an AI, clearly and no later than the first interaction.</p></div></details><details><summary>Is my vendor responsible, or am I?</summary><div class="body"><p>You are. Article 50(1) places the duty on the provider of the AI system and, for deepfakes and public-interest text under 50(4), on the deployer. In practice, if you enabled the AI mode in Custom OpenAI-backed widget and pointed it at your customers, the exposure is yours.</p></div></details><details><summary>When did this start applying?</summary><div class="body"><p>Article 50(1) has applied since 2 August 2026. The machine-readable marking duty in Article 50(2) has a transition to 2 December 2026 for systems already on the market. The Digital Omnibus deferred most high-risk obligations to 2 December 2027 but did not defer Article 50.</p></div></details>
+</div></section>
+
+<footer><div class="wrap">
+  <p><strong>ClearLabel</strong> — EU AI Act Article 50 transparency checks. Information and document drafts only. Not legal advice, not a law firm.</p>
+  <p>Last reviewed 2026-08-16 · <a href="https://github.com/def217/clearlabel">Open dataset on GitHub</a> · <a href="https://artificialintelligenceact.eu/article/50/">Article 50 text</a></p>
+</div></footer>
+</body></html>
