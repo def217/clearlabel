@@ -9,140 +9,400 @@
 <meta property="og:title" content="ClearLabel — EU AI Act Article 50 website check">
 <meta property="og:description" content="Free scan for the AI-disclosure rule that went live on 2 August 2026.">
 <meta property="og:type" content="website">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231e3a8a'/%3E%3Cpath d='M18.6 12.4 12.4 18.6a1.6 1.6 0 0 1-2.3 0L4.5 13V4.5H13l5.6 5.6a1.6 1.6 0 0 1 0 2.3Z' fill='none' stroke='%23fff' stroke-width='1.7' stroke-linejoin='round'/%3E%3Ccircle cx='8.4' cy='8.4' r='1.15' fill='%23fff'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="./styles.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='2' fill='%2322407c'/%3E%3Cpath d='M18.6 12.4 12.4 18.6a1.6 1.6 0 0 1-2.3 0L4.5 13V4.5H13l5.6 5.6a1.6 1.6 0 0 1 0 2.3Z' fill='none' stroke='%23fff' stroke-width='1.7' stroke-linejoin='round'/%3E%3Ccircle cx='8.4' cy='8.4' r='1.15' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="./fonts-plex.css">
+<link rel="stylesheet" href="./home.css">
+<link rel="stylesheet" href="./home-scan.css">
 </head>
 <body>
 
-<header class="top">
-  <div class="wrap topbar">
+<header class="site-header" id="top">
+  <div class="container">
     <a class="brand" href="./">
-      <svg class="tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41 13.42 20.6a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82Z"/><circle cx="7" cy="7" r="1.4" fill="currentColor"/></svg>
-      ClearLabel
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name">ClearLabel</span>
     </a>
-    <nav class="topnav">
-      <a href="#scan">Free scan</a>
-      <a href="#rules">The rules</a>
-      <a href="./label/">Label AI images</a>
-      <a href="./study/">Study</a>
-      <a href="#pack">Compliance Pack</a>
-      <a href="#faq">FAQ</a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="#rules">The rules</a></li>
+        <li><a href="#timeline">Dates</a></li>
+        <li><a href="./label/">Label images</a></li>
+        <li><a href="./study/">Study</a></li>
+        <li><a href="#pack">Compliance Pack</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
     </nav>
+    <div class="header-cta">
+      <a class="btn btn-ink" href="#scan">Scan a page<span class="free-tag">free</span></a>
+    </div>
   </div>
 </header>
 
-<div class="wrap hero">
- <div class="hero-split">
-  <div>
-  <span class="kicker"><span class="dot"></span> Article 50 is in force now</span>
-  <h1>The EU now requires you to label your AI.</h1>
-  <p class="lede">Two duties, two dates. Telling people when they are talking to an AI has applied since <strong>2 August 2026</strong>. Marking AI-generated images, audio and video in a machine-readable format is due <strong>2 December 2026</strong>. In our scan of 883 EU sites, almost nobody does either. Both tools below are free and run in your browser.</p>
-
-  </div>
-
-  <div class="counters">
-    <div class="counter live"><div class="n" id="c-live">—</div><div class="l">days Article 50(1) disclosure<br>has already been binding</div></div>
-    <div class="counter due"><div class="n" id="c-due">—</div><div class="l">days until 2 Dec 2026 deadline<br>for machine-readable AI marking</div></div>
-    <div class="counter"><div class="n">97%</div><div class="l">of EU <strong>online shops</strong> with a chat widget show<br>no AI disclosure (180-shop frame) — <a href="./study/">full study</a></div></div>
-    <div class="counter"><div class="n">0.4%</div><div class="l">carry machine-readable AI content<br>marking, due 2 Dec 2026</div></div>
-  </div>
- </div>
-</div>
-
-<div class="wrap" id="scan">
-  <div class="scanner">
-    <div class="scanner-head">
-      <h2>Scan a page</h2>
-      <p style="color:var(--muted);font-size:.95rem;margin-bottom:0">We read the page's public HTML, fingerprint known chat and voice-AI vendors, and look for AI-disclosure wording in 10 EU languages.</p>
-    </div>
-    <form class="scanform" id="form">
-      <label class="sr" for="url">Website URL</label>
-      <input id="url" name="url" type="text" inputmode="url" placeholder="yourshop.de  ·  or  yourshop.de/contact" autocomplete="url" required>
-      <button class="btn" id="go" type="submit">Scan free</button>
-    </form>
-    <p class="hint">Runs entirely in your browser. In <a href="./study/">our scan of 883 EU sites</a>, 37% of chat widgets were on a contact or help page rather than the homepage — so scan those too.</p>
-    <div id="out" aria-live="polite"></div>
-  </div>
-
-  <div class="grid2" style="margin-top:var(--s4)">
-    <div class="card">
-      <div class="num">Article 50(1) · in force</div>
-      <h3>Disclose AI conversations</h3>
-      <p>If a visitor can be answered by an AI agent, they have to be told — clearly, and no later than the first interaction. The scanner above fingerprints 36 chat and voice vendors and looks for disclosure wording in ten languages.</p>
-    </div>
-    <div class="card">
-      <div class="num">Article 50(2) · due 2 Dec 2026</div>
-      <h3>Mark AI-generated media</h3>
-      <p>Machine-readable marking, not just a caption. Only 0.4% of the sites we scanned had any. <a href="./label/">Our free labelling tool</a> writes IPTC provenance into your PNGs and JPEGs without uploading them anywhere.</p>
-    </div>
+<div class="status-ticker">
+  <div class="container">
+    <span class="ticker-dot" aria-hidden="true"></span>
+    <span class="ticker-status">Article 50(1) binding since 2 Aug 2026</span>
+    <span class="ticker-day">/ day <span id="ticker-day"></span> of enforcement</span>
   </div>
 </div>
 
-<section id="rules">
-  <div class="wrap">
-    <h2>What actually changed, and when</h2>
-    <p class="rule"><strong>2 August 2026 — in force now.</strong> Article 50(1): providers must design AI systems that interact with people so those people are informed they are dealing with an AI, unless it is obvious to a reasonably well-informed person. Article 50(4): deployers must disclose deepfakes, and AI-generated text published to inform the public on matters of public interest.</p>
-    <p class="rule"><strong>2 December 2026 — 
-      <span id="c-due-inline">soon</span>.</strong> Article 50(2) machine-readable marking of synthetic audio, image, video and text. Systems already on the market before 2 August 2026 got a four-month transition under the Digital Omnibus, ending on this date.</p>
-    <p class="rule"><strong>2 December 2027 — deferred.</strong> The Digital Omnibus, given final Council approval on 29 June 2026, pushed most standalone high-risk (Annex III) obligations back by 16 months. <strong>Article 50 transparency was not deferred.</strong> This is the part most compliance content still gets wrong.</p>
-
-    <div class="grid3" style="margin-top:30px">
-      <div class="card"><div class="num">WHO</div><h3>Deployers, not just AI vendors</h3><p>If you switched on an AI agent in Zendesk, Intercom, Gorgias, Tidio or HubSpot, you are a deployer. The duty is yours, not your vendor's.</p></div>
-      <div class="card"><div class="num">WHERE</div><h3>Anyone selling into the EU</h3><p>The Act follows the user. A US or UK company with EU customers is in scope for the people it serves in the EU.</p></div>
-      <div class="card"><div class="num">HOW MUCH</div><h3>Set by each member state</h3><p>Penalties are national, not EU-wide. Article 99(4) caps transparency breaches at €15m or 3% of worldwide turnover, whichever is higher.</p></div>
+<section class="hero" aria-labelledby="hero-title">
+  <div class="container">
+    <div class="hero-copy">
+      <p class="eyebrow">EU AI Act · Article 50 · Transparency duties</p>
+      <h1 id="hero-title">The EU now requires you to label your AI.</h1>
+      <p class="lead">Two duties, two dates. Telling people when they are talking to an AI has applied since <strong>2 August 2026</strong>. Marking AI-generated images, audio and video in a machine-readable format is due <strong>2 December 2026</strong>. In <a href="./study/">our scan of 883 EU sites</a>, almost nobody does either.</p>
+      <div class="hero-actions">
+        <a href="#scan" class="btn btn-blue">Scan your page — free</a>
+        <a href="#rules" class="btn btn-outline">What the rules say</a>
+      </div>
+      <p class="hero-note">No account, no upload — the scan runs in your browser.</p>
+    </div>
+    <div class="compliance-clock">
+      <div class="clock-header">
+        <span class="clock-title">Compliance clock</span>
+        <span class="clock-date" id="today-date"></span>
+      </div>
+      <div class="clock-rows">
+        <div class="clock-row">
+          <span class="clock-num amber" id="clock-binding-days"></span>
+          <span class="clock-label">of Article 50(1) enforcement — the disclosure duty binds since 2 Aug 2026</span>
+        </div>
+        <div class="clock-row">
+          <span class="clock-num blue" id="clock-remaining-days"></span>
+          <span class="clock-label">days until the 2 Dec 2026 machine-readable marking deadline</span>
+        </div>
+      </div>
+      <div class="clock-footer">Art. 99(4): up to EUR 15m or 3% of turnover</div>
     </div>
   </div>
 </section>
 
-<section id="pack" class="tight">
-  <div class="wrap grid2">
+<section class="scanner-band" id="scan" aria-labelledby="scan-title">
+  <div class="container">
+    <div class="scanner-copy">
+      <p class="eyebrow">Step one · Free scanner</p>
+      <h2 id="scan-title">Check a page in about four seconds.</h2>
+      <p class="lead">Paste any public URL. ClearLabel reads the page's public HTML in your browser, fingerprints 36 known chat and voice-AI vendors, and looks for AI-disclosure wording in 10 EU languages.</p>
+      <form id="scan-form" class="scan-form">
+        <div class="scan-form-row">
+          <label class="visually-hidden" for="scan-url">Website URL to scan</label>
+          <input id="scan-url" name="url" type="text" inputmode="url" placeholder="yourshop.eu/contact" autocomplete="url" spellcheck="false" required>
+          <button id="scan-submit" type="submit">Scan free</button>
+        </div>
+      </form>
+      <p class="scan-note">In <a href="./study/">our scan of 883 EU sites</a>, 37% of chat widgets sat on a contact or help page rather than the homepage — so scan those too.</p>
+      <div class="scan-limits">
+        <h3>What it cannot see</h3>
+        <p>Only the public HTML the page serves. It cannot open your chat widget, see inside your vendor console, or tell whether your AI mode is switched on, and it will miss widgets injected later by a tag manager. A fast first pass, not an audit.</p>
+      </div>
+    </div>
+    <div class="scan-output">
+      <div class="scan-output-header">
+        <span class="scan-output-title">Scan output</span>
+        <span class="scan-phase" id="scan-phase" aria-live="polite">idle</span>
+      </div>
+      <div class="scan-check-rows">
+        <div class="scan-check" id="check-vendor">
+          <span>Vendor fingerprint (36 known)</span>
+          <span class="check-status">—</span>
+        </div>
+        <div class="scan-check" id="check-disclosure">
+          <span>Disclosure wording · 10 languages</span>
+          <span class="check-status">—</span>
+        </div>
+        <div class="scan-check" id="check-marking">
+          <span>IPTC / C2PA media marking</span>
+          <span class="check-status">—</span>
+        </div>
+      </div>
+      <div class="scan-output-bottom" id="scan-idle-strip">Results stay on this device. The URL you type and the result it produces are never sent to us.</div>
+      <div class="scan-result" id="scan-result" aria-live="polite" hidden>
+        <p class="scan-result-summary"><span id="scan-result-issues">0</span> <span>checks require action</span></p>
+        <div class="scan-findings" id="scan-result-findings"></div>
+        <a class="scan-fix-link" href="#pack">See how to fix them</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="scan-detail" id="scan-detail" aria-label="Scan result detail" hidden>
+  <div class="container" id="scan-detail-body"></div>
+</section>
+
+<section class="stats" aria-label="What the scan of 883 EU sites found">
+  <div class="container stats-grid">
+    <div class="stat-cell">
+      <p class="stat-figure">97%</p>
+      <p class="stat-caption">of EU online shops running a chat widget show no AI disclosure — 180-shop frame</p>
+    </div>
+    <div class="stat-cell">
+      <p class="stat-figure">0.4%</p>
+      <p class="stat-caption">of the 883-site corpus carry machine-readable AI content marking</p>
+    </div>
+    <div class="stat-cell">
+      <p class="stat-figure">703</p>
+      <p class="stat-caption">Tranco-ranked EU sites in the main frame, 883 scanned in total — <a href="./study/">full study</a></p>
+    </div>
+    <div class="stat-cell">
+      <p class="stat-figure">36</p>
+      <p class="stat-caption">chat and voice-AI vendors fingerprinted — <a href="./vendors/">by vendor</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="rules" id="rules" aria-labelledby="rules-title">
+  <div class="container">
+    <h2 id="rules-title">Two duties. Know which one you are failing.</h2>
+    <div class="rules-grid">
+      <article class="rule-card">
+        <div class="rule-tags">
+          <span class="article-chip">ART. 50(1)</span>
+          <span class="status-chip status-in-force">In force</span>
+        </div>
+        <h3>Disclose AI conversations</h3>
+        <p>If a visitor can be answered by an AI agent, they have to be told — clearly, and no later than the first interaction. The duty is the deployer's, not the vendor's: switching on the AI mode in Zendesk, Intercom, Gorgias, Tidio or HubSpot makes it yours.</p>
+        <div class="utility-box">
+          <div>
+            <span class="eyebrow">Ready-made disclosure</span>
+            <p class="utility-disclosure">You're chatting with an AI assistant. It can make mistakes — ask for a human at any time.</p>
+            <button class="copy-btn" type="button" data-copy="You're chatting with an AI assistant. It can make mistakes — ask for a human at any time.">Copy</button>
+          </div>
+          <div class="utility-tool">
+            <span class="eyebrow">Where it goes</span>
+            <p>Set it as the assistant's opening message, inside the chat window itself. <a href="./vendors/">Per-vendor placement →</a></p>
+          </div>
+        </div>
+      </article>
+      <article class="rule-card">
+        <div class="rule-tags">
+          <span class="article-chip">ART. 50(2)</span>
+          <span class="status-chip status-due">Due 2 Dec 2026</span>
+        </div>
+        <h3>Mark AI-generated media</h3>
+        <p>Machine-readable marking, not just a caption: synthetic image, audio, video and text must carry an interoperable signal such as IPTC or C2PA. Only 0.4% of the sites we scanned had any.</p>
+        <div class="utility-box">
+          <div>
+            <span class="eyebrow">The marking itself</span>
+            <p class="utility-disclosure">Iptc4xmpExt:DigitalSourceType = trainedAlgorithmicMedia</p>
+            <button class="copy-btn" type="button" data-copy="http://cv.iptc.org/newscodes/digitalsourcetype/trainedAlgorithmicMedia">Copy value</button>
+          </div>
+          <div class="utility-tool">
+            <span class="eyebrow">Labelling tool</span>
+            <p>Our free tool writes IPTC provenance into your PNGs and JPEGs without uploading them. <a href="./label/">Label an image →</a></p>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="timeline" id="timeline" aria-labelledby="timeline-title">
+  <div class="container">
     <div>
-      <h2>Fix it in an afternoon, not a quarter</h2>
+      <h2 id="timeline-title">What actually changed, and when</h2>
+      <p class="timeline-standfirst">The Digital Omnibus deferred a great deal of the AI Act — but not the Article 50 transparency duties. This is the part most compliance content still gets wrong.</p>
+    </div>
+    <ul class="timeline-list">
+      <li class="timeline-row">
+        <div>
+          <div class="timeline-date">2 Aug 2026</div>
+          <div class="timeline-status now">Now</div>
+        </div>
+        <p>Article 50(1) applies: providers must design AI systems that interact with people so those people are informed they are dealing with an AI, unless it is obvious to a reasonably well-informed person. Article 50(4) adds the deployer duty to disclose deepfakes and AI-generated text published to inform the public on matters of public interest.</p>
+      </li>
+      <li class="timeline-row">
+        <div>
+          <div class="timeline-date">2 Dec 2026</div>
+          <div class="timeline-status days"><span id="days-to-marking"></span> days</div>
+        </div>
+        <p>Article 50(2) machine-readable marking of synthetic audio, image, video and text. Systems already on the market before 2 August 2026 got a four-month transition under the Digital Omnibus, ending on this date.</p>
+      </li>
+      <li class="timeline-row">
+        <div>
+          <div class="timeline-date">2 Dec 2027</div>
+          <div class="timeline-status">Deferred</div>
+        </div>
+        <p>The Digital Omnibus, given final Council approval on 29 June 2026, pushed most standalone high-risk (Annex III) obligations back by 16 months. <strong>Article 50 transparency was not among them.</strong></p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="scope" aria-label="Who the obligations bind">
+  <div class="container scope-grid">
+    <div class="scope-item">
+      <span class="eyebrow">Who it binds</span>
+      <h3>Deployers, not just AI vendors</h3>
+      <p>If you switched on an AI agent in Zendesk, Intercom, Gorgias, Tidio or HubSpot, you are a deployer. The duty is yours, not your vendor's.</p>
+    </div>
+    <div class="scope-item">
+      <span class="eyebrow">Where it reaches</span>
+      <h3>Anyone selling into the EU</h3>
+      <p>The Act follows the user. A US or UK company with EU customers is in scope for the people it serves in the EU.</p>
+    </div>
+    <div class="scope-item">
+      <span class="eyebrow">What it costs</span>
+      <h3>Set by each member state</h3>
+      <p>Penalties are national, not EU-wide. Article 99(4) caps transparency breaches at €15m or 3% of worldwide turnover, whichever is higher.</p>
+    </div>
+  </div>
+</section>
+
+<section class="pack" id="pack" aria-labelledby="pack-title">
+  <div class="container">
+    <div class="pack-copy">
+      <p class="eyebrow">Step two · After the scan</p>
+      <h2 id="pack-title">Fix it in an afternoon, not a quarter.</h2>
       <p>A scan tells you where you stand. The gap after that is paperwork: the disclosure wording, where to paste it in your specific vendor's console, a published transparency notice, and a dated record proving when you decided all this — because under Article 4 the documentation <em>is</em> the evidence.</p>
       <p>The Compliance Pack is generated from your scan result, so it arrives pre-filled with the vendors actually found on your site instead of blank templates you have to research yourself.</p>
-      <div class="disclaim" style="margin-top:18px">ClearLabel gives you structured information and document drafts. It is not a law firm and this is not legal advice. For a binding view on your specific exposure, have the output reviewed by a qualified adviser in your member state.</div>
+      <p class="pack-disclaimer">ClearLabel gives you structured information and document drafts. It is not a law firm and this is not legal advice. For a binding view on your specific exposure, have the output reviewed by a qualified adviser in your member state.</p>
     </div>
-    <div class="offer">
-      <h3 style="margin-top:0">Article 50 Compliance Pack</h3>
-      <div class="price">€49</div>
-      <p style="font-size:.88rem;color:var(--muted);margin-top:4px">One-off. Instant download. No subscription.</p>
+    <div class="order-panel">
+      <div class="order-header">
+        <div class="order-title-left">
+          <span class="eyebrow">Article 50</span>
+          <p class="order-title">Compliance Pack</p>
+        </div>
+        <div class="order-price-block">
+          <p class="order-price">€49</p>
+          <p class="order-price-label">One-off</p>
+        </div>
+      </div>
+      <ol class="order-list">
+        <li class="order-item"><span class="order-num" aria-hidden="true">01</span><span class="order-text">Disclosure wording in EN/DE/FR/ES/IT/NL, written for the exact vendors found on your site</span></li>
+        <li class="order-item"><span class="order-num" aria-hidden="true">02</span><span class="order-text">Step-by-step: where to paste it in your console (Zendesk, Intercom, Gorgias, Crisp, Tidio, HubSpot and 30 more)</span></li>
+        <li class="order-item"><span class="order-num" aria-hidden="true">03</span><span class="order-text">Ready-to-publish AI Transparency Notice page (HTML + Markdown)</span></li>
+        <li class="order-item"><span class="order-num" aria-hidden="true">04</span><span class="order-text">AI system register, pre-filled with your detected vendors</span></li>
+        <li class="order-item"><span class="order-num" aria-hidden="true">05</span><span class="order-text">Synthetic-content labelling policy covering the 2 Dec 2026 marking duty</span></li>
+        <li class="order-item"><span class="order-num" aria-hidden="true">06</span><span class="order-text">Dated compliance evidence record for Article 4 documentation</span></li>
+        <li class="order-item"><span class="order-num" aria-hidden="true">07</span><span class="order-text">Re-scan and updated pack free for 12 months</span></li>
+      </ol>
+      <div class="order-footer">
+        <button class="btn btn-ink order-cta" id="buy" type="button">Get the Compliance Pack</button>
+        <p class="order-footnote" id="buynote">Instant download · no subscription · scan first, it prefills the pack</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="faq" id="faq" aria-labelledby="faq-title">
+  <div class="container">
+    <h2 id="faq-title">Questions people actually ask</h2>
+    <ul class="faq-list">
+      <li class="faq-item open">
+        <h3>
+          <button class="faq-question" type="button" id="faq-btn-1" aria-expanded="true" aria-controls="faq-panel-1">
+            Does this apply to me if I only use a normal support chat?
+            <span class="faq-icon" aria-hidden="true">−</span>
+          </button>
+        </h3>
+        <div class="faq-answer" id="faq-panel-1" role="region" aria-labelledby="faq-btn-1">
+          <p>If a human answers, Article 50(1) does not bite. It bites the moment an AI system is what the visitor is actually talking to — including the AI agents that Zendesk, Intercom, Gorgias, Tidio and HubSpot now enable by default on many plans. That is why the scanner reports those vendors as "check required" rather than guessing: only you can confirm whether the AI mode is switched on.</p>
+        </div>
+      </li>
+      <li class="faq-item">
+        <h3>
+          <button class="faq-question" type="button" id="faq-btn-2" aria-expanded="false" aria-controls="faq-panel-2">
+            Wasn't the AI Act delayed?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+        </h3>
+        <div class="faq-answer" id="faq-panel-2" role="region" aria-labelledby="faq-btn-2">
+          <p>Partly. The Digital Omnibus, approved by the Council on 29 June 2026, deferred most standalone high-risk obligations to 2 December 2027 and product-embedded ones by 12 months. The Article 50 transparency duties were not deferred and applied from 2 August 2026. The one Article 50 element that moved is the machine-readable marking in 50(2), which gets a transition to 2 December 2026 for systems already on the market.</p>
+        </div>
+      </li>
+      <li class="faq-item">
+        <h3>
+          <button class="faq-question" type="button" id="faq-btn-3" aria-expanded="false" aria-controls="faq-panel-3">
+            Is "obvious from the circumstances" an escape hatch?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+        </h3>
+        <div class="faq-answer" id="faq-panel-3" role="region" aria-labelledby="faq-btn-3">
+          <p>It is narrow. The test is what is obvious to a reasonably well-informed, observant and circumspect person, judged in context. A widget labelled with a human first name and a photo is the opposite of obvious. If you are relying on this exemption, write down why — that reasoning is what an authority will ask to see.</p>
+        </div>
+      </li>
+      <li class="faq-item">
+        <h3>
+          <button class="faq-question" type="button" id="faq-btn-4" aria-expanded="false" aria-controls="faq-panel-4">
+            What does the scanner actually see?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+        </h3>
+        <div class="faq-answer" id="faq-panel-4" role="region" aria-labelledby="faq-btn-4">
+          <p>Only the public HTML of the URL you enter. It fingerprints known vendor scripts and searches visible page copy for disclosure wording in ten EU languages. It cannot open your chat widget, cannot see inside your vendor console, and cannot tell whether your AI mode is on. It will miss widgets injected later by a tag manager. Treat it as a fast first pass, not an audit.</p>
+        </div>
+      </li>
+      <li class="faq-item">
+        <h3>
+          <button class="faq-question" type="button" id="faq-btn-5" aria-expanded="false" aria-controls="faq-panel-5">
+            Do you store my URL or scan results?
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+        </h3>
+        <div class="faq-answer" id="faq-panel-5" role="region" aria-labelledby="faq-btn-5">
+          <p>The URL you type and the result it produces stay in your browser — they are never sent to us, and there is no account. We do count page views with Cloudflare Web Analytics, which is cookieless, does not fingerprint you and does not track you across sites; we would rather disclose that than claim a purity we do not have. The page fetch itself is routed through a public read-only text proxy because browsers block direct cross-site reads.</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="closing-cta" aria-labelledby="cta-title">
+  <div class="container">
+    <div class="closing-cta-panel">
+      <div>
+        <h2 class="closing-title" id="cta-title">Start with the scan. It takes four seconds.</h2>
+        <p class="closing-live">Day <span id="cta-day"></span> of Article 50(1) · <span id="cta-remaining"></span> days until the marking duty</p>
+      </div>
+      <div class="closing-actions">
+        <a href="#scan" class="btn btn-blue">Scan a page</a>
+        <a href="./label/" class="btn btn-outline">Label an image</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <span class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-name">ClearLabel</span>
+      </span>
+      <p class="footer-disclaimer">EU AI Act Article 50 transparency checks. Information and document drafts only — not a law firm, not legal advice.</p>
+      <a class="footer-mail" href="mailto:info@clearlabel.eu">info@clearlabel.eu</a>
+    </div>
+    <div class="footer-col">
+      <h3>Tools</h3>
       <ul>
-        <li>Disclosure wording in EN/DE/FR/ES/IT/NL, written for the exact vendors found on your site</li>
-        <li>Step-by-step: where to paste it in your console (Zendesk, Intercom, Gorgias, Crisp, Tidio, HubSpot and 30 more)</li>
-        <li>Ready-to-publish AI Transparency Notice page (HTML + Markdown)</li>
-        <li>AI system register, pre-filled with your detected vendors</li>
-        <li>Synthetic-content labelling policy covering the 2 Dec 2026 marking duty</li>
-        <li>Dated compliance evidence record for Article 4 documentation</li>
-        <li>Re-scan and updated pack free for 12 months</li>
+        <li><a href="#scan">Page scanner</a></li>
+        <li><a href="./label/">Image label generator</a></li>
+        <li><a href="./pack/">Sample Compliance Pack</a></li>
       </ul>
-      <button class="btn" id="buy" type="button" style="width:100%">Get the Compliance Pack</button>
-      <p id="buynote" style="font-size:.82rem;color:var(--muted);margin:10px 0 0;text-align:center"></p>
     </div>
-  </div>
-</section>
-
-<section id="faq" class="tight">
-  <div class="wrap">
-    <h2>Questions</h2>
-    <details><summary>Does this apply to me if I only use a normal support chat?</summary><div class="body"><p>If a human answers, Article 50(1) does not bite. It bites the moment an AI system is what the visitor is actually talking to — including the AI agents that Zendesk, Intercom, Gorgias, Tidio and HubSpot now enable by default on many plans. That is why the scanner reports those vendors as "check required" rather than guessing: only you can confirm whether the AI mode is switched on.</p></div></details>
-    <details><summary>Wasn't the AI Act delayed?</summary><div class="body"><p>Partly. The Digital Omnibus, approved by the Council on 29 June 2026, deferred most standalone high-risk obligations to 2 December 2027 and product-embedded ones by 12 months. The Article 50 transparency duties were not deferred and applied from 2 August 2026. The one Article 50 element that moved is the machine-readable marking in 50(2), which gets a transition to 2 December 2026 for systems already on the market.</p></div></details>
-    <details><summary>Is "obvious from the circumstances" an escape hatch?</summary><div class="body"><p>It is narrow. The test is what is obvious to a reasonably well-informed, observant and circumspect person, judged in context. A widget labelled with a human first name and a photo is the opposite of obvious. If you are relying on this exemption, write down why — that reasoning is what an authority will ask to see.</p></div></details>
-    <details><summary>What does the scanner actually see?</summary><div class="body"><p>Only the public HTML of the URL you enter. It fingerprints known vendor scripts and searches visible page copy for disclosure wording in ten EU languages. It cannot open your chat widget, cannot see inside your vendor console, and cannot tell whether your AI mode is on. It will miss widgets injected later by a tag manager. Treat it as a fast first pass, not an audit.</p></div></details>
-    <details><summary>Do you store my URL or scan results?</summary><div class="body"><p>The URL you type and the result it produces stay in your browser — they are never sent to us, and there is no account. We do count page views with Cloudflare Web Analytics, which is cookieless, does not fingerprint you and does not track you across sites; we would rather disclose that than claim a purity we do not have. The page fetch itself is routed through a public read-only text proxy because browsers block direct cross-site reads.</p></div></details>
-  </div>
-</section>
-
-<footer>
-  <div class="wrap">
-    <p><strong>ClearLabel</strong> — EU AI Act Article 50 transparency checks.<br>
-    Information and document drafts only. Not legal advice, not a law firm.<br>Questions or corrections: <a href="mailto:info@clearlabel.eu">info@clearlabel.eu</a></p>
-    <p>Vendor fingerprint data is open source under CC-BY-4.0 ·
-      <a href="https://github.com/def217/clearlabel">Source and dataset on GitHub</a> ·
-      Primary sources: <a href="https://artificialintelligenceact.eu/article/50/">AI Act Art. 50</a>,
-      <a href="https://artificialintelligenceact.eu/article/99/">Art. 99 penalties</a></p>
+    <div class="footer-col">
+      <h3>Data</h3>
+      <ul>
+        <li><a href="./study/">883-site study and method</a></li>
+        <li><a href="./vendors/">Vendor fingerprints</a></li>
+        <li><a href="https://github.com/def217/clearlabel">Source and dataset on GitHub</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h3>Primary sources</h3>
+      <ul>
+        <li><a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj" rel="noopener">Regulation (EU) 2024/1689</a></li>
+        <li><a href="https://artificialintelligenceact.eu/article/50/" rel="noopener">AI Act Article 50</a></li>
+        <li><a href="https://artificialintelligenceact.eu/article/99/" rel="noopener">Article 99 penalties</a></li>
+      </ul>
+    </div>
+    <p class="footer-legal">Vendor fingerprint data is open source under CC-BY-4.0. Questions or corrections: <a href="mailto:info@clearlabel.eu">info@clearlabel.eu</a></p>
   </div>
 </footer>
 
+<script src="./home-ui.js"></script>
 <script type="module" src="./app.js"></script>
 <!-- Cloudflare Web Analytics: cookieless, no fingerprinting, no cross-site tracking -->
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "621bef7b2c064047a614e54e630b07c8"}'></script>
