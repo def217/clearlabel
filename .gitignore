@@ -8,3 +8,5 @@ node_modules/
 study/prospects.json
 study/outreach-batch.jsonl
 study/outreach-drafts.jsonl
+study/sent-*.jsonl
+study/sent-log.jsonl
