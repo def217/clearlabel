@@ -201,3 +201,6 @@ blockquote.cite{border-left:2px solid var(--edge);margin:0;padding:10px 0 10px 1
 @media (max-width:560px){
   .topnav{display:none}
 }
+
+.order-alt{font-size:13.5px;color:var(--muted);margin-top:10px}
+.order-alt a{color:var(--blue)}
