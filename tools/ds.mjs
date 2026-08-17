@@ -30,7 +30,13 @@ const arg = (name, fallback = null) => {
 };
 
 /** One completion. Retries on 429/5xx with backoff. */
-export const ask = async (key, { system, prompt, model = 'flash', temperature = 0.3, maxTokens = 4000 }) => {
+/* deepseek-v4-pro is a reasoning model: its hidden reasoning tokens are drawn from
+   the same max_tokens budget, so a low cap silently returns an empty `content`.
+   Give reasoning models far more headroom. */
+const DEFAULT_MAX = { 'deepseek-v4-pro': 16000, pro: 16000 };
+
+export const ask = async (key, { system, prompt, model = 'flash', temperature = 0.3, maxTokens }) => {
+  maxTokens = maxTokens ?? DEFAULT_MAX[model] ?? 4000;
   const body = {
     model: MODELS[model] ?? model,
     messages: [...(system ? [{ role: 'system', content: system }] : []), { role: 'user', content: prompt }],
@@ -45,10 +51,12 @@ export const ask = async (key, { system, prompt, model = 'flash', temperature = 
     });
     if (res.ok) {
       const json = await res.json();
-      return {
-        text: json.choices?.[0]?.message?.content ?? '',
-        usage: json.usage ?? null,
-      };
+      const choice = json.choices?.[0] ?? {};
+      const text = choice.message?.content ?? '';
+      if (!text && choice.finish_reason === 'length') {
+        throw new Error('DeepSeek returned no content: max_tokens exhausted by reasoning. Raise --max-tokens.');
+      }
+      return { text, usage: json.usage ?? null, finish: choice.finish_reason };
     }
     if (res.status !== 429 && res.status < 500) {
       throw new Error(`DeepSeek HTTP ${res.status}: ${(await res.text()).slice(0, 200)}`);
@@ -98,7 +106,7 @@ const main = async () => {
     console.error('usage: node tools/ds.mjs --prompt "..." | --file f.txt | --batch items.jsonl');
     process.exit(1);
   }
-  const r = await ask(key, { system: arg('system'), prompt, model });
+  const r = await ask(key, { system: arg('system'), prompt, model, maxTokens: arg('max-tokens') ? Number(arg('max-tokens')) : undefined });
   if (out) { await writeFile(out, r.text); console.error(`wrote ${out} (${r.usage?.total_tokens ?? '?'} tokens)`); }
   else console.log(r.text);
 };

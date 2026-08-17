@@ -70,7 +70,21 @@ Outputs JSONL. The CLI and the browser app import the **same** [`scanner/core.mj
 
 ## Measured base rate
 
-Scanning 33 EU consumer sites (30 readable) on 16 Aug 2026: **9 sites — 30% — ran a chat widget with no AI-disclosure wording anywhere in page copy.** Raw output in [`research/`](research/).
+Full write-up and open data: **https://clearlabel.eu/study/**
+
+Scanned **883 EU sites** on 16-17 Aug 2026, 667 of them readable, across two sampling frames:
+
+| Frame | Scanned | Readable | Runs a chat/AI widget | Of those, no disclosure |
+|---|---|---|---|---|
+| Tranco top EU ccTLDs | 703 | 532 | 4.9% | 92.3% |
+| Independent EU online shops | 180 | 135 | **24.4%** | **97.0%** |
+| **Combined** | **883** | **667** | **8.8%** | **94.9%** |
+
+Widget density is five times higher among online shops than across general EU sites, so the
+Tranco figure is a floor, not a market estimate. Only **0.4%** of all readable sites carried any
+machine-readable AI-content marking ahead of the 2 December 2026 deadline.
+
+Raw per-domain results in [`study/`](study/).
 
 ## Disclaimer
 
