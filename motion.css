@@ -1,0 +1,35 @@
+/* ClearLabel homepage — motion layer styles.
+   Loaded after home.css and home-scan.css so the hover overrides win at
+   equal specificity. This file never hides a reveal target: the reveal
+   "hidden" state is written by js/motion-layer.js after Motion has
+   loaded, so the page is fully readable with the module blocked. */
+
+/* §4 — Scanner progress track (2px, inserted by the motion layer
+   directly beneath the "SCAN OUTPUT" header row). */
+.scan-progress{height:2px;background:#e6e2d7;overflow:hidden}
+.scan-progress-fill{display:block;width:100%;height:100%;background:#22407c;transform-origin:left center}
+
+/* §5 — Hover feedback: .18s ease, CSS only, so it survives with JS
+   inert. Motion's hover()/press() are deliberately unused. */
+.btn{transition:background-color .18s ease,border-color .18s ease,color .18s ease,transform .18s ease}
+.btn-blue:hover{background:#1a3465;transform:translateY(-1px)}
+.btn-ink:hover{background:#34322a;transform:translateY(-1px)}
+#scan-submit{transition:background-color .18s ease,border-color .18s ease,color .18s ease,transform .18s ease}
+#scan-submit:hover:not([disabled]){background:#34322a;transform:translateY(-1px)}
+.btn-outline:hover{border-color:#1b1a16;background:#eae7de}
+.copy-btn{transition:background-color .18s ease,color .18s ease}
+.copy-btn:hover{background:#1b1a16;color:#fffdf7}
+.nav-links a{transition:color .18s ease}
+.footer-col a{transition:color .18s ease}
+.faq-question{transition:color .18s ease}
+
+/* Focus ring stays as it is in home.css
+   (:focus-visible{outline:2px solid #22407c;outline-offset:2px}) and is
+   never animated — no transition on outline is declared anywhere. */
+
+/* Reduced motion: the reveal, pulse and entrance animations are gated in
+   JS; hover colour changes may remain. Scroll-behavior:auto is already
+   declared in home.css; kept here so the motion layer is self-contained. */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+}

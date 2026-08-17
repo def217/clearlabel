@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="./fonts-plex.css">
 <link rel="stylesheet" href="./home.css">
 <link rel="stylesheet" href="./home-scan.css">
+<link rel="stylesheet" href="./motion.css">
 </head>
 <body>
 
@@ -40,7 +41,7 @@
 
 <div class="status-ticker">
   <div class="container">
-    <span class="ticker-dot" aria-hidden="true"></span>
+    <span class="ticker-dot" data-pulse aria-hidden="true"></span>
     <span class="ticker-status">Article 50(1) binding since 2 Aug 2026</span>
     <span class="ticker-day">/ day <span id="ticker-day"></span> of enforcement</span>
   </div>
@@ -49,16 +50,16 @@
 <section class="hero" aria-labelledby="hero-title">
   <div class="container">
     <div class="hero-copy">
-      <p class="eyebrow">EU AI Act · Article 50 · Transparency duties</p>
-      <h1 id="hero-title">The EU now requires you to label your AI.</h1>
-      <p class="lead">Two duties, two dates. Telling people when they are talking to an AI has applied since <strong>2 August 2026</strong>. Marking AI-generated images, audio and video in a machine-readable format is due <strong>2 December 2026</strong>. In <a href="./study/">our scan of 883 EU sites</a>, almost nobody does either.</p>
-      <div class="hero-actions">
+      <p class="eyebrow" data-reveal>EU AI Act · Article 50 · Transparency duties</p>
+      <h1 id="hero-title" data-reveal data-reveal-delay="70">The EU now requires you to label your AI.</h1>
+      <p class="lead" data-reveal data-reveal-delay="140">Two duties, two dates. Telling people when they are talking to an AI has applied since <strong>2 August 2026</strong>. Marking AI-generated images, audio and video in a machine-readable format is due <strong>2 December 2026</strong>. In <a href="./study/">our scan of 883 EU sites</a>, almost nobody does either.</p>
+      <div class="hero-actions" data-reveal data-reveal-delay="210">
         <a href="#scan" class="btn btn-blue">Scan your page — free</a>
         <a href="#rules" class="btn btn-outline">What the rules say</a>
       </div>
-      <p class="hero-note">No account, no upload — the scan runs in your browser.</p>
+      <p class="hero-note" data-reveal data-reveal-delay="270">No account, no upload — the scan runs in your browser.</p>
     </div>
-    <div class="compliance-clock">
+    <div class="compliance-clock" data-reveal data-reveal-delay="120">
       <div class="clock-header">
         <span class="clock-title">Compliance clock</span>
         <span class="clock-date" id="today-date"></span>
@@ -81,8 +82,8 @@
 <section class="scanner-band" id="scan" aria-labelledby="scan-title">
   <div class="container">
     <div class="scanner-copy">
-      <p class="eyebrow">Step one · Free scanner</p>
-      <h2 id="scan-title">Check a page in about four seconds.</h2>
+      <p class="eyebrow" data-reveal>Step one · Free scanner</p>
+      <h2 id="scan-title" data-reveal data-reveal-delay="70">Check a page in about four seconds.</h2>
       <p class="lead">Paste any public URL. ClearLabel reads the page's public HTML in your browser, fingerprints 36 known chat and voice-AI vendors, and looks for AI-disclosure wording in 10 EU languages.</p>
       <form id="scan-form" class="scan-form">
         <div class="scan-form-row">
@@ -97,7 +98,7 @@
         <p>Only the public HTML the page serves. It cannot open your chat widget, see inside your vendor console, or tell whether your AI mode is switched on, and it will miss widgets injected later by a tag manager. A fast first pass, not an audit.</p>
       </div>
     </div>
-    <div class="scan-output">
+    <div class="scan-output" data-reveal data-reveal-delay="140">
       <div class="scan-output-header">
         <span class="scan-output-title">Scan output</span>
         <span class="scan-phase" id="scan-phase" aria-live="polite">idle</span>
@@ -132,19 +133,19 @@
 
 <section class="stats" aria-label="What the scan of 883 EU sites found">
   <div class="container stats-grid">
-    <div class="stat-cell">
+    <div class="stat-cell" data-reveal>
       <p class="stat-figure">97%</p>
       <p class="stat-caption">of EU online shops running a chat widget show no AI disclosure — 180-shop frame</p>
     </div>
-    <div class="stat-cell">
+    <div class="stat-cell" data-reveal data-reveal-delay="80">
       <p class="stat-figure">0.4%</p>
       <p class="stat-caption">of the 883-site corpus carry machine-readable AI content marking</p>
     </div>
-    <div class="stat-cell">
+    <div class="stat-cell" data-reveal data-reveal-delay="160">
       <p class="stat-figure">703</p>
       <p class="stat-caption">Tranco-ranked EU sites in the main frame, 883 scanned in total — <a href="./study/">full study</a></p>
     </div>
-    <div class="stat-cell">
+    <div class="stat-cell" data-reveal data-reveal-delay="240">
       <p class="stat-figure">36</p>
       <p class="stat-caption">chat and voice-AI vendors fingerprinted — <a href="./vendors/">by vendor</a></p>
     </div>
@@ -155,7 +156,7 @@
   <div class="container">
     <h2 id="rules-title">Two duties. Know which one you are failing.</h2>
     <div class="rules-grid">
-      <article class="rule-card">
+      <article class="rule-card" data-reveal>
         <div class="rule-tags">
           <span class="article-chip">ART. 50(1)</span>
           <span class="status-chip status-in-force">In force</span>
@@ -174,7 +175,7 @@
           </div>
         </div>
       </article>
-      <article class="rule-card">
+      <article class="rule-card" data-reveal data-reveal-delay="110">
         <div class="rule-tags">
           <span class="article-chip">ART. 50(2)</span>
           <span class="status-chip status-due">Due 2 Dec 2026</span>
@@ -204,21 +205,21 @@
       <p class="timeline-standfirst">The Digital Omnibus deferred a great deal of the AI Act — but not the Article 50 transparency duties. This is the part most compliance content still gets wrong.</p>
     </div>
     <ul class="timeline-list">
-      <li class="timeline-row">
+      <li class="timeline-row" data-reveal>
         <div>
           <div class="timeline-date">2 Aug 2026</div>
           <div class="timeline-status now">Now</div>
         </div>
         <p>Article 50(1) applies: providers must design AI systems that interact with people so those people are informed they are dealing with an AI, unless it is obvious to a reasonably well-informed person. Article 50(4) adds the deployer duty to disclose deepfakes and AI-generated text published to inform the public on matters of public interest.</p>
       </li>
-      <li class="timeline-row">
+      <li class="timeline-row" data-reveal data-reveal-delay="100">
         <div>
           <div class="timeline-date">2 Dec 2026</div>
           <div class="timeline-status days"><span id="days-to-marking"></span> days</div>
         </div>
         <p>Article 50(2) machine-readable marking of synthetic audio, image, video and text. Systems already on the market before 2 August 2026 got a four-month transition under the Digital Omnibus, ending on this date.</p>
       </li>
-      <li class="timeline-row">
+      <li class="timeline-row" data-reveal data-reveal-delay="200">
         <div>
           <div class="timeline-date">2 Dec 2027</div>
           <div class="timeline-status">Deferred</div>
@@ -231,17 +232,17 @@
 
 <section class="scope" aria-label="Who the obligations bind">
   <div class="container scope-grid">
-    <div class="scope-item">
+    <div class="scope-item" data-reveal>
       <span class="eyebrow">Who it binds</span>
       <h3>Deployers, not just AI vendors</h3>
       <p>If you switched on an AI agent in Zendesk, Intercom, Gorgias, Tidio or HubSpot, you are a deployer. The duty is yours, not your vendor's.</p>
     </div>
-    <div class="scope-item">
+    <div class="scope-item" data-reveal data-reveal-delay="90">
       <span class="eyebrow">Where it reaches</span>
       <h3>Anyone selling into the EU</h3>
       <p>The Act follows the user. A US or UK company with EU customers is in scope for the people it serves in the EU.</p>
     </div>
-    <div class="scope-item">
+    <div class="scope-item" data-reveal data-reveal-delay="180">
       <span class="eyebrow">What it costs</span>
       <h3>Set by each member state</h3>
       <p>Penalties are national, not EU-wide. Article 99(4) caps transparency breaches at €15m or 3% of worldwide turnover, whichever is higher.</p>
@@ -258,7 +259,7 @@
       <p>The Compliance Pack is generated from your scan result, so it arrives pre-filled with the vendors actually found on your site instead of blank templates you have to research yourself.</p>
       <p class="pack-disclaimer">ClearLabel gives you structured information and document drafts. It is not a law firm and this is not legal advice. For a binding view on your specific exposure, have the output reviewed by a qualified adviser in your member state.</p>
     </div>
-    <div class="order-panel">
+    <div class="order-panel" data-reveal data-reveal-delay="110">
       <div class="order-header">
         <div class="order-title-left">
           <span class="eyebrow">Article 50</span>
@@ -351,7 +352,7 @@
 
 <section class="closing-cta" aria-labelledby="cta-title">
   <div class="container">
-    <div class="closing-cta-panel">
+    <div class="closing-cta-panel" data-reveal>
       <div>
         <h2 class="closing-title" id="cta-title">Start with the scan. It takes four seconds.</h2>
         <p class="closing-live">Day <span id="cta-day"></span> of Article 50(1) · <span id="cta-remaining"></span> days until the marking duty</p>
@@ -404,6 +405,7 @@
 
 <script src="./home-ui.js"></script>
 <script type="module" src="./app.js"></script>
+<script type="module" src="./js/motion-layer.js"></script>
 <!-- Cloudflare Web Analytics: cookieless, no fingerprinting, no cross-site tracking -->
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "621bef7b2c064047a614e54e630b07c8"}'></script>
 </body>
