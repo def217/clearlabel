@@ -182,6 +182,13 @@ const wireCopyButton = () => {
   });
 };
 
+/* The result CTA is re-rendered with every scan, so it is re-wired alongside
+   the copy button rather than once at startup. */
+const wireResultBuy = () => {
+  const btn = $('#result-buy');
+  if (btn) btn.addEventListener('click', onBuy);
+};
+
 /** Runs the extra contact/help pages only when the visitor asks for it. */
 const wireDeepScan = (db) => {
   const btn = $('#deep-scan');
@@ -202,6 +209,7 @@ const wireDeepScan = (db) => {
     showDetail(renderDetail(lastResult.url, lastResult));
     panelComplete(lastResult);
     wireCopyButton();
+    wireResultBuy();
     wireDeepScan(db);
   });
 };
@@ -241,6 +249,7 @@ const onSubmit = async (event) => {
     showDetail(renderDetail(url, lastResult));
     panelComplete(lastResult);
     wireCopyButton();
+    wireResultBuy();
     wireDeepScan(db);
   } catch (err) {
     panelFailed();

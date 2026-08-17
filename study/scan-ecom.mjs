@@ -106,11 +106,28 @@ const studyOne = async ({ rank, domain, cctld }) => {
   };
 };
 
-const rows = (await readFile(new URL('./ecommerce-verified.csv', import.meta.url), 'utf8'))
-  .trim().split('\n').slice(1)
-  .map((l) => { const [rank, domain, cctld] = l.split(','); return { rank: +rank, domain, cctld }; });
+/* Input/output are overridable so batch files reuse this scanner:
+   node study/scan-ecom.mjs [input.csv] [output.jsonl] */
+const INPUT = new URL(process.argv[2] ?? './ecommerce-verified.csv', import.meta.url);
+const OUT_URL = process.argv[3] ? new URL(process.argv[3], import.meta.url) : OUT;
 
-await writeFile(OUT, '');
+const csvLines = (await readFile(INPUT, 'utf8')).trim().split('\n');
+const header = csvLines[0].split(',').map((h) => h.trim().toLowerCase());
+const col = (name) => header.indexOf(name);
+const rankCol = col('rank') >= 0 ? col('rank') : col('tranco_rank');
+if (col('domain') < 0 || col('cctld') < 0) {
+  throw new Error(`input CSV needs domain and cctld columns, got: ${header.join(',')}`);
+}
+const rows = csvLines.slice(1).map((l) => {
+  const cells = l.split(',').map((c) => c.trim());
+  return {
+    rank: rankCol >= 0 ? +cells[rankCol] : 0,
+    domain: cells[col('domain')],
+    cctld: cells[col('cctld')],
+  };
+});
+
+await writeFile(OUT_URL, '');
 let done = 0;
 let cursor = 0;
 const workers = Array.from({ length: CONCURRENCY }, async () => {
@@ -119,7 +136,7 @@ const workers = Array.from({ length: CONCURRENCY }, async () => {
     let res;
     try { res = await studyOne(row); }
     catch (e) { res = { ...row, ok: false, error: `crash: ${e.message}`.slice(0, 60) }; }
-    await appendFile(OUT, JSON.stringify(res) + '\n');
+    await appendFile(OUT_URL, JSON.stringify(res) + '\n');
     if (++done % 25 === 0) console.log(`  ${done}/${rows.length}`);
   }
 });

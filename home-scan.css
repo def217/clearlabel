@@ -55,6 +55,10 @@
 .finding.accent{border-left:2px solid var(--blue)}
 .finding h4{font-family:var(--serif);font-size:16.5px;font-weight:600;color:var(--ink);margin-bottom:6px}
 .finding p{font-size:14.5px}
+.result-cta .cta-steps{margin:4px 0 12px 0;padding-left:20px;font-size:14.5px;color:var(--body)}
+.result-cta .cta-steps li{margin-bottom:6px}
+.result-cta p{margin-bottom:12px}
+.result-cta .result-note{margin:10px 0 0 0}
 .meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
 .pill{font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--hairline);border-radius:2px;padding:3px 7px;color:var(--muted)}
 .pill.art{border-color:var(--blue);color:var(--blue);background:var(--blue-tint)}

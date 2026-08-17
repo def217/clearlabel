@@ -38,7 +38,7 @@ const VERDICT_COPY = {
   'check-required': {
     icon: svg(ICON.query),
     head: 'Check required',
-    sub: 'Something here depends on settings we cannot see from outside. Confirm it, then write down what you confirmed.',
+    sub: 'Usually this hangs on your chat vendor’s AI-agent mode — visible only in your vendor console, not from outside. Confirm it, then write down what you confirmed.',
   },
   'likely-ok': {
     icon: svg(ICON.ok),
@@ -114,6 +114,26 @@ const deepScanCard = `<div class="finding accent">
       <button class="btn ghost" type="button" id="deep-scan">Also check /contact, /kontakt and /help</button>
     </div>`;
 
+/* Shown only for actionable verdicts: the scan result is the moment of highest
+   intent, and until now nothing in it pointed at the pack. Steps stay honest —
+   the free sample above already solves step 2 in English. */
+const ctaCard = (overall, vendors) => {
+  if (overall !== 'action-required' && overall !== 'check-required') return '';
+  const vendor = vendors[0] ? esc(vendors[0].name) : 'your vendor';
+  return `<div class="finding accent result-cta">
+      <div class="meta"><span class="pill art">Close it out</span></div>
+      <h4>Three steps end this</h4>
+      <ol class="cta-steps">
+        <li>Open ${vendor}'s console and confirm whether the AI-agent mode is on.</li>
+        <li>Publish disclosure wording in every language your shop sells in — not just English.</li>
+        <li>Keep dated evidence of both, so a market-surveillance query is a reply, not a scramble.</li>
+      </ol>
+      <p>The <strong>€49 Compliance Pack</strong> generates all of it for ${vendor}: disclosure wording in 12 languages, the exact console path, machine-readable Art.&nbsp;50(2) marking for AI media, and a dated evidence log. Built in your browser — nothing uploads.</p>
+      <button class="btn btn-ink" type="button" id="result-buy">Generate my pack — €49</button>
+      <p class="result-note">Or <a href="./pack/">build the free sample pack</a> first to see exactly what you get.</p>
+    </div>`;
+};
+
 const alsoRead = (pagesRead) =>
   pagesRead && pagesRead.length > 1
     ? ` — also checked ${pagesRead.slice(1).map((p) => `<code>${esc(p)}</code>`).join(', ')}`
@@ -133,6 +153,7 @@ export const renderDetail = (url, result) => {
       <p class="result-note">Scanned: <code>${esc(url)}</code>${alsoRead(result.pagesRead)}</p></div>
     </div>
     ${findingCards(result.findings)}${disclosureCard(result.disclosures)}${sample(result.vendors)}${table}
+    ${ctaCard(result.overall, result.vendors)}
     ${result.vendors.length === 0 ? deepScanCard : ''}
     <p class="hint">Page-source heuristics, not an audit or a legal opinion. It cannot see inside your vendor console or open your chat widget.</p>`;
 };
