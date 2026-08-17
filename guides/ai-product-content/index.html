@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI-generated product descriptions and images: what EU law actually requires</title>
+<meta name="description" content="Article 50(2) puts machine-readable marking on the AI tool's provider — not your shop. What a shop using AI product text and images actually owes under Article 50(4): don't strip provenance, disclose deep fakes, and when product copy needs labelling.">
+<link rel="canonical" href="https://clearlabel.eu/guides/ai-product-content/">
+<meta property="og:title" content="AI product content and EU law: the provider/deployer split">
+<meta property="og:description" content="Who must mark AI-generated product content under the EU AI Act — and what your shop actually has to do.">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%2322407c'/%3E%3Cpath d='M18.6 12.4 12.4 18.6a1.6 1.6 0 0 1-2.3 0L4.5 13V4.5H13l5.6 5.6a1.6 1.6 0 0 1 0 2.3Z' fill='none' stroke='%23fff' stroke-width='1.7' stroke-linejoin='round'/%3E%3Ccircle cx='8.4' cy='8.4' r='1.15' fill='%23fff'/%3E%3C/svg%3E">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Am I the provider just because I use an AI image tool?","acceptedAnswer":{"@type":"Answer","text":"No. The tool's maker is the provider for Article 50(2) purposes. A shop using a generative tool is a deployer — unless it puts an AI system on the market under its own name or brand, which is rare for a shop."}},{"@type":"Question","name":"Do I have to machine-mark every AI product photo myself?","acceptedAnswer":{"@type":"Answer","text":"Not as the Article 50(2) addressee — that duty is the provider's. Your practical duties are not to strip the provenance marking the provider embedded, and to disclose under Article 50(4) where it applies. Marking files you publish anyway is cheap insurance: ClearLabel's free labelling tool writes IPTC provenance in the browser."}},{"@type":"Question","name":"Is a visible AI-generated caption enough?","acceptedAnswer":{"@type":"Answer","text":"A caption is good practice and helps with Article 50(4), but it is not the machine-readable marking Article 50(2) describes. Machine-readable marking lives in the file itself — C2PA Content Credentials or IPTC digitalSourceType metadata."}},{"@type":"Question","name":"Are AI-generated product photos deep fakes?","acceptedAnswer":{"@type":"Answer","text":"Usually not. Article 3(60) defines a deep fake as AI content resembling existing persons, objects, places, entities or events that would falsely appear authentic. An illustrative render of a product is normally not a false record of something existing — but an AI image of a real, identifiable person presented as authentic is, and must be disclosed. The boundary is interpreted, not settled."}},{"@type":"Question","name":"Do I have to label AI-written product descriptions?","acceptedAnswer":{"@type":"Answer","text":"Article 50(4)'s text duty covers AI-generated text published to inform the public on matters of public interest, and is satisfied where a named person takes editorial responsibility. Ordinary commercial product copy usually sits outside that duty — but blog-style advice content on your shop can sit closer to it, so decide deliberately and record the decision."}}]}</script>
+</head>
+<body>
+<header class="top"><div class="wrap topbar">
+  <a class="brand" href="../../"><svg class="tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41 13.42 20.6a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82Z"/><circle cx="7" cy="7" r="1.4" fill="currentColor"/></svg>ClearLabel</a>
+  <nav class="topnav"><a href="../../#scan">Free scan</a><a href="../../study/">Study</a><a href="../../vendors/">Vendors</a><a href="../../#pack">Compliance Pack</a></nav>
+</div></header>
+
+<div class="wrap hero">
+  <p class="eyebrow">Guide · Article 50(2) &amp; 50(4) · AI product content</p>
+  <h1>AI product descriptions and images: whose duty is the marking?</h1>
+  <p class="lede">Two rules, two addressees. <strong>Article 50(2)</strong> puts the machine-readable
+  marking duty on the <strong>provider</strong> of the generative tool. Your shop, as the
+  <strong>deployer</strong>, answers mostly to <strong>Article 50(4)</strong> — and to the quiet
+  failure mode nobody budgets for: your own publishing pipeline stripping the provenance the tool
+  embedded.</p>
+</div>
+
+<div class="wrap"><div style="max-width:720px">
+
+  <h2>Article 50(2): the provider's duty</h2>
+  <p>Providers of AI systems that generate synthetic image, audio, video or text must ensure outputs
+  are marked in a machine-readable format and detectable as artificially generated — as far as
+  technically feasible. That is the tool maker, not the shop that clicks "generate". The marking
+  lives <em>in the file</em>: C2PA Content Credentials, or IPTC metadata with
+  <code>digitalSourceType</code> set to <code>trainedAlgorithmicMedia</code>. A visible caption is
+  not machine-readable marking. The transition for systems already on the market ends
+  <a href="../december-2026-deadline/">2 December 2026</a>.</p>
+
+  <h2>What your shop actually owes</h2>
+  <ol style="padding-left:20px;line-height:1.7">
+    <li><strong>Don't strip the marking.</strong> Generators increasingly embed provenance;
+    resizing, compression and CMS uploads routinely remove it. A file that left the model compliant
+    reaches your visitors naked. Check one test upload — that single check is most of the work.</li>
+    <li><strong>Article 50(4) is yours.</strong> Publish an AI-generated <em>deep fake</em> — content
+    resembling real persons, objects, places or events that would falsely appear authentic — and you
+    must disclose it. Publish AI-generated <em>text to inform the public on matters of public
+    interest</em>, and you must disclose that too, unless a named person takes editorial
+    responsibility.</li>
+  </ol>
+
+  <h2>Are product photos deep fakes?</h2>
+  <p>Usually not. Article 3(60)'s definition targets content that could be mistaken for a true
+  record of something that exists. An illustrative render of a jacket on a model who does not exist
+  is illustration, not a false record. Two firm caveats: an AI image of a <strong>real,
+  identifiable person</strong> (a model, influencer, customer) presented as authentic is a deep
+  fake — disclose it; and the boundary is interpretation, not settled text, so photorealistic
+  depictions of real products or places deserve a deliberate call, recorded in writing.</p>
+
+  <h2>When a shop stops being "just" a deployer</h2>
+  <p>Use a tool under your own authority — copy generator, image feature, platform AI — and you are
+  a deployer. You would only take on <em>provider</em> duties by putting an AI system on the market
+  under your own name or brand (white-labelling and reselling a tool, for instance). For a shop
+  generating its own product content, that is rare.</p>
+
+  <h2>Practical steps</h2>
+  <ol style="padding-left:20px;line-height:1.7">
+    <li>Prefer tools that mark output; keep the setting on.</li>
+    <li>Stop your CMS/CDN stripping XMP/IPTC/C2PA — verify with one test upload.</li>
+    <li>Mark files you publish anyway: our <a href="../../label/">free labelling tool</a> writes
+    IPTC <code>digitalSourceType</code> provenance into PNGs/JPEGs in your browser. Nothing uploads.</li>
+    <li>AI images of real people presented as authentic: disclose, always.</li>
+    <li>Put it in writing — a one-page labelling policy plus supplier terms that forbid removing
+    provenance. Both ship pre-filled in the <a href="../../pack/">€49 Compliance Pack</a>, with the
+    dated evidence log.</li>
+  </ol>
+
+  <h2>Related</h2>
+  <p><a href="../december-2026-deadline/">The 2 December 2026 marking deadline</a> ·
+  <a href="../chatbot-disclosure/">Chatbot disclosure under 50(1)</a> ·
+  <a href="../penalties/">Fines &amp; enforcement</a> ·
+  <a href="../../ai-transparency/">Our own transparency notice</a></p>
+
+</div></div>
+
+<footer><div class="wrap">
+  <p><strong>ClearLabel</strong> — EU AI Act Article 50 transparency checks. Information and document drafts only. Not legal advice, not a law firm.<br>Questions or corrections: <a href="mailto:info@clearlabel.eu">info@clearlabel.eu</a></p>
+  <p><a href="https://github.com/def217/clearlabel">Source</a> · <a href="../../study/">883-site study</a> · <a href="https://artificialintelligenceact.eu/article/50/">Article 50 text</a></p>
+</div></footer>
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "621bef7b2c064047a614e54e630b07c8"}'></script>
+</body></html>
