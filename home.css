@@ -4,6 +4,9 @@
    with 1px hairlines and background tone shifts. Scanner styles: home-scan.css.
    The older styles.css still serves /label/, /pack/, /study/ and /vendors/. */
 :root{
+  /* This design is deliberately light-only (paper). Declaring it stops browsers
+     on dark-mode devices from auto-darkening form controls against the paper. */
+  color-scheme: light;
   --page:#f4f2ec; --band:#eae7de; --panel:#fffdf7; --footer:#e7e3d9; --ticker:#efece4;
   --ink:#1b1a16; --body:#3d3a33; --muted:#5b5850; --muted-2:#6f6b60;
   --hairline:#cfccc2; --hairline-dashed:#d9d5ca; --hairline-soft:#dcd8ce; --edge:#b6b2a6;
