@@ -9,30 +9,32 @@
 <meta property="og:title" content="Mark AI-generated images for EU AI Act Article 50(2)">
 <meta property="og:description" content="Only 0.4% of EU sites carry machine-readable AI content marking. Fix yours in the browser, free.">
 <link rel="stylesheet" href="../styles.css">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231e3a8a'/%3E%3Cpath d='M18.6 12.4 12.4 18.6a1.6 1.6 0 0 1-2.3 0L4.5 13V4.5H13l5.6 5.6a1.6 1.6 0 0 1 0 2.3Z' fill='none' stroke='%23fff' stroke-width='1.7' stroke-linejoin='round'/%3E%3Ccircle cx='8.4' cy='8.4' r='1.15' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%2322407c'/%3E%3Cpath d='M18.6 12.4 12.4 18.6a1.6 1.6 0 0 1-2.3 0L4.5 13V4.5H13l5.6 5.6a1.6 1.6 0 0 1 0 2.3Z' fill='none' stroke='%23fff' stroke-width='1.7' stroke-linejoin='round'/%3E%3Ccircle cx='8.4' cy='8.4' r='1.15' fill='%23fff'/%3E%3C/svg%3E">
 <style>
-.drop{border:2px dashed var(--line-strong);border-radius:var(--radius);padding:var(--s5) var(--s3);
+/* page-local tool styles on the new design tokens: dropzone + option cards.
+   .ol/.oh must stay display:block (label.js injects them). */
+.drop{border:2px dashed var(--edge);border-radius:2px;padding:52px 20px;
   text-align:center;background:var(--panel);cursor:pointer;transition:border-color .18s ease,background .18s ease}
-.drop:hover,.drop.over{border-color:var(--navy);background:var(--accent-soft)}
+.drop:hover,.drop.over{border-color:var(--blue);background:var(--blue-tint)}
 .drop svg{width:34px;height:34px;color:var(--muted);margin-bottom:10px}
 .drop .t{font-weight:600;margin-bottom:4px}
-.drop .s{font-size:.87rem;color:var(--muted)}
-.opts{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3);margin:var(--s4) 0}
+.drop .s{font-size:13.5px;color:var(--muted)}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:32px 0}
 @media(max-width:760px){.opts{grid-template-columns:1fr}}
-.opt{border:1px solid var(--line);border-radius:7px;padding:14px 15px;cursor:pointer;background:var(--panel);
+.opt{border:1px solid var(--hairline);border-radius:2px;padding:14px 15px;cursor:pointer;background:var(--panel);
   display:flex;gap:11px;align-items:flex-start;transition:border-color .18s ease}
-.opt:hover{border-color:var(--line-strong)}
-.opt.sel{border-color:var(--navy);border-width:2px;padding:13px 14px;background:var(--accent-soft)}
-.opt input{margin-top:4px;accent-color:var(--navy)}
-.opt .ol{display:block;font-weight:600;font-size:.95rem;margin-bottom:3px}
-.opt .oh{display:block;font-size:.85rem;color:var(--muted);line-height:1.45}
-.field{margin-bottom:var(--s3)}
-.field label{display:block;font-size:.85rem;font-weight:600;margin-bottom:6px}
-.field input{width:100%;font:inherit;font-size:.95rem;padding:11px 13px;border:1px solid var(--line-strong);
-  border-radius:7px;background:var(--bg);color:var(--ink)}
-pre.snip{background:var(--grey-soft);border:1px solid var(--line);border-radius:7px;padding:14px;
-  overflow-x:auto;font-family:var(--mono);font-size:.8rem;line-height:1.55;margin:0}
-.langrow{display:grid;grid-template-columns:44px 1fr;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:.92rem}
+.opt:hover{border-color:var(--edge)}
+.opt.sel{border-color:var(--blue);border-width:2px;padding:13px 14px;background:var(--blue-tint)}
+.opt input{margin-top:4px;accent-color:var(--blue)}
+.opt .ol{display:block;font-weight:600;font-size:15px;margin-bottom:3px}
+.opt .oh{display:block;font-size:13.5px;color:var(--muted);line-height:1.45}
+.field{margin-bottom:20px}
+.field label{display:block;font-size:13.5px;font-weight:600;margin-bottom:6px}
+.field input{width:100%;font:inherit;font-size:15px;padding:11px 13px;border:1px solid var(--edge);
+  border-radius:2px;background:var(--page);color:var(--ink)}
+pre.snip{background:var(--band);border:1px solid var(--hairline);border-radius:2px;padding:14px;
+  overflow-x:auto;font-family:var(--mono);font-size:13px;line-height:1.55;margin:0}
+.langrow{display:grid;grid-template-columns:44px 1fr;gap:10px;padding:9px 0;border-bottom:1px solid var(--hairline);font-size:14.5px}
 .langrow:last-child{border-bottom:0}
 .langrow code{background:none;padding:0;color:var(--muted)}
 </style>

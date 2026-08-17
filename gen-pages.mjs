@@ -68,7 +68,7 @@ const page = (v, all) => {
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(desc)}">
 <link rel="stylesheet" href="../styles.css">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231e3a8a'/%3E%3Cpath d='M18.6 12.4 12.4 18.6a1.6 1.6 0 0 1-2.3 0L4.5 13V4.5H13l5.6 5.6a1.6 1.6 0 0 1 0 2.3Z' fill='none' stroke='%23fff' stroke-width='1.7' stroke-linejoin='round'/%3E%3Ccircle cx='8.4' cy='8.4' r='1.15' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%2322407c'/%3E%3Cpath d='M18.6 12.4 12.4 18.6a1.6 1.6 0 0 1-2.3 0L4.5 13V4.5H13l5.6 5.6a1.6 1.6 0 0 1 0 2.3Z' fill='none' stroke='%23fff' stroke-width='1.7' stroke-linejoin='round'/%3E%3Ccircle cx='8.4' cy='8.4' r='1.15' fill='%23fff'/%3E%3C/svg%3E">
 <script type="application/ld+json">${JSON.stringify(faqLd)}</script>
 </head>
 <body>
@@ -162,7 +162,7 @@ const hub = (vendors) => {
 <meta name="description" content="Where the AI disclosure goes in Intercom, Zendesk, Crisp, Tidio, Gorgias, HubSpot, Chatbase and 29 more — plus whether Article 50(1) applies to each.">
 <link rel="canonical" href="${BASE}/vendors/">
 <link rel="stylesheet" href="../styles.css">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231e3a8a'/%3E%3Cpath d='M18.6 12.4 12.4 18.6a1.6 1.6 0 0 1-2.3 0L4.5 13V4.5H13l5.6 5.6a1.6 1.6 0 0 1 0 2.3Z' fill='none' stroke='%23fff' stroke-width='1.7' stroke-linejoin='round'/%3E%3Ccircle cx='8.4' cy='8.4' r='1.15' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%2322407c'/%3E%3Cpath d='M18.6 12.4 12.4 18.6a1.6 1.6 0 0 1-2.3 0L4.5 13V4.5H13l5.6 5.6a1.6 1.6 0 0 1 0 2.3Z' fill='none' stroke='%23fff' stroke-width='1.7' stroke-linejoin='round'/%3E%3Ccircle cx='8.4' cy='8.4' r='1.15' fill='%23fff'/%3E%3C/svg%3E">
 </head><body>
 <header class="top"><div class="wrap topbar">
   <a class="brand" href="../"><svg class="tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41 13.42 20.6a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82Z"/><circle cx="7" cy="7" r="1.4" fill="currentColor"/></svg>ClearLabel</a>
