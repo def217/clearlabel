@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>We scanned 703 EU websites for AI Act Article 50 compliance — ClearLabel study</title>
+<title>We scanned 883 EU websites for AI Act Article 50 compliance — ClearLabel study</title>
 <meta name="description" content="Open study of 703 Tranco-ranked EU websites: 92% of sites running a chat widget show no AI disclosure, and only 0.4% carry machine-readable AI content marking before the 2 December 2026 deadline.">
 <link rel="canonical" href="https://clearlabel.eu/study/">
-<meta property="og:title" content="We scanned 703 EU websites for AI Act Article 50 compliance">
+<meta property="og:title" content="We scanned 883 EU websites for AI Act Article 50 compliance">
 <meta property="og:description" content="92% of EU sites running a chat widget show no AI disclosure. Only 0.4% carry machine-readable AI content marking.">
 <link rel="stylesheet" href="../styles.css">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231e3a8a'/%3E%3Cpath d='M18.6 12.4 12.4 18.6a1.6 1.6 0 0 1-2.3 0L4.5 13V4.5H13l5.6 5.6a1.6 1.6 0 0 1 0 2.3Z' fill='none' stroke='%23fff' stroke-width='1.7' stroke-linejoin='round'/%3E%3Ccircle cx='8.4' cy='8.4' r='1.15' fill='%23fff'/%3E%3C/svg%3E">
@@ -38,16 +38,16 @@ blockquote.cite{border-left:3px solid var(--line);margin:0;padding:10px 0 10px 1
 
 <div class="wrap hero">
   <p style="font-size:.85rem;color:var(--muted);margin-bottom:14px"><a href="../">ClearLabel</a> → Study</p>
-  <h1>We scanned 703 EU websites for Article&nbsp;50 compliance</h1>
+  <h1>We scanned 883 EU websites for Article&nbsp;50 compliance</h1>
   <p class="lede">Article 50(1) has been binding since 2 August 2026 and machine-readable marking of AI content is due 2 December 2026. We wanted a number rather than an assumption, so we measured. Raw data and the scanner are open.</p>
 </div>
 
 <div class="wrap">
   <div class="stat-grid">
-    <div class="stat alarm"><div class="big">92.3%</div><div class="cap">of sites running a chat or AI widget showed <strong>no AI-disclosure wording</strong> in any of 10 EU languages (24 of 26)</div></div>
-    <div class="stat alarm"><div class="big">0.4%</div><div class="cap">carried any <strong>machine-readable AI-content marking</strong> — 2 of 532 sites, with the duty landing 2 Dec 2026</div></div>
-    <div class="stat warn"><div class="big">69%</div><div class="cap">of chat widgets were <strong>not on the homepage</strong> — homepage-only scanning misses most of them</div></div>
-    <div class="stat"><div class="big">4.9%</div><div class="cap">of readable sites ran a detectable chat or AI widget at all (26 of 532)</div></div>
+    <div class="stat alarm"><div class="big">97%</div><div class="cap">of EU <strong>online shops</strong> running a chat widget showed <strong>no AI-disclosure wording</strong> (32 of 33)</div></div>
+    <div class="stat warn"><div class="big">24%</div><div class="cap">of EU online shops run a chat or AI widget at all — <strong>five times</strong> the rate across general EU sites</div></div>
+    <div class="stat alarm"><div class="big">0.4%</div><div class="cap">of all sites carried any <strong>machine-readable AI-content marking</strong>, with the duty landing 2 Dec 2026</div></div>
+    <div class="stat"><div class="big">92.3%</div><div class="cap">no-disclosure rate across the broader Tranco sample, confirming this is not an e-commerce quirk</div></div>
   </div>
 </div>
 
@@ -72,6 +72,32 @@ blockquote.cite{border-left:3px solid var(--line);margin:0;padding:10px 0 10px 1
 
     <h3 style="margin-top:30px">Where the widget actually lives</h3>
     <p>Of the 26 sites with a widget, <strong>18 had nothing on the homepage</strong> — the widget only appeared on a contact, help or support page. Any Article 50 audit that checks the homepage alone will under-report by roughly two thirds.</p>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="wrap">
+    <h2>A second sample, because the first frame was wrong</h2>
+    <p>The Tranco sample above is dominated by news, banking, government and infrastructure — not the businesses that actually run chat widgets. We said so in the limitations, then went and tested it: <strong>180 independent EU online shops</strong>, every domain DNS-verified before scanning, 135 readable.</p>
+
+    <div class="tablewrap" style="margin:var(--s3) 0"><table class="data">
+      <thead><tr><th>Measure</th><th>Tranco EU sample</th><th>EU online shops</th></tr></thead>
+      <tbody>
+        <tr><td>Runs a chat or AI widget</td><td>4.9%</td><td><strong>24.4%</strong></td></tr>
+        <tr><td>Of those, no AI-disclosure wording</td><td>92.3%</td><td><strong>97.0%</strong></td></tr>
+        <tr><td>Machine-readable AI content marking</td><td>0.4%</td><td>0.7%</td></tr>
+        <tr><td>Readable sample size</td><td>532</td><td>135</td></tr>
+      </tbody>
+    </table></div>
+
+    <p>Widget density is <strong>five times higher</strong> among online shops, and the disclosure gap is worse, not better — 97% of shops with a widget showed nothing. The earlier 4.9% figure was a property of the sampling frame, not of the web.</p>
+
+    <h3 style="margin-top:var(--s4)">One vendor dominates</h3>
+    <div class="tablewrap"><table class="data">
+      <thead><tr><th>Vendor</th><th>Shops</th></tr></thead><tbody><tr><td>Gorgias</td><td>16</td></tr><tr><td>Freshchat / Freshworks</td><td>4</td></tr><tr><td>HubSpot Chat</td><td>3</td></tr><tr><td>Salesforce Embedded Service / Agentforce</td><td>3</td></tr><tr><td>Zendesk / Zopim</td><td>2</td></tr><tr><td>Google Dialogflow</td><td>1</td></tr><tr><td>Tidio</td><td>1</td></tr><tr><td>Olark</td><td>1</td></tr></tbody>
+    </table></div>
+    <p style="margin-top:12px">Gorgias accounts for roughly half of every widget we found on these shops. It is Shopify-native and ships an AI Agent that resolves tickets autonomously, which puts a large, concentrated population of merchants squarely inside Article 50(1) — most of them, on this evidence, without a disclosure.</p>
+    <p style="font-size:.87rem;color:var(--muted)">Sample construction: candidate shops were compiled from public retail directories and country e-commerce listings, then every domain was DNS-checked and 32 unverifiable entries discarded before scanning. This frame is curated rather than probabilistic, so treat it as indicative of online retail, not as a random sample of it.</p>
   </div>
 </section>
 

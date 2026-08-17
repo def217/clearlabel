@@ -1,0 +1,22 @@
+{
+  "scanned": 180,
+  "readable": 135,
+  "with_vendor": 33,
+  "no_disclosure": 32,
+  "ai_native": 1,
+  "ai_native_no_disclosure": 1,
+  "offhomepage": 4,
+  "content_marking": 1,
+  "vendors": {
+    "Gorgias": 16,
+    "Freshchat / Freshworks": 4,
+    "HubSpot Chat": 3,
+    "Salesforce Embedded Service / Agentforce": 3,
+    "Zendesk / Zopim": 2,
+    "Google Dialogflow": 1,
+    "Tidio": 1,
+    "Olark": 1,
+    "Tawk.to": 1,
+    "Intercom": 1
+  }
+}
