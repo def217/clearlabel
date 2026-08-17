@@ -139,7 +139,7 @@ ${related.length ? `<section class="tight"><div class="wrap"><h2>Same situation,
 </div></section>
 
 <footer><div class="wrap">
-  <p><strong>ClearLabel</strong> — EU AI Act Article 50 transparency checks. Information and document drafts only. Not legal advice, not a law firm.</p>
+  <p><strong>ClearLabel</strong> — EU AI Act Article 50 transparency checks. Information and document drafts only. Not legal advice, not a law firm.<br>Questions or corrections: <a href="mailto:info@clearlabel.eu">info@clearlabel.eu</a></p>
   <p>Last reviewed ${TODAY} · <a href="https://github.com/def217/clearlabel">Open dataset on GitHub</a> · <a href="https://artificialintelligenceact.eu/article/50/">Article 50 text</a></p>
 </div></footer>
 <!-- Cloudflare Web Analytics: cookieless, no fingerprinting -->\n<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "621bef7b2c064047a614e54e630b07c8"}'></script>\n</body></html>`;
