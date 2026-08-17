@@ -1,0 +1,176 @@
+You are a senior front-end developer. Rebuild the existing marketing page for **clearlabel.eu** (an EU AI
+Act Article 50 compliance scanner) to the design specification below. Keep all existing copy, links,
+routes, and the real scanner logic intact — this is a visual and UX rebuild, not a content rewrite.
+Where the spec gives copy, use it; where it doesn't, keep the current text.
+
+You cannot see images. Do not ask for one. Every value you need is written out below.
+
+## Design intent
+
+The page must read like a **printed regulatory document or a standards-body notice**, not like a SaaS
+landing page. It is deliberately anti-"AI-generated-website". Obey these prohibitions absolutely:
+
+- No gradients of any kind (no gradient backgrounds, no gradient text, no gradient borders).
+- No glassmorphism, no blur effects except one subtle backdrop blur on the sticky header.
+- No large border radii. Maximum radius anywhere is `2px`. No pill-shaped cards.
+- No drop shadows at all. Separation is done with 1px hairline borders and background tone shifts.
+- No emoji, no icon badges in coloured circles, no decorative illustrations, no hand-drawn SVG.
+- No centred hero. No three identical feature cards with an icon on top.
+- No purple/violet/indigo palette, no neon, no dark-mode-glow aesthetic.
+- No "Trusted by" logo strip, no fake testimonials, no animated gradient orbs.
+- Never use the fonts Inter, Roboto, Poppins, Montserrat, or Arial.
+
+## Tokens
+
+Fonts — load from Google Fonts:
+`IBM Plex Serif` (500, 600) · `IBM Plex Sans` (400, 500, 600) · `IBM Plex Mono` (400, 500)
+
+- Headlines and section titles: IBM Plex Serif 600, `letter-spacing: -0.015em` to `-0.02em`, tight line-height (1.04-1.12).
+- Body: IBM Plex Sans 400/500/600, line-height 1.6, measure capped at 52-64ch.
+- All labels, dates, numerals, statuses, the wordmark, and the URL input: IBM Plex Mono, uppercase for
+  eyebrow labels at `font-size: 10.5-11.5px; letter-spacing: 0.12em`.
+
+Colours (use these hex values exactly):
+
+| Role | Hex |
+|---|---|
+| Page background (warm paper) | `#f4f2ec` |
+| Band background (alternating sections) | `#eae7de` |
+| Panel background | `#fffdf7` |
+| Footer background | `#e7e3d9` |
+| Status ticker background | `#efece4` |
+| Ink (text, hard borders) | `#1b1a16` |
+| Body text | `#3d3a33` |
+| Muted text | `#5b5850` / `#6f6b60` |
+| Hairline rule | `#cfccc2` (solid) · `#d9d5ca` (dashed) |
+| Accent blue (links, primary CTA, future deadlines) | `#22407c`, tint `#e8ecf6` |
+| Accent amber (in-force / warning state) | `#9a5b12`, tint `#f7efe0` |
+
+Only those two accents. No third accent colour.
+
+Layout: single content column, `max-width: 1140px`, `padding: 0 28px`. Sections are separated by full-bleed
+1px `#cfccc2` borders and alternating `#f4f2ec` / `#eae7de` backgrounds. Two-column sections are
+**asymmetric** (e.g. `minmax(0,1fr) minmax(340px,0.78fr)`), never 50/50. Use CSS grid/flex with `gap`.
+Everything collapses to one column under 900px; the hero right-hand panel moves below the headline.
+Global `html { scroll-behavior: smooth }` and `scroll-margin-top: 58px` on every anchored section.
+
+## Page structure, top to bottom
+
+1. **Sticky header**, 58px tall, background `rgba(244,242,236,0.94)` with `backdrop-filter: blur(6px)`,
+   1px bottom border. Left: an 11px solid `#22407c` square followed by the wordmark "ClearLabel" in
+   Plex Mono 14px, `letter-spacing: 0.06em`. Then nav links at 13.5px in `#4f4c44`, no underline until
+   hover: The rules · Dates · Compliance Pack · FAQ. Right: a solid `#1b1a16` button, white text,
+   `border-radius: 2px`, reading "Scan a page" with a muted mono "free" beside it.
+
+2. **Status ticker strip** directly under the header: background `#efece4`, 1px bottom border, 9px vertical
+   padding. A 7px `#9a5b12` dot, then Plex Mono 11.5px uppercase amber text
+   "Article 50(1) binding since 2 Aug 2026", a `/` separator, then in muted grey "day N of enforcement".
+   N is computed live in JS from `2026-08-02` to today.
+
+3. **Hero**, 76px top padding, grid `minmax(0,1.15fr) minmax(300px,0.85fr)`, 64px gap, top-aligned.
+   - Left: mono eyebrow "EU AI ACT · ARTICLE 50 · TRANSPARENCY DUTIES"; H1 in Plex Serif at
+     `clamp(38px,4.6vw,60px)`, max 17ch, reading "The EU now requires you to label your AI."; a 17.5px
+     deck paragraph (max 56ch) covering both duties with the two dates bolded; two buttons — primary
+     `#22407c` with white text "Scan your page — free", secondary transparent with 1px `#b6b2a6` border
+     "What the rules say"; then 13px muted reassurance "No account, no upload — the scan runs in your browser."
+   - Right: a **"Compliance clock" panel** — 1px solid `#1b1a16` border, `#fffdf7` fill, no radius, no shadow.
+     Header row: mono uppercase "COMPLIANCE CLOCK" left, today's date right, 1px ink bottom border.
+     Two rows separated by a dashed rule, each a grid of a big Plex Mono 40px numeral plus 13.5px label:
+     the amber `#9a5b12` count of days Article 50(1) has been binding, and the blue `#22407c` count of
+     days remaining until 2 Dec 2026. Footer strip on `#f4f2ec`: mono 11px "Art. 99(4): up to EUR15m or 3% turnover".
+     **Both numbers are computed at runtime from the real current date** — never hard-code them, and never
+     render a placeholder dash on first paint.
+
+4. **Scanner band** (`id="scan"`, background `#eae7de`). Grid `minmax(0,1fr) minmax(340px,0.78fr)`.
+   - Left: mono eyebrow "STEP ONE · FREE SCANNER"; H2 "Check a page in about four seconds."; explainer
+     paragraph; then the form — one Plex Mono 15px text input (1px ink border, `#fffdf7` fill, placeholder
+     `yourshop.eu/contact`, visually hidden `<label>` for a11y) and a solid ink submit button whose text
+     changes between "Scan free" / "Scanning…" / "Scan again". Below it, the 13px note about 69% of widgets
+     living on contact pages. Under a hairline rule, a "WHAT IT CANNOT SEE" block with the honest
+     limitations copy.
+   - Right: a **live scan-output panel**, same hard-bordered treatment, `min-height: 298px`, flex column.
+     Header row: "SCAN OUTPUT" left, live phase word ("idle" / "running" / "complete") right. Then three
+     check rows separated by dashed rules — "Vendor fingerprint (36 known)", "Disclosure wording · 10
+     languages", "IPTC / C2PA media marking" — each with a right-aligned mono status that steps through
+     `—` -> `queued` -> `reading…` -> a result as the real scan progresses. While idle, a bottom strip on
+     `#f4f2ec` explains that results stay on the device. When a scan completes, replace it with a result
+     block: amber `#f7efe0` summary row (big mono count of issues + "checks require action"), then one line
+     per finding prefixed by a mono `50(1)` / `50(2)` tag, then a full-width `#22407c` link "See how to fix
+     both ->" pointing at `#pack`. Wire this panel to the **real** scanner output; keep the existing
+     in-browser fetch and fingerprint logic untouched and never invent findings.
+
+5. **Statistics row** on the paper background: four cells in one row, divided by 1px vertical rules
+   (`border-left: 1px solid #dcd8ce`), each a Plex Mono 32px figure over 13.5px muted caption —
+   97% / 0.4% / 703 / 36. Not cards. No boxes.
+
+6. **The rules** (`id="rules"`): H2 "Two duties. Know which one you are failing." Then a two-cell grid built
+   as `gap: 1px; background: #cfccc2` with `#fffdf7` cells, so the divider is a single hairline.
+   Each cell: a mono article chip in a 1px ink box ("ART. 50(1)" / "ART. 50(2)"), then a status chip —
+   amber-on-`#f7efe0` "IN FORCE" and blue-on-`#e8ecf6` "DUE 2 DEC 2026"; serif 21px title; 15px body.
+   Each cell ends in a dashed-border `#f9f7f0` utility box: on the left, the ready-made disclosure sentence
+   in Plex Mono with a **copy-to-clipboard button** that flips its label to "Copied" for ~1.8s; on the right,
+   a description of the labelling tool with an outlined link to `/label/`.
+
+7. **Timeline** (`id="timeline"`): grid `minmax(0,0.9fr) minmax(0,1.4fr)`. Left holds the H2 "What actually
+   changed, and when" plus a short standfirst about the Digital Omnibus. Right is a changelog-style list of
+   three rows, each `grid-template-columns: 112px 1fr` with a 1px top rule: mono date (2 Aug 2026 / 2 Dec 2026 /
+   2 Dec 2027), a mono uppercase status underneath it in amber "NOW" / blue "N DAYS" (live count) / grey
+   "DEFERRED", and a 15px paragraph. The third row's punchline sentence "Article 50 transparency was not
+   among them." is bolded.
+
+8. **Scope row**: three equal text columns, no boxes, no borders. Each has a mono eyebrow
+   ("WHO IT BINDS" / "WHERE IT REACHES" / "WHAT IT COSTS"), a serif 18px title, and a 14.5px paragraph.
+
+9. **Compliance Pack** (`id="pack"`, band background `#eae7de`).
+   - Left column: mono eyebrow "STEP TWO · AFTER THE SCAN"; H2 "Fix it in an afternoon, not a quarter.";
+     two 16px paragraphs; then the not-legal-advice disclaimer set in 13.5px muted text behind a
+     `border-left: 2px solid #b6b2a6` with 16px padding — visible, not hidden in the footer.
+   - Right column: an **order-form panel** (1px ink border, `#fffdf7`). Header row: mono "ARTICLE 50" over
+     serif 22px "Compliance Pack" on the left, Plex Mono 30px price with mono "ONE-OFF" beneath on the right.
+     Then the seven deliverables as a `list-style: none` ordered list, each row a grid of a mono `01`-`07`
+     number and 14px text, separated by dashed rules. Footer: full-width solid ink CTA "Get the Compliance
+     Pack", and a 12.5px centred line "Instant download · no subscription · scan first, it prefills the pack".
+
+10. **FAQ** (`id="faq"`): grid `minmax(0,0.62fr) minmax(0,1.38fr)`; H2 "Questions people actually ask" on the
+    left, accordion on the right. Each item is a real `<button>` spanning the full width with
+    `aria-expanded`, 16.5px medium label left and a mono `+` / `-` right, 20px vertical padding, 1px top rule.
+    Single-open behaviour (opening one closes the others); the first item is open on load. Answers are 15px,
+    max 64ch. Must be keyboard operable and screen-reader correct.
+
+11. **Closing CTA**: one hard-bordered `#fffdf7` panel, serif 26px "Start with the scan. It takes four
+    seconds.", a live line "Day N of Article 50(1). M days until the marking duty.", and two right-aligned
+    buttons — blue "Scan a page", outlined "Label an image".
+
+12. **Footer** on `#e7e3d9`, 1px top border: four columns — the wordmark block with the not-a-law-firm
+    disclaimer and the `info@clearlabel.eu` mailto, then Tools, Data, Primary sources link lists under mono
+    uppercase headings. Links 13.5px, `#3d3a33`, undecorated until hover.
+
+## Behaviour and accessibility requirements
+
+- Define `a` and `a:hover` colours explicitly (`#22407c` -> `#1b1a16`); never leave browser-default blue.
+- Visible focus ring everywhere: `:focus-visible { outline: 2px solid #22407c; outline-offset: 2px }`.
+- Body text contrast must clear WCAG AA against the paper background; do not lighten the muted greys further.
+- Every interactive element is a real `<button>` or `<a>` — no clickable `<div>`s.
+- The countdowns must never render as `0`, `NaN`, or a dash on first paint; compute them synchronously.
+- Keep it dependency-free: no CSS framework, no icon library, no animation library. Plain CSS is fine —
+  a single stylesheet is preferable to utility classes.
+- No layout shift when the accordion opens or the scan panel changes state; reserve the panel's height.
+- Respect `prefers-reduced-motion`: the only motion in the design is smooth anchor scrolling and the
+  scan-status text updates, so disable smooth scrolling when it is set.
+
+Deliver the complete rebuilt page as production-ready HTML + CSS (plus the minimal vanilla JS for the
+countdowns, the scan-status panel, the accordion, and the copy button), preserving the existing scanner
+implementation and all current URLs. State any assumption you had to make in a short list at the end
+instead of inventing content.
+
+## Integration contract (important)
+
+The existing scanner is an ES module at `./app.js` which imports `scanHtml` and `assess` from
+`./scanner/core.mjs`, fetches the target page through a CORS reader chain, and returns an object shaped:
+`{ url, vendors:[{id,name,aiNature,aiProduct,vendorDocs,disclosureHook,foundOn}], disclosures:[{lang,phrases,context}],
+contentSignals:[...], pagesRead:[...], overall:'action-required'|'check-required'|'likely-ok'|'no-signal',
+findings:[{article:'50(1)'|'50(2)', status, confidence, title, detail}] }`.
+Do NOT reimplement fetching or fingerprinting. Emit the markup with stable ids/data attributes and a
+documented set of hook points (e.g. `#scan-form`, `#scan-url`, `#scan-submit`, `#scan-phase`,
+`#check-vendor`, `#check-disclosure`, `#check-marking`, `#scan-result`) that existing JS can drive.
+Output the HTML file first, then the CSS, then the JS, each in its own fenced code block.
