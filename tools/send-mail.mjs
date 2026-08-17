@@ -19,6 +19,7 @@
 import { readFile, appendFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+import { loadSuppression, domainOf } from './suppression.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const FROM = 'ClearLabel <info@clearlabel.eu>';
@@ -112,6 +113,7 @@ const main = async () => {
   const live = args.includes('--send');
   const force = args.includes('--force');
   const sent = await loadLedger();
+  const suppressed = await loadSuppression();
   const lines = (await readFile(args[batchIx + 1], 'utf8')).split('\n').filter(Boolean);
 
   const drafts = lines
@@ -126,7 +128,13 @@ const main = async () => {
   console.log(`${drafts.length} sendable drafts${live ? '' : ' (DRY RUN — pass --send to actually send)'}`);
   let sentCount = 0;
   let skippedCount = 0;
+  let suppressedCount = 0;
   for (const draft of drafts) {
+    if (suppressed.has(String(draft.id).trim().toLowerCase()) || suppressed.has(domainOf(draft.to))) {
+      suppressedCount += 1;
+      console.log(`skip (suppressed): ${draft.id}`);
+      continue;
+    }
     if (!force && sent.has(draft.id)) {
       skippedCount += 1;
       console.log(`skip (already sent ${ledgerDate(sent.get(draft.id))}): ${draft.id}`);
@@ -147,8 +155,8 @@ const main = async () => {
     await new Promise((resolve) => setTimeout(resolve, PAUSE_MS));
   }
   console.log(live
-    ? `done: ${sentCount} sent, ${skippedCount} skipped`
-    : `dry run: ${sentCount} would send, ${skippedCount} would skip`);
+    ? `done: ${sentCount} sent, ${skippedCount} skipped, ${suppressedCount} suppressed`
+    : `dry run: ${sentCount} would send, ${skippedCount} would skip, ${suppressedCount} suppressed`);
 };
 
 main().catch((err) => { console.error('fatal:', err.message); process.exit(1); });

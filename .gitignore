@@ -10,3 +10,5 @@ study/outreach-batch.jsonl
 study/outreach-drafts.jsonl
 study/sent-*.jsonl
 study/sent-log.jsonl
+study/suppression.jsonl
+study/replies-log.jsonl

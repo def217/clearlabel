@@ -1,0 +1,10 @@
+{
+  "name": "clearlabel",
+  "private": true,
+  "type": "module",
+  "version": "0.0.0",
+  "dependencies": {
+    "imapflow": "^1.7.1",
+    "mailparser": "^3.9.15"
+  }
+}
