@@ -49,6 +49,8 @@ export const detectVendors = (html, vendorDb) =>
         aiProduct: vendor.aiProduct ?? null,
         vendorDocs: vendor.vendorDocs,
         disclosureHook: vendor.disclosureHook,
+        consolePath: vendor.consolePath ?? null,
+        note: vendor.note ?? null,
         matchedOn: hit.source,
       },
     ];
@@ -97,7 +99,7 @@ const article50one = (nature, hasDisclosure) => {
       confidence: CONFIDENCE.HIGH,
       title: 'AI agent detected, no AI disclosure wording found on the page',
       detail:
-        'An LLM-based assistant is embedded and no AI-disclosure phrase was found in visible page copy in any of the 10 languages checked. Article 50(1) requires the person to be told they are interacting with an AI system, clearly and at the latest at first interaction.',
+        'An LLM-based assistant is embedded and no AI-disclosure phrase was found in visible page copy in any of the 12 languages checked. Article 50(1) requires the person to be told they are interacting with an AI system, clearly and at the latest at first interaction.',
     };
   }
   if (nature === 'ai-optional' && !hasDisclosure) {

@@ -12,6 +12,12 @@ const DISCLOSURE = {
   es: 'Estás hablando con un asistente de IA. Puede cometer errores — pide hablar con una persona cuando quieras.',
   it: 'Stai parlando con un assistente IA. Può commettere errori — puoi chiedere un operatore umano in qualsiasi momento.',
   nl: 'Je chat met een AI-assistent. Deze kan fouten maken — vraag altijd om een medewerker.',
+  pl: 'Rozmawiasz z asystentem AI (sztuczna inteligencja). Może on popełniać błędy — w każdej chwili możesz poprosić o rozmowę z człowiekiem.',
+  pt: 'Está a falar com um assistente de IA. Ele pode cometer erros — peça para falar com uma pessoa a qualquer momento.',
+  sv: 'Du chattar med en AI-assistent. Den kan göra misstag — be när som helst om att få prata med en människa.',
+  da: 'Du chatter med en AI-assistent. Den kan begå fejl — bed når som helst om at tale med et menneske.',
+  fi: 'Keskustelet tekoälyavustajan kanssa. Se voi tehdä virheitä — voit milloin tahansa pyytää keskustelua ihmisen kanssa.',
+  lt: 'Jūs kalbatės su dirbtinio intelekto asistentu. Jis gali klysti — bet kada galite paprašyti, kad atsakytų žmogus.',
 };
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
@@ -55,7 +61,7 @@ const page = (v, all) => {
     })),
   };
   const title = `${v.name} and EU AI Act Article 50 — what you must disclose`;
-  const desc = `${a.verdict} Where to put the AI disclosure in ${v.name}, in six languages, and the deadlines that actually apply after the Digital Omnibus.`;
+  const desc = `${a.verdict} Where to put the AI disclosure in ${v.name}, in twelve languages, and the deadlines that actually apply after the Digital Omnibus.`;
 
   return `<!doctype html>
 <html lang="en">
@@ -192,6 +198,9 @@ const main = async () => {
     { loc: `${BASE}/vendors/`, pri: '0.9' },
     { loc: `${BASE}/study/`, pri: '0.9' },
     { loc: `${BASE}/label/`, pri: '0.9' },
+    { loc: `${BASE}/guides/chatbot-disclosure/`, pri: '0.8' },
+    { loc: `${BASE}/guides/december-2026-deadline/`, pri: '0.8' },
+    { loc: `${BASE}/ai-transparency/`, pri: '0.6' },
     ...db.vendors.map((v) => ({ loc: `${BASE}/vendors/${v.id}.html`, pri: '0.8' })),
   ];
   await writeFile(

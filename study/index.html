@@ -167,7 +167,7 @@ blockquote.cite{border-left:2px solid var(--edge);margin:0;padding:10px 0 10px 1
     <ul class="method">
       <li><strong>Sampling frame.</strong> The Tranco top-1M list, filtered to 26 EU ccTLDs, taking the highest-ranked domains per country up to a per-country quota. 703 domains in total. Tranco was chosen because it is a published, reproducible ranking rather than a hand-picked list.</li>
       <li><strong>Collection.</strong> 16 August 2026. Each domain's homepage was fetched; where no vendor was found, up to three country-appropriate contact/help paths were tried (<code>/kontakt</code>, <code>/contacto</code>, <code>/contatti</code> and so on).</li>
-      <li><strong>Detection.</strong> Regex fingerprints for 36 conversational-AI vendors against page source, plus AI-disclosure phrase matching in 10 EU languages, plus C2PA and IPTC marking signals. The scanner is <a href="https://github.com/def217/clearlabel">open source</a>; the vendor dataset is CC-BY-4.0.</li>
+      <li><strong>Detection.</strong> Regex fingerprints for 36 conversational-AI vendors against page source, plus AI-disclosure phrase matching in 12 EU languages, plus C2PA and IPTC marking signals. The scanner is <a href="https://github.com/def217/clearlabel">open source</a>; the vendor dataset is CC-BY-4.0.</li>
       <li><strong>Coverage.</strong> 532 of 703 domains (76%) returned readable HTML. The rest were bot-protected (HTTP 403), did not resolve, or refused connections.</li>
     </ul>
 
@@ -190,7 +190,7 @@ blockquote.cite{border-left:2px solid var(--edge);margin:0;padding:10px 0 10px 1
   <div class="wrap">
     <div class="offer">
       <h3 style="margin-top:0">Check your own site against the same scanner</h3>
-      <p>Same detection engine, same 36 vendors, same 10 languages. Free, no signup, runs in your browser.</p>
+      <p>Same detection engine, same 36 vendors, same 12 languages. Free, no signup, runs in your browser.</p>
       <a class="btn" href="../#scan" style="display:inline-block;text-decoration:none">Scan your site</a>
     </div>
   </div>

@@ -178,6 +178,7 @@
       "id": "jivochat",
       "name": "JivoChat",
       "aiNature": "ai-optional",
+      "aiProduct": "JivoChat AI Agent",
       "patterns": [
         "code\\.jivosite\\.com",
         "jivo_api",
@@ -185,8 +186,8 @@
       ],
       "vendorDocs": "https://www.jivochat.com/help/",
       "disclosureHook": "Agent display name",
-      "consolePath": "Settings → Channels → Chat on site → agent name and greeting.",
-      "note": "Check whether the AI agent add-on is active on your plan."
+      "consolePath": "Settings → Channels → Chat on site → agent name and greeting. AI bot replies: see \"Setting up an AI bot\" in JivoChat help.",
+      "note": "JivoChat sells an AI Agent for automatic replies and an AI Copilot for staff. Only the customer-facing AI Agent triggers Article 50(1) — check whether it is active on your plan."
     },
     {
       "id": "gorgias",
@@ -587,6 +588,16 @@
       "kunstig intelligens",
       "virtuel assistent",
       "chatbot"
+    ],
+    "fi": [
+      "tekoälyavustaja",
+      "tekoäly",
+      "virtuaalinen avustaja"
+    ],
+    "lt": [
+      "dirbtinio intelekto",
+      "dirbtinis intelektas",
+      "virtualus asistentas"
     ]
   },
   "contentGenSignals": [
