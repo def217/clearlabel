@@ -62,6 +62,7 @@ const CLARITY = `<script type="text/javascript">
         t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
         y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", "y4cqleaxfo");
+    window.clarity('consentv2',{ad_Storage:'denied',analytics_Storage:'denied'});
 </script>`;
 
 const CHROME_FOOTER = `<footer class="site-footer">
@@ -103,7 +104,7 @@ const CHROME_FOOTER = `<footer class="site-footer">
         <li><a href="https://artificialintelligenceact.eu/article/99/" rel="noopener">Article 99 penalties</a></li>
       </ul>
     </div>
-    <p class="footer-legal">Vendor fingerprint data is open source under CC-BY-4.0. Questions or corrections: <a href="mailto:info@clearlabel.eu">info@clearlabel.eu</a></p>
+    <p class="footer-legal">Vendor fingerprint data is open source under CC-BY-4.0. Questions or corrections: <a href="mailto:info@clearlabel.eu">info@clearlabel.eu</a> &middot; <a href="/privacy/">Privacy</a> &middot; <a href="/terms/">Terms</a></p>
   </div>
 </footer>`;
 
