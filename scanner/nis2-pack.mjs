@@ -122,7 +122,9 @@ ${ctx.reasons.map((r) => `- ${r}`).join('\n')}
 
 ## What now applies
 
-${ctx.obligations.length ? ctx.obligations.map((o) => `- ${o}`).join('\n') : '- Classification is unresolved (edge). Verify the final tier first; the obligations then follow from that tier.'}
+${ctx.obligations.length ? ctx.obligations.map((o) => `- ${o}`).join('\n') : ctx.status === 'edge'
+    ? '- Classification is unresolved (edge). Verify the final tier first; the obligations then follow from that tier.'
+    : `- The Article 21 risk-management measures, the Article 23 reporting chain, Article 3(4) registration and Article 20 management duties — files 01-04 walk through each. (Status: ${ctx.status} entity.)`}
 
 ## The five steps to use this pack
 
