@@ -225,3 +225,14 @@ code{font-family:var(--mono);font-size:.92em}
   .order-header{flex-direction:column;align-items:flex-start}
   .order-price-block{text-align:left}
 }
+
+/* Secondary offers under the pack CTA */
+.order-offers-kicker{margin:18px 0 8px;font-family:var(--mono,ui-monospace,Menlo,monospace);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center}
+.order-offers{display:flex;flex-direction:column;gap:8px}
+.order-offer{display:flex;align-items:center;justify-content:space-between;gap:14px;border:1px solid var(--hairline);padding:11px 14px;text-decoration:none;color:inherit;background:transparent;transition:border-color .15s ease,background .15s ease}
+.order-offer:hover{border-color:var(--ink);background:var(--paper,rgba(0,0,0,.02))}
+.order-offer-body{display:flex;flex-direction:column;gap:2px;min-width:0}
+.order-offer-title{font-weight:600;color:var(--ink);font-size:14.5px}
+.order-offer-sub{font-size:12.5px;color:var(--muted)}
+.order-offer-price{font-family:var(--mono,ui-monospace,Menlo,monospace);font-size:13.5px;font-weight:600;color:var(--ink);white-space:nowrap}
+.order-offer-free{border:1px solid var(--hairline);padding:2px 8px;border-radius:2px}
