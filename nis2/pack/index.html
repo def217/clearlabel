@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NIS2 Starter Pack — generate your documents</title>
+<meta name="description" content="Generate your NIS2 Starter Pack: a risk-management checklist, incident-reporting runbook, registration sheet, management one-pager and a dated evidence record — six ready-to-fill documents built in your browser from your scope answers.">
+<link rel="canonical" href="https://clearlabel.eu/nis2/pack/">
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%2322407c'/%3E%3Cpath d='M18.6 12.4 12.4 18.6a1.6 1.6 0 0 1-2.3 0L4.5 13V4.5H13l5.6 5.6a1.6 1.6 0 0 1 0 2.3Z' fill='none' stroke='%23fff' stroke-width='1.7' stroke-linejoin='round'/%3E%3Ccircle cx='8.4' cy='8.4' r='1.15' fill='%23fff'/%3E%3C/svg%3E">
+<style>
+  /* /nis2/pack/ page-local styles — extends styles.css, does not redefine its tokens. */
+  [hidden]{display:none!important}
+  .quizform{display:flex;flex-direction:column;gap:22px;padding:4px 24px 22px}
+  .quizform fieldset{border:0;padding:0;margin:0}
+  .quizform legend{font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);padding:0;margin:0 0 8px}
+  .quizform label.qlabel{display:block;font-size:13.5px;color:var(--muted);font-weight:600;margin:0 0 6px}
+  .quizform select{width:100%;font-family:var(--sans);font-size:15px;padding:10px 12px;border:1px solid var(--ink);border-radius:2px;background:var(--page);color:var(--ink)}
+  .quizform input[type="text"]{width:100%;font-family:var(--mono);font-size:15px;padding:10px 12px;border:1px solid var(--ink);border-radius:2px;background:var(--page);color:var(--ink)}
+  .quizform input::placeholder{color:var(--muted);opacity:.75}
+  .opts{display:grid;gap:8px}
+  .opt{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--hairline);background:var(--panel);border-radius:2px;padding:10px 12px;font-size:14px;line-height:1.45;color:var(--body);cursor:pointer}
+  .opt:hover{border-color:var(--edge)}
+  .opt input{flex:0 0 auto;margin-top:3px;accent-color:var(--blue)}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap topbar">
+  <a class="brand" href="../../"><svg class="tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41 13.42 20.6a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82Z"/><circle cx="7" cy="7" r="1.4" fill="currentColor"/></svg>ClearLabel</a>
+  <nav class="topnav"><a href="../../#scan">Free scan</a><a href="../../study/">Study</a><a href="../../vendors/">Vendors</a><a href="../">NIS2 check</a><a href="../../#pack">Compliance Pack</a></nav>
+</div></header>
+
+<div class="wrap hero">
+  <p class="eyebrow">NIS2 · Directive (EU) 2022/2555 · €49 Starter Pack</p>
+  <h1>Build your NIS2 Starter Pack</h1>
+  <p class="lede">Answer the four scope questions, paste your licence key, download six ready-to-fill documents.</p>
+</div>
+
+<div class="wrap">
+  <div class="scanner">
+    <div class="scanner-head"><h2 style="font-size:1.25rem">Your pack</h2></div>
+    <form class="quizform" id="packform">
+      <fieldset>
+        <legend>Step 1 — Your sector</legend>
+        <label class="qlabel" for="sector">What does your company do?</label>
+        <select id="sector" aria-describedby="sector-hint"></select>
+        <p class="hint" id="sector-hint">Entity-type detail is abbreviated; always check the official Annex text.</p>
+        <div id="subsector-wrap" hidden>
+          <label class="qlabel" for="subsector" style="margin-top:12px">Subsector</label>
+          <select id="subsector"></select>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Step 2 — Your size</legend>
+        <div class="opts" id="size-bands" role="radiogroup" aria-label="Size band"></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Step 3 — Special categories</legend>
+        <p class="hint">Do any of these apply regardless of size?</p>
+        <div class="opts" id="captures"></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Step 4 — Your details</legend>
+        <label class="qlabel" for="norg">Organisation name (prints on every document) — optional</label>
+        <input id="norg" type="text" maxlength="120" placeholder="Acme Energy BV">
+        <label class="qlabel" for="nkey" style="margin-top:12px">Licence key</label>
+        <input id="nkey" type="text" placeholder="XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX" required>
+        <p class="hint">Client-side only: nothing you type here is uploaded or stored.</p>
+      </fieldset>
+
+      <button class="btn" id="build" type="submit" disabled>Build my pack</button>
+    </form>
+    <noscript><p class="hint" style="padding:0 24px 20px">This generator needs JavaScript — it runs entirely in your browser and uploads nothing.</p></noscript>
+    <div id="out" style="padding:0 22px 20px"></div>
+  </div>
+
+  <div class="offer" style="margin:26px 0 40px">
+    <h3 style="margin-top:0">What's inside</h3>
+    <p>Six ready-to-fill documents, built from your quiz answers and dated today.</p>
+    <ul>
+      <li><strong>START-HERE guide</strong> — your verdict, the reasons behind it, and the five steps to work the pack.</li>
+      <li><strong>Risk-management checklist</strong> — all ten Article 21(2) measures with Status and Evidence columns.</li>
+      <li><strong>Incident-reporting runbook</strong> — the 24 h &rarr; 72 h &rarr; one-month reporting chain, with who reports.</li>
+      <li><strong>Registration sheet</strong> — the Article 3(4) details your competent authority asks for.</li>
+      <li><strong>Management one-pager</strong> — the Article 20 duties and a board-resolution template.</li>
+      <li><strong>Evidence record</strong> — a dated, signable record of what you assessed and your fines exposure.</li>
+    </ul>
+
+    <h3 style="margin-top:22px">Want to see it first?</h3>
+    <p>Build a complete sample pack from a fixed demo answer set — all six documents, exactly what a buyer receives. Free, no key needed.</p>
+    <button class="btn ghost" id="sample" type="button">Download a sample pack (.zip)</button>
+    <p class="order-alt" style="margin:14px 0 0">NIS2 Starter Pack: <a href="https://clearlabel.gumroad.com/l/nis2-starter-pack">buy a licence — €49</a> · Not sure you are in scope? <a href="../">Run the free NIS2 check first</a></p>
+  </div>
+</div>
+
+<footer><div class="wrap">
+  <p><strong>ClearLabel</strong> — EU AI Act Article 50 transparency checks and NIS2 scope guidance. Information and document drafts only. Not legal advice, not a law firm.<br>Questions or corrections: <a href="mailto:info@clearlabel.eu">info@clearlabel.eu</a></p>
+  <p><a href="https://github.com/def217/clearlabel">Source</a> · <a href="../../study/">883-site study</a> · <a href="https://eur-lex.europa.eu/eli/dir/2022/2555/oj">Directive (EU) 2022/2555</a></p>
+</div></footer>
+<script type="module" src="./nis2-pack-app.js"></script>
+<!-- Cloudflare Web Analytics: cookieless, no fingerprinting, no cross-site tracking -->
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "621bef7b2c064047a614e54e630b07c8"}'></script>
+</body></html>
