@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>NIS2 Starter Pack — generate your documents</title>
-<meta name="description" content="Generate your NIS2 Starter Pack: a risk-management checklist, incident-reporting runbook, registration sheet, management one-pager and a dated evidence record — six ready-to-fill documents built in your browser from your scope answers.">
+<title>NIS2 Starter Pack: generate your documents</title>
+<meta name="description" content="Generate your NIS2 Starter Pack: a risk-management checklist, incident-reporting runbook, registration sheet, management one-pager and a dated evidence record. Six ready-to-fill documents built in your browser from your scope answers.">
 <link rel="canonical" href="https://clearlabel.eu/nis2/pack/">
 <meta name="robots" content="noindex">
 <link rel="stylesheet" href="../../styles.css">
@@ -42,7 +42,7 @@
     <div class="scanner-head"><h2 style="font-size:1.25rem">Your pack</h2></div>
     <form class="quizform" id="packform">
       <fieldset>
-        <legend>Step 1 — Your sector</legend>
+        <legend>Step 1: Your sector</legend>
         <label class="qlabel" for="sector">What does your company do?</label>
         <select id="sector" aria-describedby="sector-hint"></select>
         <p class="hint" id="sector-hint">Entity-type detail is abbreviated; always check the official Annex text.</p>
@@ -53,19 +53,19 @@
       </fieldset>
 
       <fieldset>
-        <legend>Step 2 — Your size</legend>
+        <legend>Step 2: Your size</legend>
         <div class="opts" id="size-bands" role="radiogroup" aria-label="Size band"></div>
       </fieldset>
 
       <fieldset>
-        <legend>Step 3 — Special categories</legend>
+        <legend>Step 3: Special categories</legend>
         <p class="hint">Do any of these apply regardless of size?</p>
         <div class="opts" id="captures"></div>
       </fieldset>
 
       <fieldset>
-        <legend>Step 4 — Your details</legend>
-        <label class="qlabel" for="norg">Organisation name (prints on every document) — optional</label>
+        <legend>Step 4: Your details</legend>
+        <label class="qlabel" for="norg">Organisation name (optional, prints on every document)</label>
         <input id="norg" type="text" maxlength="120" placeholder="Acme Energy BV">
         <label class="qlabel" for="nkey" style="margin-top:12px">Licence key</label>
         <input id="nkey" type="text" placeholder="XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX" required>
@@ -74,7 +74,7 @@
 
       <button class="btn" id="build" type="submit" disabled>Build my pack</button>
     </form>
-    <noscript><p class="hint" style="padding:0 24px 20px">This generator needs JavaScript — it runs entirely in your browser and uploads nothing.</p></noscript>
+    <noscript><p class="hint" style="padding:0 24px 20px">This generator needs JavaScript. It runs entirely in your browser and uploads nothing.</p></noscript>
     <div id="out" style="padding:0 22px 20px"></div>
   </div>
 
@@ -82,23 +82,23 @@
     <h3 style="margin-top:0">What's inside</h3>
     <p>Six ready-to-fill documents, built from your quiz answers and dated today.</p>
     <ul>
-      <li><strong>START-HERE guide</strong> — your verdict, the reasons behind it, and the five steps to work the pack.</li>
-      <li><strong>Risk-management checklist</strong> — all ten Article 21(2) measures with Status and Evidence columns.</li>
-      <li><strong>Incident-reporting runbook</strong> — the 24 h &rarr; 72 h &rarr; one-month reporting chain, with who reports.</li>
-      <li><strong>Registration sheet</strong> — the Article 3(4) details your competent authority asks for.</li>
-      <li><strong>Management one-pager</strong> — the Article 20 duties and a board-resolution template.</li>
-      <li><strong>Evidence record</strong> — a dated, signable record of what you assessed and your fines exposure.</li>
+      <li><strong>START-HERE guide</strong>: your verdict, the reasons behind it, and the five steps to work the pack.</li>
+      <li><strong>Risk-management checklist</strong>: all ten Article 21(2) measures with Status and Evidence columns.</li>
+      <li><strong>Incident-reporting runbook</strong>: the 24 h &rarr; 72 h &rarr; one-month reporting chain, with who reports.</li>
+      <li><strong>Registration sheet</strong>: the Article 3(4) details your competent authority asks for.</li>
+      <li><strong>Management one-pager</strong>: the Article 20 duties and a board-resolution template.</li>
+      <li><strong>Evidence record</strong>: a dated, signable record of what you assessed and your fines exposure.</li>
     </ul>
 
     <h3 style="margin-top:22px">Want to see it first?</h3>
-    <p>Build a complete sample pack from a fixed demo answer set — all six documents, exactly what a buyer receives. Free, no key needed.</p>
+    <p>Build a complete sample pack from a fixed demo answer set. It contains all six documents, exactly what a buyer receives. Free, no key needed.</p>
     <button class="btn ghost" id="sample" type="button">Download a sample pack (.zip)</button>
-    <p class="order-alt" style="margin:14px 0 0">NIS2 Starter Pack: <a href="https://clearlabel.gumroad.com/l/nis2-starter-pack">buy a licence — €49</a> · Not sure you are in scope? <a href="../">Run the free NIS2 check first</a></p>
+    <p class="order-alt" style="margin:14px 0 0">NIS2 Starter Pack: <a href="https://clearlabel.gumroad.com/l/nis2-starter-pack">buy a licence: €49</a> · Not sure you are in scope? <a href="../">Run the free NIS2 check first</a></p>
   </div>
 </div>
 
 <footer><div class="wrap">
-  <p><strong>ClearLabel</strong> — EU AI Act Article 50 transparency checks and NIS2 scope guidance. Information and document drafts only. Not legal advice, not a law firm.<br>Questions or corrections: <a href="mailto:info@clearlabel.eu">info@clearlabel.eu</a></p>
+  <p><strong>ClearLabel</strong>: EU AI Act Article 50 transparency checks and NIS2 scope guidance. Information and document drafts only. Not legal advice, not a law firm.<br>Questions or corrections: <a href="mailto:info@clearlabel.eu">info@clearlabel.eu</a></p>
   <p><a href="https://github.com/def217/clearlabel">Source</a> · <a href="../../study/">883-site study</a> · <a href="https://eur-lex.europa.eu/eli/dir/2022/2555/oj">Directive (EU) 2022/2555</a></p>
 </div></footer>
 <script type="module" src="./nis2-pack-app.js"></script>
