@@ -26,6 +26,11 @@ const host = (url) => {
   }
 };
 
+// Conservative: collapse line breaks to a single space (removing them outright
+// could join words), then trim, then cap at 120 characters.
+const cleanAgencyName = (raw) =>
+  String(raw ?? '').replace(/[\r\n]+/g, ' ').trim().slice(0, 120);
+
 const startHere = (ctx) => `# Article 50 Compliance Pack — ${ctx.site}
 
 Generated ${ctx.date} by ClearLabel.
@@ -218,8 +223,7 @@ ${DISCLAIMER}
 `;
 
 const evidence = (ctx) => `# 06 — Compliance evidence record
-
-_This is the document an authority asks for. Article 4 makes documentation the primary evidence that
+${ctx.agencyName ? `Prepared by ${ctx.agencyName} for ${ctx.host}\n\n` : '\n'}_This is the document an authority asks for. Article 4 makes documentation the primary evidence that
 you took the obligation seriously. Complete it, sign it, and keep it with your scan results._
 
 **Organisation:** [LEGAL ENTITY NAME]
@@ -266,15 +270,43 @@ Signed: ______________________  Date: ______________
 ${DISCLAIMER}
 `;
 
-export const buildPack = (scan, now = new Date()) => {
+const cover = (ctx) => {
+  const documents = [
+    { name: '00-START-HERE.md', what: 'what was found and the six steps' },
+    { name: '01-disclosure-wording.md', what: 'disclosure wording (Article 50(1))' },
+    { name: '02-where-to-paste-it.md', what: 'where to paste it, per vendor' },
+    { name: '03-ai-transparency-notice.md', what: 'AI Transparency Notice for /ai-transparency' },
+    { name: '04-ai-system-register.csv', what: 'AI system register (CSV)' },
+    { name: '05-synthetic-content-policy.md', what: 'synthetic-content labelling policy' },
+    { name: '06-compliance-evidence-record.md', what: 'compliance evidence record' },
+    { name: 'scan-result.json', what: 'raw scan result' },
+  ];
+  return `# Article 50 Compliance Pack
+
+**Prepared by:** ${ctx.agencyName}
+**Client site:** ${ctx.site}
+**Scan date:** ${ctx.date}
+
+## Documents in this pack
+
+${documents.map((d) => `- \`${d.name}\` — ${d.what}`).join('\n')}
+
+---
+${DISCLAIMER}
+`;
+};
+
+export const buildPack = (scan, now = new Date(), branding = {}) => {
+  const agencyName = cleanAgencyName(branding?.agencyName);
   const ctx = {
     site: scan.url,
     host: host(scan.url),
     date: now.toISOString().slice(0, 10),
     vendors: scan.vendors ?? [],
     disclosures: scan.disclosures ?? [],
+    agencyName,
   };
-  return [
+  const docs = [
     { name: '00-START-HERE.md', content: startHere(ctx) },
     { name: '01-disclosure-wording.md', content: wording(ctx) },
     { name: '02-where-to-paste-it.md', content: steps(ctx) },
@@ -284,4 +316,7 @@ export const buildPack = (scan, now = new Date()) => {
     { name: '06-compliance-evidence-record.md', content: evidence(ctx) },
     { name: 'scan-result.json', content: JSON.stringify(scan, null, 2) },
   ];
+  // Conservative: only add the cover when an agency name is actually present, so
+  // existing two-arg callers keep byte-identical output.
+  return agencyName ? [{ name: '00-cover.md', content: cover(ctx) }, ...docs] : docs;
 };

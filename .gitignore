@@ -12,3 +12,4 @@ study/sent-*.jsonl
 study/sent-log.jsonl
 study/suppression.jsonl
 study/replies-log.jsonl
+study/verified-addresses.jsonl

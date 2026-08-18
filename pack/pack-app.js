@@ -57,22 +57,31 @@ const download = (blob, filename) => {
 
 const verifyLicence = async (key) => {
   if (!GUMROAD_PRODUCT_ID) return { ok: false, reason: 'store-not-open' };
-  const body = new URLSearchParams({ product_id: GUMROAD_PRODUCT_ID, license_key: key.trim(), increment_uses_count: 'false' });
-  try {
+  const licenseKey = key.trim();
+  const verify = async (product) => {
+    const body = new URLSearchParams({ license_key: licenseKey, increment_uses_count: 'false', ...product });
     const res = await fetch('https://api.gumroad.com/v2/licenses/verify', { method: 'POST', body });
-    const json = await res.json();
-    return json.success ? { ok: true } : { ok: false, reason: 'invalid' };
+    return res.json();
+  };
+  try {
+    // Conservative: check the single-site product first, then fall back to the
+    // Agency Licence permalink. A network failure on the first call is reported
+    // as-is rather than masking it with a second call.
+    const single = await verify({ product_id: GUMROAD_PRODUCT_ID });
+    if (single.success) return { ok: true, tier: 'single' };
+    const agency = await verify({ product_permalink: 'agency-licence' });
+    return agency.success ? { ok: true, tier: 'agency' } : { ok: false, reason: 'invalid' };
   } catch (err) {
     return { ok: false, reason: `network: ${err.message}` };
   }
 };
 
-const deliver = async (url, filenameHint) => {
+const deliver = async (url, filenameHint, branding) => {
   const db = await (await fetch('../data/vendors.json')).json();
   const html = await readPage(url);
   if (!html) throw new Error('Could not read that page. Some sites block automated reads.');
   const scan = { url, scannedAt: new Date().toISOString(), ...scanHtml(html, db) };
-  const zip = makeZip(buildPack(scan));
+  const zip = makeZip(buildPack(scan, new Date(), branding));
   download(zip, `clearlabel-article50-pack-${filenameHint}.zip`);
   return scan;
 };
@@ -95,8 +104,13 @@ $('#packform').addEventListener('submit', async (e) => {
       );
       return;
     }
-    const scan = await deliver(url, new URL(url).hostname);
-    say(note('likely-ok', 'Pack downloaded', `Built from a live scan of <code>${esc(url)}</code>. ${scan.vendors.length} vendor(s) detected and pre-filled into your register and implementation steps.`));
+    const agencyName = $('#pagency').value.trim();
+    const branding = lic.tier === 'agency' ? { agencyName } : undefined;
+    const scan = await deliver(url, new URL(url).hostname, branding);
+    const ignored = lic.tier === 'single' && agencyName
+      ? ' Agency name ignored — white-label covers need the Agency Licence.'
+      : '';
+    say(note('likely-ok', 'Pack downloaded', `Built from a live scan of <code>${esc(url)}</code>. ${scan.vendors.length} vendor(s) detected and pre-filled into your register and implementation steps.${ignored}`));
   } catch (err) {
     say(note('check-required', 'Could not build the pack', esc(err.message)));
   } finally {
