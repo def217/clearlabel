@@ -1,0 +1,220 @@
+{
+  "source": "ops/nis2-legal-table.md (Directive (EU) 2022/2555, CELEX:32022L2555)",
+  "annexUrl": "https://eur-lex.europa.eu/eli/dir/2022/2555/oj",
+  "entityDetailNote": "Entity-type detail inside sectors is abbreviated; always link the official Annex text.",
+  "sectors": [
+    {
+      "id": "energy",
+      "annex": 1,
+      "name": "Energy",
+      "entityDetailAbbreviated": false,
+      "subsectors": [
+        { "id": "electricity", "name": "Electricity", "examples": "DSOs, TSOs, producers, market operators…" },
+        { "id": "district-heating-cooling", "name": "District heating/cooling", "examples": "" },
+        { "id": "oil", "name": "Oil", "examples": "pipelines, refining, stockholding" },
+        { "id": "gas", "name": "Gas", "examples": "supply, DSO/TSO, storage, LNG" },
+        { "id": "hydrogen", "name": "Hydrogen", "examples": "" }
+      ]
+    },
+    {
+      "id": "transport",
+      "annex": 1,
+      "name": "Transport",
+      "entityDetailAbbreviated": true,
+      "subsectors": [
+        { "id": "air", "name": "Air", "examples": "carriers, ATC" },
+        { "id": "rail", "name": "Rail", "examples": "infrastructure managers, railway undertakings" },
+        { "id": "water", "name": "Water", "examples": "incl. VTS operators" },
+        { "id": "road", "name": "Road", "examples": "ITS operators" }
+      ]
+    },
+    {
+      "id": "banking",
+      "annex": 1,
+      "name": "Banking",
+      "entityDetailAbbreviated": false,
+      "subsectors": [
+        { "id": "credit-institutions", "name": "Credit institutions", "examples": "" }
+      ]
+    },
+    {
+      "id": "financial-market-infrastructures",
+      "annex": 1,
+      "name": "Financial market infrastructures",
+      "entityDetailAbbreviated": false,
+      "subsectors": [
+        { "id": "trading-venues", "name": "Trading venues", "examples": "" },
+        { "id": "ccps", "name": "CCPs", "examples": "" }
+      ]
+    },
+    {
+      "id": "health",
+      "annex": 1,
+      "name": "Health",
+      "entityDetailAbbreviated": false,
+      "subsectors": [
+        { "id": "healthcare-providers", "name": "Healthcare providers", "examples": "" },
+        { "id": "eu-reference-labs", "name": "EU reference labs", "examples": "" },
+        { "id": "medicinal-rd", "name": "Medicinal R&D", "examples": "" },
+        { "id": "pharma-manufacturing", "name": "Pharma manufacturing", "examples": "NACE C21" }
+      ]
+    },
+    {
+      "id": "drinking-water",
+      "annex": 1,
+      "name": "Drinking water",
+      "entityDetailAbbreviated": false,
+      "subsectors": [
+        { "id": "drinking-water", "name": "Drinking water", "examples": "" }
+      ]
+    },
+    {
+      "id": "waste-water",
+      "annex": 1,
+      "name": "Waste water",
+      "entityDetailAbbreviated": false,
+      "subsectors": [
+        { "id": "waste-water", "name": "Waste water", "examples": "" }
+      ]
+    },
+    {
+      "id": "digital-infrastructure",
+      "annex": 1,
+      "name": "Digital infrastructure",
+      "entityDetailAbbreviated": false,
+      "subsectors": [
+        { "id": "ixps", "name": "IXPs", "examples": "" },
+        { "id": "dns-providers", "name": "DNS providers (excl. root)", "examples": "" },
+        { "id": "tld-registries", "name": "TLD registries", "examples": "" },
+        { "id": "cloud-providers", "name": "Cloud providers", "examples": "" },
+        { "id": "data-centres", "name": "Data centres", "examples": "" },
+        { "id": "cdns", "name": "CDNs", "examples": "" },
+        { "id": "trust-service-providers", "name": "Trust service providers", "examples": "" },
+        { "id": "public-ecomms", "name": "Public e-comms networks/services", "examples": "" }
+      ]
+    },
+    {
+      "id": "ict-service-management",
+      "annex": 1,
+      "name": "ICT service management (B2B)",
+      "entityDetailAbbreviated": false,
+      "subsectors": [
+        { "id": "managed-service-providers", "name": "Managed service providers", "examples": "" },
+        { "id": "managed-security-service-providers", "name": "Managed security service providers", "examples": "" }
+      ]
+    },
+    {
+      "id": "public-administration",
+      "annex": 1,
+      "name": "Public administration",
+      "entityDetailAbbreviated": false,
+      "subsectors": [
+        { "id": "public-administration", "name": "Public administration", "examples": "central + regional" }
+      ]
+    },
+    {
+      "id": "space",
+      "annex": 1,
+      "name": "Space",
+      "entityDetailAbbreviated": false,
+      "subsectors": [
+        { "id": "space", "name": "Space", "examples": "" }
+      ]
+    },
+    {
+      "id": "postal-and-courier-services",
+      "annex": 2,
+      "name": "Postal and courier services",
+      "entityDetailAbbreviated": false,
+      "subsectors": [
+        { "id": "postal-and-courier-services", "name": "Postal and courier services", "examples": "" }
+      ]
+    },
+    {
+      "id": "waste-management",
+      "annex": 2,
+      "name": "Waste management",
+      "entityDetailAbbreviated": false,
+      "subsectors": [
+        { "id": "waste-management", "name": "Waste management", "examples": "principal-activity only" }
+      ]
+    },
+    {
+      "id": "chemicals",
+      "annex": 2,
+      "name": "Manufacture, production and distribution of chemicals",
+      "entityDetailAbbreviated": false,
+      "subsectors": [
+        { "id": "chemicals", "name": "Manufacture, production and distribution of chemicals", "examples": "" }
+      ]
+    },
+    {
+      "id": "food",
+      "annex": 2,
+      "name": "Food",
+      "entityDetailAbbreviated": false,
+      "subsectors": [
+        { "id": "food", "name": "Food", "examples": "wholesale distribution and industrial production/processing" }
+      ]
+    },
+    {
+      "id": "manufacturing",
+      "annex": 2,
+      "name": "Manufacturing",
+      "entityDetailAbbreviated": false,
+      "subsectors": [
+        { "id": "medical-devices-ivd", "name": "Medical devices & IVD", "examples": "" },
+        { "id": "computer-electronic-optical", "name": "Computer/electronic/optical", "examples": "NACE C26" },
+        { "id": "electrical-equipment", "name": "Electrical equipment", "examples": "C27" },
+        { "id": "machinery", "name": "Machinery n.e.c.", "examples": "C28" },
+        { "id": "motor-vehicles", "name": "Motor vehicles", "examples": "C29" },
+        { "id": "other-transport-equipment", "name": "Other transport equipment", "examples": "C30" }
+      ]
+    },
+    {
+      "id": "digital-providers",
+      "annex": 2,
+      "name": "Digital providers",
+      "entityDetailAbbreviated": false,
+      "subsectors": [
+        { "id": "online-marketplaces", "name": "Online marketplaces", "examples": "" },
+        { "id": "online-search-engines", "name": "Online search engines", "examples": "" },
+        { "id": "social-networking-platforms", "name": "Social networking platforms", "examples": "" }
+      ]
+    },
+    {
+      "id": "research",
+      "annex": 2,
+      "name": "Research",
+      "entityDetailAbbreviated": false,
+      "subsectors": [
+        { "id": "research-organisations", "name": "Research organisations", "examples": "research organisations" }
+      ]
+    }
+  ],
+  "sizeTest": {
+    "mediumOrLarger": "50+ staff, OR annual turnover > €10M AND balance-sheet total > €10M",
+    "largeCeiling": "250+ staff, or turnover > €50M and balance > €43M"
+  },
+  "sizeIndependentCaptures": [
+    { "id": "ecomms", "label": "Public electronic communications network/service provider" },
+    { "id": "trust", "label": "Trust service provider (essential status applies to QUALIFIED trust service providers — verify eIDAS qualification; non-qualified are in scope at any size)" },
+    { "id": "tld", "label": "TLD name registry" },
+    { "id": "dns", "label": "DNS service provider" },
+    { "id": "domainreg", "label": "Domain name registration service provider" },
+    { "id": "soleProvider", "label": "Sole provider in a Member State of an essential service" },
+    { "id": "publicAdmin", "label": "Central-government public administration entity (regional entities: in scope after a risk-based assessment, Art. 2(2)(f)(ii) — treat as 'verify')" },
+    { "id": "critical2557", "label": "Critical entity under Directive (EU) 2022/2557" }
+  ],
+  "reporting": {
+    "earlyWarningHours": 24,
+    "notificationHours": 72,
+    "finalReportAnchor": "one month after the incident notification",
+    "trustProviderNotificationHours": 24
+  },
+  "registration": "submit to the competent authorities: name; address and up-to-date contact details (email, IP ranges, phone); relevant sector/subsector per Annex; where applicable, list of Member States where they provide in-scope services (Art. 3(4))",
+  "fines": {
+    "essential": "up to at least €10,000,000 or 2% of total worldwide annual turnover, whichever is higher",
+    "important": "up to at least €7,000,000 or 1.4% of total worldwide annual turnover, whichever is higher"
+  }
+}
