@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Does NIS2 apply to my company? Free EU scope check</title>
+<meta name="description" content="Does NIS2 apply to your company? Free client-side scope quiz: check the Annex I and Annex II sector lists, the size thresholds, and the 24-hour/72-hour incident-reporting duties under Directive (EU) 2022/2555.">
+<link rel="canonical" href="https://clearlabel.eu/nis2/">
+<meta property="og:title" content="Does NIS2 apply to my company? Free EU scope check">
+<meta property="og:description" content="Free, client-side NIS2 scope quiz: the Annex I/II sector lists, the size thresholds, and the 24-hour/72-hour reporting duties — nothing is uploaded.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%2322407c'/%3E%3Cpath d='M18.6 12.4 12.4 18.6a1.6 1.6 0 0 1-2.3 0L4.5 13V4.5H13l5.6 5.6a1.6 1.6 0 0 1 0 2.3Z' fill='none' stroke='%23fff' stroke-width='1.7' stroke-linejoin='round'/%3E%3Ccircle cx='8.4' cy='8.4' r='1.15' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../styles.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Does NIS2 apply to my company? Free EU scope check","url":"https://clearlabel.eu/nis2/","description":"Free client-side NIS2 scope quiz: the Annex I and Annex II sector lists, the size thresholds, and the 24-hour/72-hour incident-reporting duties under Directive (EU) 2022/2555.","mainEntity":{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does NIS2 apply to SMEs?","acceptedAnswer":{"@type":"Answer","text":"Generally not at micro or small size. NIS2 applies to entities of a type in Annex I or II that reach the medium-enterprise floor — 50+ staff, or annual turnover over €10M and balance-sheet total over €10M. But certain categories are captured regardless of size: public electronic communications providers, trust service providers, TLD name registries, DNS providers, domain name registration services, sole providers of essential services, central-government public administration, and critical entities under Directive (EU) 2022/2557."}},{"@type":"Question","name":"What are the NIS2 reporting deadlines?","acceptedAnswer":{"@type":"Answer","text":"Early warning within 24 hours of becoming aware of a significant incident, incident notification within 72 hours, and a final report one month after the incident notification (Art. 23(4)). Trust service providers notify within 24 hours under the Art. 23(4) derogation."}},{"@type":"Question","name":"What is the difference between essential and important entities?","acceptedAnswer":{"@type":"Answer","text":"Essential entities — high-criticality Annex I types that exceed the medium-enterprise ceilings, plus certain size-independent categories — face fines up to at least €10,000,000 or 2% of total worldwide annual turnover, whichever is higher. Important entities — medium-sized Annex I entities and medium-or-larger Annex II entities — face fines up to at least €7,000,000 or 1.4% of total worldwide annual turnover, whichever is higher."}}]}}</script>
+<style>
+  /* /nis2/ page-local styles — extends styles.css, does not redefine its tokens. */
+  [hidden]{display:none!important}
+  .quizform{display:flex;flex-direction:column;gap:22px;padding:4px 24px 22px}
+  .quizform fieldset{border:0;padding:0;margin:0}
+  .quizform legend{font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);padding:0;margin:0 0 8px}
+  .quizform label.qlabel{display:block;font-size:13.5px;color:var(--muted);font-weight:600;margin:0 0 6px}
+  .quizform select{width:100%;font-family:var(--sans);font-size:15px;padding:10px 12px;border:1px solid var(--ink);border-radius:2px;background:var(--page);color:var(--ink)}
+  .opts{display:grid;gap:8px}
+  .opt{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--hairline);background:var(--panel);border-radius:2px;padding:10px 12px;font-size:14px;line-height:1.45;color:var(--body);cursor:pointer}
+  .opt:hover{border-color:var(--edge)}
+  .opt input{flex:0 0 auto;margin-top:3px;accent-color:var(--blue)}
+  .verdict ul{margin:8px 0 0;padding-left:18px;font-size:14.5px;line-height:1.6}
+  .verdict li{margin:4px 0}
+  .verdict h4{font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:12px 0 4px}
+  .verdict.v-essential{border-left-color:var(--red)} .verdict.v-essential .vi{color:var(--red)}
+  .verdict.v-important{border-left-color:var(--blue)} .verdict.v-important .vi{color:var(--blue)}
+  .verdict.v-likely-out{border-left-color:var(--green)} .verdict.v-likely-out .vi{color:var(--green)}
+  .verdict.v-edge{border-left-color:var(--amber)} .verdict.v-edge .vi{color:var(--amber)}
+  .owes-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 40px;margin-top:8px}
+  @media(max-width:640px){.owes-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap topbar">
+  <a class="brand" href="../"><svg class="tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41 13.42 20.6a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82Z"/><circle cx="7" cy="7" r="1.4" fill="currentColor"/></svg>ClearLabel</a>
+  <nav class="topnav"><a href="../#scan">Free scan</a><a href="../study/">Study</a><a href="../vendors/">Vendors</a><a href="../#pack">Compliance Pack</a></nav>
+</div></header>
+
+<div class="wrap hero">
+  <p class="eyebrow">NIS2 · Directive (EU) 2022/2555 · free scope check</p>
+  <h1>Does NIS2 apply to my company?</h1>
+  <p class="lede">NIS2 — <strong>Directive (EU) 2022/2555</strong> — is the EU's cybersecurity law for
+  &ldquo;essential&rdquo; and &ldquo;important&rdquo; entities in the Annex I and Annex II sector lists. This quiz is an
+  <strong>EU-level test only</strong>: national transposition can extend it. Answer three short questions and you get
+  a status, the reasons, and what you would owe. Read the <a href="https://eur-lex.europa.eu/eli/dir/2022/2555/oj">Directive</a>
+  and the <a href="https://digital-strategy.ec.europa.eu/en/news/commission-calls-23-member-states-fully-transpose-nis2-directive">Commission transposition news</a>
+  for the member-state picture.</p>
+</div>
+
+<div class="wrap">
+  <div class="scanner" id="quiz-panel">
+    <div class="scanner-head"><h2 style="font-size:1.25rem">Check your scope</h2></div>
+    <form class="quizform" id="quiz">
+      <fieldset>
+        <legend>Step 1 — Your sector</legend>
+        <label class="qlabel" for="sector">What does your company do?</label>
+        <select id="sector" aria-describedby="sector-hint"></select>
+        <p class="hint" id="sector-hint">Entity-type detail is abbreviated; always check the official Annex text.</p>
+        <div id="subsector-wrap" hidden>
+          <label class="qlabel" for="subsector" style="margin-top:12px">Subsector</label>
+          <select id="subsector"></select>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Step 2 — Your size</legend>
+        <div class="opts" id="size-bands" role="radiogroup" aria-label="Size band"></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Step 3 — Special categories</legend>
+        <p class="hint">Do any of these apply regardless of size?</p>
+        <div class="opts" id="captures"></div>
+      </fieldset>
+
+      <button class="btn" id="eval" type="submit" disabled>Check my scope</button>
+    </form>
+    <noscript><p class="hint" style="padding:0 24px 20px">This scope quiz needs JavaScript — it runs entirely in your browser and uploads nothing.</p></noscript>
+    <div id="out" style="padding:0 22px 20px"></div>
+  </div>
+</div>
+
+<div class="wrap" style="margin-top:48px">
+  <h2>What an in-scope company owes</h2>
+  <p class="lede" style="font-size:16px;margin-bottom:0">Four duties every essential or important entity carries once NIS2 applies.</p>
+  <div class="owes-grid">
+    <div class="card">
+      <p class="num">Article 21</p>
+      <h3>Risk-management measures</h3>
+      <p>Appropriate and proportionate technical, operational and organisational measures: risk analysis and
+      information-system security policy, incident handling, business continuity, supply-chain security,
+      vulnerability handling, cyber hygiene and training, cryptography, access control, and multi-factor
+      authentication &mdash; the Article 21(2) list.</p>
+    </div>
+    <div class="card">
+      <p class="num">Article 23(4)</p>
+      <h3>Incident reporting</h3>
+      <p>Early warning within <strong>24 hours</strong> of becoming aware of a significant incident; incident
+      notification within <strong>72 hours</strong>; final report <strong>one month after the incident
+      notification</strong>. Trust service providers notify within 24 hours.</p>
+    </div>
+    <div class="card">
+      <p class="num">Article 3(4)</p>
+      <h3>Registration</h3>
+      <p>Submit to the competent authorities: name; address and up-to-date contact details (email, IP ranges,
+      phone); relevant sector/subsector per Annex; where applicable, list of Member States where you provide
+      in-scope services.</p>
+    </div>
+    <div class="card">
+      <p class="num">Article 20</p>
+      <h3>Management accountability</h3>
+      <p>Management bodies approve the risk-management measures, oversee their implementation, can be held liable
+      for infringements of Article 21, and are required to follow cybersecurity training.</p>
+    </div>
+  </div>
+</div>
+
+<div class="wrap" style="margin:48px 0 64px">
+  <div class="offer">
+    <h3 style="margin-top:0">NIS2 Starter Pack &mdash; coming this week</h3>
+    <p>Starter pack (risk checklist, incident runbook, registration sheet): coming this week &mdash; email
+    <a href="mailto:info@clearlabel.eu">info@clearlabel.eu</a> to get it first.</p>
+    <p style="margin-bottom:0"><a href="../">Run an EU AI Act chat-widget check on your shop</a></p>
+  </div>
+</div>
+
+<footer><div class="wrap">
+  <p><strong>ClearLabel</strong> — EU AI Act Article 50 transparency checks and NIS2 scope guidance. Information and document drafts only. Not legal advice, not a law firm.<br>Questions or corrections: <a href="mailto:info@clearlabel.eu">info@clearlabel.eu</a></p>
+  <p><a href="https://github.com/def217/clearlabel">Source</a> · <a href="../study/">883-site study</a> · <a href="https://eur-lex.europa.eu/eli/dir/2022/2555/oj">Directive (EU) 2022/2555</a></p>
+</div></footer>
+<script type="module" src="./nis2-app.js"></script>
+</body></html>
