@@ -88,5 +88,5 @@
   .scanner-band .container{grid-template-columns:1fr;gap:32px}
   .scanner-band .scan-form-row{flex-direction:column}
   #scan-url{max-width:none}
-  #scan-submit{width:100%;justify-content:center}
+  #scan-submit{width:100%;justify-content:center;min-height:44px}
 }
