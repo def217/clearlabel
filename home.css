@@ -1,21 +1,11 @@
+@import url("./tokens.css");
+
 /* ClearLabel homepage — "regulatory document", not SaaS landing page.
    Hard rules this file obeys deliberately: no gradients, no shadows, no radius
    above 2px, two accents only (blue #22407c, amber #9a5b12), separation done
    with 1px hairlines and background tone shifts. Scanner styles: home-scan.css.
-   The older styles.css still serves /label/, /pack/, /study/ and /vendors/. */
-:root{
-  /* This design is deliberately light-only (paper). Declaring it stops browsers
-     on dark-mode devices from auto-darkening form controls against the paper. */
-  color-scheme: light;
-  --page:#f4f2ec; --band:#eae7de; --panel:#fffdf7; --footer:#e7e3d9; --ticker:#efece4;
-  --ink:#1b1a16; --body:#3d3a33; --muted:#5b5850; --muted-2:#6f6b60;
-  --hairline:#cfccc2; --hairline-dashed:#d9d5ca; --hairline-soft:#dcd8ce; --edge:#b6b2a6;
-  --blue:#22407c; --blue-deep:#1a3060; --blue-tint:#e8ecf6;
-  --amber:#9a5b12; --amber-tint:#f7efe0;
-  --serif:'IBM Plex Serif',Georgia,serif;
-  --sans:'IBM Plex Sans',system-ui,sans-serif;
-  --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
-}
+   The older styles.css still serves /label/, /pack/, /study/ and /vendors/.
+   Design tokens (color/type/spacing) live in tokens.css, shared with styles.css. */
 
 *{margin:0;padding:0;box-sizing:border-box;border-radius:0;box-shadow:none}
 html{scroll-behavior:smooth}
@@ -24,7 +14,6 @@ body{background:var(--page);color:var(--body);font-family:var(--sans);font-size:
 [id]{scroll-margin-top:58px}
 a{color:var(--blue);text-decoration:none}
 a:hover{color:var(--ink)}
-:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
 h1,h2,h3{font-family:var(--serif);font-weight:600;letter-spacing:-.015em;line-height:1.1;color:var(--ink)}
 h1{letter-spacing:-.02em}
 p{max-width:64ch}
@@ -224,6 +213,7 @@ code{font-family:var(--mono);font-size:.92em}
   .stat-cell:first-child{border-top:none}
   .order-header{flex-direction:column;align-items:flex-start}
   .order-price-block{text-align:left}
+  .btn{min-height:44px;padding:12px 18px}
 }
 
 /* Secondary offers under the pack CTA */

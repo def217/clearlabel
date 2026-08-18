@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The 2 December 2026 EU AI Act deadline: machine-readable AI marking</title>
-<meta name="description" content="On 2 December 2026 the transition for Article 50(2) ends: AI-generated content must be marked in a machine-readable format. Who the duty falls on, what IPTC and C2PA marking are, and what to do before the date — only 0.4% of 883 scanned EU sites carry any marking today.">
+<meta name="description" content="On 2 December 2026 the transition for Article 50(2) ends: AI-generated content must be marked in a machine-readable format. Who the duty falls on, what IPTC and C2PA marking are, and what to do before the date. Only 0.4% of 883 scanned EU sites carry any marking today.">
 <link rel="canonical" href="https://clearlabel.eu/guides/december-2026-deadline/">
 <meta property="og:title" content="The 2 December 2026 EU AI Act deadline, explained">
 <meta property="og:description" content="Article 50(2) machine-readable marking of AI content: transition ends 2 Dec 2026. 0.4% of scanned EU sites are ready.">
@@ -13,12 +13,13 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What happens on 2 December 2026 under the EU AI Act?","acceptedAnswer":{"@type":"Answer","text":"The transition period for Article 50(2) ends. Providers of AI systems that generate synthetic audio, image, video or text must ensure outputs are marked in a machine-readable format as artificially generated or manipulated. Systems already on the market before 2 August 2026 were given this transition under the Digital Omnibus; from 2 December 2026 the duty applies to them too."}},{"@type":"Question","name":"Does Article 50(2) apply to my website if I just publish AI images?","acceptedAnswer":{"@type":"Answer","text":"The 50(2) marking duty formally falls on the provider of the generative AI system. But deployers are not off the hook: Article 50(4) requires disclosure of deepfakes and of AI-generated text published to inform the public, and stripping provenance metadata from generated files during your publishing workflow is the main way otherwise-compliant content loses its marking. In a scan of 883 EU sites, only 0.4% carried any machine-readable AI marking."}},{"@type":"Question","name":"What counts as machine-readable marking?","acceptedAnswer":{"@type":"Answer","text":"The two established mechanisms are C2PA Content Credentials (cryptographic provenance manifests) and IPTC photo metadata using the digitalSourceType field, whose value trainedAlgorithmicMedia identifies AI-generated media. A visible caption alone is not machine-readable marking."}},{"@type":"Question","name":"How do I add machine-readable marking to an image?","acceptedAnswer":{"@type":"Answer","text":"Write IPTC digitalSourceType metadata into the file itself. ClearLabel's free labelling tool does this in the browser: drop a PNG or JPEG, and it writes trainedAlgorithmicMedia provenance into the file's XMP without uploading it anywhere."}}]}</script>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 <header class="top"><div class="wrap topbar">
   <a class="brand" href="../../"><svg class="tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41 13.42 20.6a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82Z"/><circle cx="7" cy="7" r="1.4" fill="currentColor"/></svg>ClearLabel</a>
   <nav class="topnav"><a href="../../#scan">Free scan</a><a href="../../study/">Study</a><a href="../../vendors/">Vendors</a><a href="../../#pack">Compliance Pack</a></nav>
 </div></header>
 
-<div class="wrap hero">
+<div class="wrap hero" id="main">
   <p class="eyebrow">Guide · Article 50(2) · transition ends 2 Dec 2026</p>
   <h1>The 2 December 2026 deadline, explained</h1>
   <p class="lede">On <strong>2 December 2026</strong> the transition period for Article 50(2) of the
@@ -33,20 +34,20 @@
   <p>Article 50(2) requires <strong>providers</strong> of AI systems that generate synthetic audio,
   image, video or text to ensure outputs are marked in a machine-readable format and detectable as
   artificially generated or manipulated. The marking must be effective, interoperable, robust and
-  reliable as far as technically feasible. Routine assistive edits — colour correction, standard
-  retouching — are carved out.</p>
+  reliable as far as technically feasible. Routine assistive edits (colour correction, standard
+  retouching) are carved out.</p>
   <p>Systems already on the market before 2 August 2026 got a transition under the Digital Omnibus.
   That transition is what ends on 2 December 2026. The high-risk obligations everyone talks about
-  were deferred to December 2027 — <strong>this was not</strong>.</p>
+  were deferred to December 2027. <strong>This was not</strong>.</p>
 
   <h2>"I'm not a provider, I just publish the content"</h2>
   <p>Three reasons this still lands on your desk:</p>
   <ol style="padding-left:20px;line-height:1.7">
     <li><strong>Article 50(4) is yours already.</strong> Deployers must disclose deepfakes, and
-    AI-generated text published to inform the public on matters of public interest — unless a named
+    AI-generated text published to inform the public on matters of public interest, unless a named
     person takes editorial responsibility for it.</li>
     <li><strong>Stripping metadata is the failure mode.</strong> Generators increasingly embed C2PA
-    or IPTC provenance. Image pipelines — compression, resizing, CMS uploads — routinely strip it.
+    or IPTC provenance. Image pipelines (compression, resizing, CMS uploads) routinely strip it.
     Content that left the model compliant arrives on your site unmarked.</li>
     <li><strong>Your suppliers' output is your surface.</strong> Agencies and freelancers deliver
     AI-generated assets without saying so. If it is published under your name, the questions come
@@ -56,13 +57,13 @@
   <h2>What counts as machine-readable</h2>
   <p>Two established mechanisms, both checkable by our <a href="../../#scan">scanner</a>:</p>
   <ul style="padding-left:20px;line-height:1.7">
-    <li><strong>C2PA Content Credentials</strong> — cryptographically signed provenance manifests
+    <li><strong>C2PA Content Credentials</strong>. Cryptographically signed provenance manifests
     embedded in the file, backed by Adobe, Microsoft, OpenAI and the BBC among others.</li>
-    <li><strong>IPTC <code>digitalSourceType</code></strong> — photo-metadata field whose value
+    <li><strong>IPTC <code>digitalSourceType</code></strong>. Photo-metadata field whose value
     <code>trainedAlgorithmicMedia</code> identifies AI-generated media, written into the file's
     XMP/IPTC block.</li>
   </ul>
-  <p>A visible "AI-generated" caption is good practice and helps with 50(4) — but on its own it is
+  <p>A visible "AI-generated" caption is good practice and helps with 50(4). But on its own it is
   not machine-readable marking.</p>
 
   <h2>What to do before the date</h2>
@@ -70,8 +71,8 @@
     <li><strong>Inventory.</strong> List where AI-generated media enters your publishing: product
     imagery, blog headers, social assets, supplier deliverables.</li>
     <li><strong>Mark what you publish.</strong> Our <a href="../../label/">free labelling tool</a>
-    writes IPTC <code>digitalSourceType</code> provenance into PNGs and JPEGs in your browser —
-    nothing is uploaded.</li>
+    writes IPTC <code>digitalSourceType</code> provenance into PNGs and JPEGs in your browser.
+    Nothing is uploaded.</li>
     <li><strong>Stop stripping.</strong> Check whether your CMS or image CDN preserves XMP/IPTC
     metadata on upload and resize; turn preservation on where it is optional.</li>
     <li><strong>Put it in writing.</strong> A one-page labelling policy plus supplier terms that
@@ -80,14 +81,14 @@
   </ol>
 
   <h2>Also on the clock</h2>
-  <p>The interaction-disclosure duty in Article 50(1) has applied since 2 August 2026 —
-  <a href="../chatbot-disclosure/">do you have to tell customers your chatbot is AI?</a> Our own
+  <p>The interaction-disclosure duty in Article 50(1) has applied since 2 August 2026.
+  <a href="../chatbot-disclosure/">Do you have to tell customers your chatbot is AI?</a> Our own
   notice is public at <a href="../../ai-transparency/">/ai-transparency</a>.</p>
 
 </div></div>
 
 <footer><div class="wrap">
-  <p><strong>ClearLabel</strong> — EU AI Act Article 50 transparency checks. Information and document drafts only. Not legal advice, not a law firm.<br>Questions or corrections: <a href="mailto:info@clearlabel.eu">info@clearlabel.eu</a></p>
+  <p><strong>ClearLabel</strong>. EU AI Act Article 50 transparency checks. Information and document drafts only. Not legal advice, not a law firm.<br>Questions or corrections: <a href="mailto:info@clearlabel.eu">info@clearlabel.eu</a></p>
   <p><a href="https://github.com/def217/clearlabel">Source</a> · <a href="../../study/">883-site study</a> · <a href="https://artificialintelligenceact.eu/article/50/">Article 50 text</a></p>
 </div></footer>
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "621bef7b2c064047a614e54e630b07c8"}'></script>

@@ -1,0 +1,69 @@
+/* tokens.css — single design-token source for home.css (homepage) and
+   styles.css (/study/, /label/, /pack/, /vendors/, /nis2/, /guides/).
+   Both files used to declare their own near-identical :root block; this
+   file is the union of the two, so every name either file ever defined is
+   still defined here. Zero renames anywhere — inline var() uses on
+   generated pages and page-local <style> blocks keep resolving unchanged. */
+:root{
+  /* Deliberately light-only (paper). Declaring color-scheme stops browsers
+     on dark-mode devices from auto-darkening form controls against the paper. */
+  color-scheme: light;
+
+  /* — surfaces — */
+  --page:#f4f2ec; --band:#eae7de; --panel:#fffdf7; --footer:#e7e3d9; --ticker:#efece4;
+
+  /* — text — */
+  --ink:#1b1a16; --body:#3d3a33; --muted:#5b5850;
+  --muted-2:#5e5a50; /* darkened from #6f6b60 (~4.75:1 on --page) to ~6.14:1 — comfortable AA margin, see report */
+
+  /* — hairlines / edges — */
+  --hairline:#cfccc2; --hairline-dashed:#d9d5ca; --hairline-soft:#dcd8ce; --edge:#b6b2a6;
+
+  /* — accents — */
+  --blue:#22407c; --blue-deep:#1a3060; --blue-tint:#e8ecf6;
+  --amber:#9a5b12; --amber-tint:#f7efe0;
+
+  /* — status colors (styles.css only; home.css has no alarm/ok states) — */
+  --red:#8f2d28; --red-tint:#f5e9e5;      /* restrained alarm red, tuned to sit on paper */
+  --green:#2f6b4f; --green-tint:#e9f1ec;  /* restrained ok green, tuned to sit on paper */
+
+  /* — fixes a pre-existing orphan: home.css's .order-offer:hover reads
+     var(--paper, rgba(0,0,0,.02)) but neither file ever defined --paper, so
+     it silently always fell back. Now first-class, same value = zero visual change. */
+  --paper: rgba(0,0,0,.02);
+
+  /* — legacy aliases: styles.css's pre-redesign names, kept so old inline
+     var() uses and page-local <style> blocks keep resolving. Never delete;
+     add new canonical names above instead. */
+  /* navy → blue (old brand name) */
+  --navy:var(--blue); --navy-deep:var(--blue-deep); --navy-ink:var(--ink);
+  /* gold → amber (old brand name) */
+  --gold:var(--amber); --gold-soft:var(--amber-tint);
+  /* bg/line → page/hairline/edge (old surface names) */
+  --bg:var(--page); --line:var(--hairline); --line-strong:var(--edge);
+  /* accent → blue (old generic-accent name) */
+  --accent:var(--blue); --accent-soft:var(--blue-tint);
+  /* grey-soft → band (old surface name) */
+  --grey-soft:var(--band);
+  /* the "-soft" suffix is the old spelling of today's "-tint" suffix */
+  --amber-soft:var(--amber-tint); --red-soft:var(--red-tint); --green-soft:var(--green-tint);
+
+  /* — type — */
+  --serif:'IBM Plex Serif',Georgia,serif;
+  --sans:'IBM Plex Sans',system-ui,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  /* display → serif (old heading-font alias) */
+  --display:var(--serif);
+
+  /* — spacing / misc (styles.css only; home.css hardcodes these inline) — */
+  --radius:2px; --wrap:1140px;
+  --s1:6px; --s2:12px; --s3:20px; --s4:32px; --s5:52px; --s6:84px;
+}
+
+/* Shared focus ring — was duplicated identically in home.css and styles.css. */
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+
+/* Skip link — hidden off-canvas until focused. Target markup (#main etc.)
+   added by the HTML pass; this file only supplies the visual behavior. */
+.skip-link{position:absolute;left:-9999px;top:0;background:var(--ink);color:#fff;padding:10px 16px;z-index:100;font-size:14px}
+.skip-link:focus{left:0}
