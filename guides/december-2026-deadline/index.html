@@ -8,6 +8,8 @@
 <link rel="canonical" href="https://clearlabel.eu/guides/december-2026-deadline/">
 <meta property="og:title" content="The 2 December 2026 EU AI Act deadline, explained">
 <meta property="og:description" content="Article 50(2) machine-readable marking of AI content: transition ends 2 Dec 2026. 0.4% of scanned EU sites are ready.">
+<link rel="stylesheet" href="/fonts-plex.css">
+<link rel="stylesheet" href="/site-chrome.css">
 <link rel="stylesheet" href="../../styles.css">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%2322407c'/%3E%3Cg fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 3h6l4 4v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7l4-4Z'/%3E%3Ccircle cx='12' cy='7.5' r='1.5'/%3E%3Cpath d='m8.75 13.5 2.4 2.5 4.1-4.5'/%3E%3C/g%3E%3C/svg%3E">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What happens on 2 December 2026 under the EU AI Act?","acceptedAnswer":{"@type":"Answer","text":"The transition period for Article 50(2) ends. Providers of AI systems that generate synthetic audio, image, video or text must ensure outputs are marked in a machine-readable format as artificially generated or manipulated. Systems already on the market before 2 August 2026 were given this transition under the Digital Omnibus; from 2 December 2026 the duty applies to them too."}},{"@type":"Question","name":"Does Article 50(2) apply to my website if I just publish AI images?","acceptedAnswer":{"@type":"Answer","text":"The 50(2) marking duty formally falls on the provider of the generative AI system. But deployers are not off the hook: Article 50(4) requires disclosure of deepfakes and of AI-generated text published to inform the public, and stripping provenance metadata from generated files during your publishing workflow is the main way otherwise-compliant content loses its marking. In a scan of 883 EU sites, only 0.4% carried any machine-readable AI marking."}},{"@type":"Question","name":"What counts as machine-readable marking?","acceptedAnswer":{"@type":"Answer","text":"The two established mechanisms are C2PA Content Credentials (cryptographic provenance manifests) and IPTC photo metadata using the digitalSourceType field, whose value trainedAlgorithmicMedia identifies AI-generated media. A visible caption alone is not machine-readable marking."}},{"@type":"Question","name":"How do I add machine-readable marking to an image?","acceptedAnswer":{"@type":"Answer","text":"Write IPTC digitalSourceType metadata into the file itself. ClearLabel's free labelling tool does this in the browser: drop a PNG or JPEG, and it writes trainedAlgorithmicMedia provenance into the file's XMP without uploading it anywhere."}}]}</script>
@@ -21,10 +23,29 @@
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
-<header class="top"><div class="wrap topbar">
-  <a class="brand" href="../../"><svg class="tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6l4 4v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7l4-4Z"/><circle cx="12" cy="7.5" r="1.5"/><path d="m8.75 13.5 2.4 2.5 4.1-4.5"/></svg>ClearLabel</a>
-  <nav class="topnav"><a href="../../#scan">Free scan</a><a href="../../study/">Study</a><a href="../../vendors/">Vendors</a><a href="../../#pack">Compliance Pack</a></nav>
-</div></header>
+
+<header class="site-header" id="top">
+  <div class="container">
+    <a class="brand" href="/">
+      <svg class="brand-mark" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6l4 4v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7l4-4Z"/><circle cx="12" cy="7.5" r="1.5"/><path d="m8.75 13.5 2.4 2.5 4.1-4.5"/></svg>
+      <span class="brand-name">ClearLabel</span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="/#rules">The rules</a></li>
+        <li><a href="/#timeline">Dates</a></li>
+        <li><a href="/label/">Label images</a></li>
+        <li><a href="/study/">Study</a></li>
+        <li><a href="/nis2/">NIS2 check</a></li>
+        <li><a href="/#pack">Compliance Pack</a></li>
+        <li><a href="/#faq">FAQ</a></li>
+      </ul>
+    </nav>
+    <div class="header-cta">
+      <a class="btn btn-ink" href="/#scan">Scan a page<span class="free-tag">free</span></a>
+    </div>
+  </div>
+</header>
 
 <div class="wrap hero" id="main">
   <p class="eyebrow">Guide · Article 50(2) · transition ends 2 Dec 2026</p>
@@ -94,9 +115,47 @@
 
 </div></div>
 
-<footer><div class="wrap">
-  <p><strong>ClearLabel</strong>. EU AI Act Article 50 transparency checks. Information and document drafts only. Not legal advice, not a law firm.<br>Questions or corrections: <a href="mailto:info@clearlabel.eu">info@clearlabel.eu</a></p>
-  <p><a href="https://github.com/def217/clearlabel">Source</a> · <a href="../../study/">883-site study</a> · <a href="https://artificialintelligenceact.eu/article/50/">Article 50 text</a></p>
-</div></footer>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <span class="brand">
+        <svg class="brand-mark" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6l4 4v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7l4-4Z"/><circle cx="12" cy="7.5" r="1.5"/><path d="m8.75 13.5 2.4 2.5 4.1-4.5"/></svg>
+        <span class="brand-name">ClearLabel</span>
+      </span>
+      <p class="footer-disclaimer">EU AI Act Article 50 transparency checks. Information and document drafts only. Not a law firm, not legal advice.</p>
+      <a class="footer-mail" href="mailto:info@clearlabel.eu">info@clearlabel.eu</a>
+    </div>
+    <div class="footer-col">
+      <h3>Tools</h3>
+      <ul>
+        <li><a href="/#scan">Page scanner</a></li>
+        <li><a href="/label/">Image label generator</a></li>
+        <li><a href="/pack/">Sample Compliance Pack</a></li>
+        <li><a href="/guides/chatbot-disclosure/">Guide: chatbot disclosure</a></li>
+        <li><a href="/guides/december-2026-deadline/">Guide: the 2 Dec 2026 deadline</a></li>
+        <li><a href="/guides/penalties/">Guide: fines &amp; enforcement</a></li>
+        <li><a href="/guides/ai-product-content/">Guide: AI product content</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h3>Data</h3>
+      <ul>
+        <li><a href="/study/">883-site study and method</a></li>
+        <li><a href="/vendors/">Vendor fingerprints</a></li>
+        <li><a href="https://github.com/def217/clearlabel">Source and dataset on GitHub</a></li>
+        <li><a href="/ai-transparency/">How we use AI: our own notice</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h3>Primary sources</h3>
+      <ul>
+        <li><a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj" rel="noopener">Regulation (EU) 2024/1689</a></li>
+        <li><a href="https://artificialintelligenceact.eu/article/50/" rel="noopener">AI Act Article 50</a></li>
+        <li><a href="https://artificialintelligenceact.eu/article/99/" rel="noopener">Article 99 penalties</a></li>
+      </ul>
+    </div>
+    <p class="footer-legal">Vendor fingerprint data is open source under CC-BY-4.0. Questions or corrections: <a href="mailto:info@clearlabel.eu">info@clearlabel.eu</a></p>
+  </div>
+</footer>
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "621bef7b2c064047a614e54e630b07c8"}'></script>
 </body></html>

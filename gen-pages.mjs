@@ -1,4 +1,9 @@
 #!/usr/bin/env node
+// WARNING before regenerating:
+// - TODAY constant rewrites every emitted "Last reviewed" date and sitemap lastmod to the run date.
+// - Favicon/brand-svg path data here has drifted from the checked-in vendor pages - diff before overwrite.
+// - Chrome (header/footer/head links/Clarity) is synced to site-chrome canonical blocks as of 2026-08-18;
+//   if the site chrome changes again, update these templates first.
 /** Generates one Article 50 guidance page per vendor from data/vendors.json. */
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 
@@ -21,6 +26,86 @@ const DISCLOSURE = {
 };
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+
+/* Canonical page chrome — must stay byte-identical to the skip-link/header/
+   footer blocks carried by every checked-in *.html (styled by site-chrome.css).
+   Root-relative links, so the same markup works at any directory depth. */
+const CHROME_HEADER = `<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header" id="top">
+  <div class="container">
+    <a class="brand" href="/">
+      <svg class="brand-mark" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6l4 4v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7l4-4Z"/><circle cx="12" cy="7.5" r="1.5"/><path d="m8.75 13.5 2.4 2.5 4.1-4.5"/></svg>
+      <span class="brand-name">ClearLabel</span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="/#rules">The rules</a></li>
+        <li><a href="/#timeline">Dates</a></li>
+        <li><a href="/label/">Label images</a></li>
+        <li><a href="/study/">Study</a></li>
+        <li><a href="/nis2/">NIS2 check</a></li>
+        <li><a href="/#pack">Compliance Pack</a></li>
+        <li><a href="/#faq">FAQ</a></li>
+      </ul>
+    </nav>
+    <div class="header-cta">
+      <a class="btn btn-ink" href="/#scan">Scan a page<span class="free-tag">free</span></a>
+    </div>
+  </div>
+</header>`;
+
+/* Microsoft Clarity — byte-identical to the snippet on every checked-in page. */
+const CLARITY = `<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "y4cqleaxfo");
+</script>`;
+
+const CHROME_FOOTER = `<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <span class="brand">
+        <svg class="brand-mark" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6l4 4v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7l4-4Z"/><circle cx="12" cy="7.5" r="1.5"/><path d="m8.75 13.5 2.4 2.5 4.1-4.5"/></svg>
+        <span class="brand-name">ClearLabel</span>
+      </span>
+      <p class="footer-disclaimer">EU AI Act Article 50 transparency checks. Information and document drafts only. Not a law firm, not legal advice.</p>
+      <a class="footer-mail" href="mailto:info@clearlabel.eu">info@clearlabel.eu</a>
+    </div>
+    <div class="footer-col">
+      <h3>Tools</h3>
+      <ul>
+        <li><a href="/#scan">Page scanner</a></li>
+        <li><a href="/label/">Image label generator</a></li>
+        <li><a href="/pack/">Sample Compliance Pack</a></li>
+        <li><a href="/guides/chatbot-disclosure/">Guide: chatbot disclosure</a></li>
+        <li><a href="/guides/december-2026-deadline/">Guide: the 2 Dec 2026 deadline</a></li>
+        <li><a href="/guides/penalties/">Guide: fines &amp; enforcement</a></li>
+        <li><a href="/guides/ai-product-content/">Guide: AI product content</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h3>Data</h3>
+      <ul>
+        <li><a href="/study/">883-site study and method</a></li>
+        <li><a href="/vendors/">Vendor fingerprints</a></li>
+        <li><a href="https://github.com/def217/clearlabel">Source and dataset on GitHub</a></li>
+        <li><a href="/ai-transparency/">How we use AI: our own notice</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h3>Primary sources</h3>
+      <ul>
+        <li><a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj" rel="noopener">Regulation (EU) 2024/1689</a></li>
+        <li><a href="https://artificialintelligenceact.eu/article/50/" rel="noopener">AI Act Article 50</a></li>
+        <li><a href="https://artificialintelligenceact.eu/article/99/" rel="noopener">Article 99 penalties</a></li>
+      </ul>
+    </div>
+    <p class="footer-legal">Vendor fingerprint data is open source under CC-BY-4.0. Questions or corrections: <a href="mailto:info@clearlabel.eu">info@clearlabel.eu</a></p>
+  </div>
+</footer>`;
 
 const APPLIES = {
   'ai-native': {
@@ -73,19 +158,17 @@ const page = (v, all) => {
 <link rel="canonical" href="${BASE}/vendors/${v.id}.html">
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(desc)}">
+<link rel="stylesheet" href="/fonts-plex.css">
+<link rel="stylesheet" href="/site-chrome.css">
 <link rel="stylesheet" href="../styles.css">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%2322407c'/%3E%3Cpath d='M18.6 12.4 12.4 18.6a1.6 1.6 0 0 1-2.3 0L4.5 13V4.5H13l5.6 5.6a1.6 1.6 0 0 1 0 2.3Z' fill='none' stroke='%23fff' stroke-width='1.7' stroke-linejoin='round'/%3E%3Ccircle cx='8.4' cy='8.4' r='1.15' fill='%23fff'/%3E%3C/svg%3E">
 <script type="application/ld+json">${JSON.stringify(faqLd)}</script>
+${CLARITY}
 </head>
 <body>
-<header class="top"><div class="wrap topbar">
-  <a class="brand" href="../">
-    <svg class="tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41 13.42 20.6a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82Z"/><circle cx="7" cy="7" r="1.4" fill="currentColor"/></svg>
-    ClearLabel</a>
-  <nav class="topnav"><a href="../#scan">Free scan</a><a href="./">All vendors</a><a href="../#pack">Compliance Pack</a></nav>
-</div></header>
+${CHROME_HEADER}
 
-<div class="wrap hero">
+<div class="wrap hero" id="main">
   <p style="font-size:.85rem;color:var(--muted);margin-bottom:14px"><a href="../">ClearLabel</a> → <a href="./">Vendors</a> → ${esc(v.name)}</p>
   <h1>${esc(v.name)} and EU AI&nbsp;Act Article&nbsp;50</h1>
   <p class="lede">${esc(a.verdict)}</p>
@@ -142,12 +225,10 @@ ${related.length ? `<section class="tight"><div class="wrap"><h2>Same situation,
 <section class="tight"><div class="wrap">
   <h2>Questions</h2>
   ${faq.map(([q, ans]) => `<details><summary>${esc(q)}</summary><div class="body"><p>${esc(ans)}</p></div></details>`).join('')}
+  <p class="page-meta">Last reviewed ${TODAY}</p>
 </div></section>
 
-<footer><div class="wrap">
-  <p><strong>ClearLabel</strong> — EU AI Act Article 50 transparency checks. Information and document drafts only. Not legal advice, not a law firm.<br>Questions or corrections: <a href="mailto:info@clearlabel.eu">info@clearlabel.eu</a></p>
-  <p>Last reviewed ${TODAY} · <a href="https://github.com/def217/clearlabel">Open dataset on GitHub</a> · <a href="https://artificialintelligenceact.eu/article/50/">Article 50 text</a></p>
-</div></footer>
+${CHROME_FOOTER}
 <!-- Cloudflare Web Analytics: cookieless, no fingerprinting -->\n<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "621bef7b2c064047a614e54e630b07c8"}'></script>\n</body></html>`;
 };
 
@@ -167,14 +248,14 @@ const hub = (vendors) => {
 <title>AI chat vendors and EU AI Act Article 50 — disclosure guide by vendor</title>
 <meta name="description" content="Where the AI disclosure goes in Intercom, Zendesk, Crisp, Tidio, Gorgias, HubSpot, Chatbase and 29 more — plus whether Article 50(1) applies to each.">
 <link rel="canonical" href="${BASE}/vendors/">
+<link rel="stylesheet" href="/fonts-plex.css">
+<link rel="stylesheet" href="/site-chrome.css">
 <link rel="stylesheet" href="../styles.css">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%2322407c'/%3E%3Cpath d='M18.6 12.4 12.4 18.6a1.6 1.6 0 0 1-2.3 0L4.5 13V4.5H13l5.6 5.6a1.6 1.6 0 0 1 0 2.3Z' fill='none' stroke='%23fff' stroke-width='1.7' stroke-linejoin='round'/%3E%3Ccircle cx='8.4' cy='8.4' r='1.15' fill='%23fff'/%3E%3C/svg%3E">
+${CLARITY}
 </head><body>
-<header class="top"><div class="wrap topbar">
-  <a class="brand" href="../"><svg class="tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41 13.42 20.6a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82Z"/><circle cx="7" cy="7" r="1.4" fill="currentColor"/></svg>ClearLabel</a>
-  <nav class="topnav"><a href="../#scan">Free scan</a><a href="../#pack">Compliance Pack</a></nav>
-</div></header>
-<div class="wrap hero">
+${CHROME_HEADER}
+<div class="wrap hero" id="main">
   <h1>Article 50 by vendor</h1>
   <p class="lede">Whether the AI-disclosure duty applies, and exactly where in each vendor's console the wording goes. ${vendors.length} vendors covered.</p>
 </div>
@@ -183,7 +264,7 @@ ${group('ai-native', 'Purpose-built AI agents', 'These are LLM agents by design.
 ${group('ai-optional', 'Chat platforms with an AI mode', 'These ship both human-routed and AI-agent modes. The duty applies if the AI mode is enabled on your workspace, and only you can confirm that.')}
 ${group('rule-based', 'Scripted widgets', 'Likely outside the AI-system definition, but the "obvious to a reasonably well-informed person" test still applies.')}
 </div></section>
-<footer><div class="wrap"><p><strong>ClearLabel</strong> — Information only, not legal advice. <a href="https://github.com/def217/clearlabel">Open dataset on GitHub</a></p></div></footer>
+${CHROME_FOOTER}
 <!-- Cloudflare Web Analytics: cookieless, no fingerprinting -->\n<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "621bef7b2c064047a614e54e630b07c8"}'></script>\n</body></html>`;
 };
 

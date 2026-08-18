@@ -1,0 +1,86 @@
+/* site-chrome.css — the one header + footer every page shares.
+   Extracted from home.css (layout/skin) and motion.css (hover transitions);
+   the matching markup (skip-link + .site-header + .site-footer, root-relative
+   links) is byte-identical in every *.html. Load this BEFORE the page
+   stylesheet: home.css on /, styles.css everywhere else.
+   Every selector is scoped under .site-header / .site-footer so nothing here
+   leaks onto page bodies, and the pages' generic .btn/.container/.wrap rules
+   cannot restyle the chrome (the scoped selectors out-rank them).
+   Design tokens, the .skip-link rules and the shared :focus-visible ring come
+   from tokens.css (imported below) — single source, do not duplicate here. */
+@import url("./tokens.css");
+
+/* Sticky-header anchor offset. By necessity this touches page content (anchor
+   targets live in the page); written as html [id] so it out-ranks the plain
+   [id]{scroll-margin-top:58px} fallback in styles.css at any load order. */
+html [id]{scroll-margin-top:58px}
+
+/* Header */
+.site-header{position:sticky;top:0;z-index:100;height:58px;background:rgba(244,242,236,.94);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border-bottom:1px solid var(--hairline)}
+/* Three zones on one grid: brand flush left, nav dead-center, CTA flush
+   right. Equal 1fr side tracks are what keep the nav centered on the
+   container rather than on the leftover space. */
+.site-header .container{max-width:1140px;margin:0 auto;padding:0 28px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:100%;gap:32px}
+.site-header .brand,.site-footer .brand{display:flex;align-items:center;gap:8px;justify-self:start}
+.site-header .brand-mark,.site-footer .brand-mark{width:16px;height:16px;color:var(--blue)}
+.site-header .brand-name,.site-footer .brand-name{font-family:var(--mono);font-size:14px;letter-spacing:.06em;color:var(--ink);white-space:nowrap}
+.site-header .nav-links{display:flex;gap:22px;list-style:none;margin:0;padding:0}
+.site-header .nav-links a{font-size:13.5px;color:#4f4c44;text-decoration:none;transition:color .18s ease}
+.site-header .nav-links a:hover{color:var(--ink);text-decoration:underline}
+.site-header .header-cta{justify-self:end}
+/* The CTA is the only .btn in the chrome. Base .btn skin restated from
+   home.css so pages styled by styles.css render it identically; the hover
+   colour + lift and the transitions are home's motion.css values, baked in
+   here because these scoped selectors out-rank that file. */
+.site-header .btn{display:inline-block;padding:10px 18px;border:1px solid transparent;border-radius:2px;font-family:var(--sans);font-size:14px;font-weight:600;line-height:1.2;cursor:pointer;text-align:center;transition:background-color .18s ease,border-color .18s ease,color .18s ease,transform .18s ease}
+.site-header .btn-ink{background:var(--ink);color:#fff;border-color:var(--ink)}
+.site-header .btn-ink:hover{background:#34322a;color:#fff;transform:translateY(-1px)}
+.site-header .header-cta .btn{display:inline-flex;align-items:center;padding:7px 14px}
+.site-header .free-tag{font-family:var(--mono);font-size:11px;color:var(--muted);margin-left:5px}
+.site-header .header-cta .free-tag{color:#c9c5bb}
+
+/* Footer */
+.site-footer{background:var(--footer);border-top:1px solid var(--hairline);padding:48px 0 24px}
+.site-footer .container{max-width:1140px;margin:0 auto;padding:0 28px}
+.site-footer .footer-grid{display:grid;grid-template-columns:2fr repeat(3,1fr);gap:40px}
+.site-footer .footer-brand{max-width:30ch}
+.site-footer .footer-disclaimer{font-size:12.5px;color:var(--muted);margin:12px 0 0}
+.site-footer .footer-mail{margin-top:8px;display:inline-block;font-size:13.5px;color:var(--body)}
+.site-footer .footer-mail:hover{color:var(--ink)}
+.site-footer .footer-col h3{font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;line-height:1.1;color:var(--ink);margin:0 0 12px}
+.site-footer .footer-col ul{list-style:none;margin:0;padding:0}
+.site-footer .footer-col li{margin:4px 0}
+.site-footer .footer-col a{display:inline-block;padding:2px 0;font-size:13.5px;color:var(--body);text-decoration:none;transition:color .18s ease}
+.site-footer .footer-col a:hover{color:var(--ink);text-decoration:underline}
+.site-footer .footer-legal{grid-column:1/-1;border-top:1px solid var(--hairline);padding-top:16px;font-size:12.5px;color:var(--muted);margin:0;max-width:none}
+
+@media (max-width:900px){
+  .site-header .container,.site-footer .container{padding:0 20px}
+  .site-header .container{gap:16px}
+  .site-header .nav-links{gap:12px}
+  .site-header .header-cta .free-tag{display:none}
+  /* Between 560 and 900 the nav may wrap to a second line; the CTA label
+     must not — a two-word button squeezed to its narrowest word is illegible. */
+  .site-header .header-cta .btn{white-space:nowrap}
+  .site-footer .footer-grid{grid-template-columns:1fr 1fr;gap:32px}
+  .site-header .brand-name,.site-footer .brand-name{font-size:13px}
+}
+
+@media (max-width:560px){
+  /* Two-row header: brand + CTA stay on the 58px bar, nav becomes a
+     full-bleed horizontally scrollable strip beneath it. Keeps every link
+     reachable without a hamburger — no JS, no extra markup. */
+  .site-header{height:auto}
+  .site-header .container{grid-template-columns:1fr auto;grid-template-rows:58px auto;gap:0 16px}
+  .site-header .brand{grid-row:1;grid-column:1}
+  .site-header .header-cta{grid-row:1;grid-column:2}
+  .site-header nav{grid-row:2;grid-column:1/-1;margin:0 -20px;border-top:1px solid var(--hairline)}
+  .site-header .nav-links{gap:0;overflow-x:auto;padding:0 10px;scrollbar-width:none}
+  .site-header .nav-links::-webkit-scrollbar{display:none}
+  .site-header .nav-links a{display:block;padding:12px 10px;white-space:nowrap}
+  /* Two-row header is ~106px tall, so anchor targets need the larger offset. */
+  html [id]{scroll-margin-top:106px}
+  /* 44px touch floor for the CTA; padding stays compact (it sits on the 58px bar). */
+  .site-header .header-cta .btn{min-height:44px}
+  .site-footer .footer-grid{grid-template-columns:1fr}
+}

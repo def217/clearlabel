@@ -11,7 +11,6 @@
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 body{background:var(--page);color:var(--body);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
-[id]{scroll-margin-top:58px}
 a{color:var(--blue);text-decoration:none}
 a:hover{color:var(--ink)}
 h1,h2,h3{font-family:var(--serif);font-weight:600;letter-spacing:-.015em;line-height:1.1;color:var(--ink)}
@@ -33,23 +32,10 @@ code{font-family:var(--mono);font-size:.92em}
 .btn-outline{background:transparent;border-color:var(--edge);color:var(--ink)}
 .btn-outline:hover{background:var(--panel);color:var(--ink)}
 .btn[disabled]{opacity:.55;cursor:default}
-.free-tag{font-family:var(--mono);font-size:11px;color:var(--muted);margin-left:5px}
 
-/* Header */
-.site-header{position:sticky;top:0;z-index:100;height:58px;background:rgba(244,242,236,.94);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border-bottom:1px solid var(--hairline)}
-/* Three zones on one grid: brand flush left, nav dead-center, CTA flush
-   right. Equal 1fr side tracks are what keep the nav centered on the
-   container rather than on the leftover space. */
-.site-header .container{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:100%;gap:32px}
-.brand{display:flex;align-items:center;gap:8px;justify-self:start}
-.brand-mark{width:16px;height:16px;color:var(--blue)}
-.brand-name{font-family:var(--mono);font-size:14px;letter-spacing:.06em;color:var(--ink);white-space:nowrap}
-.nav-links{display:flex;gap:22px;list-style:none}
-.nav-links a{font-size:13.5px;color:#4f4c44;text-decoration:none}
-.nav-links a:hover{color:var(--ink);text-decoration:underline}
-.header-cta{justify-self:end}
-.header-cta .btn{display:inline-flex;align-items:center;padding:7px 14px}
-.header-cta .free-tag{color:#c9c5bb}
+/* The page chrome (skip link, sticky header, footer, and their mobile
+   blocks) lives in site-chrome.css, linked before this file and shared
+   byte-identically by every page. */
 
 /* Status ticker */
 .status-ticker{background:var(--ticker);border-bottom:1px solid var(--hairline)}
@@ -170,28 +156,8 @@ code{font-family:var(--mono);font-size:.92em}
 .closing-live{margin-top:8px;font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 .closing-actions{display:flex;flex-wrap:wrap;gap:12px}
 
-/* Footer */
-.site-footer{background:var(--footer);border-top:1px solid var(--hairline);padding:48px 0 24px}
-.footer-grid{display:grid;grid-template-columns:2fr repeat(3,1fr);gap:40px}
-.footer-brand{max-width:30ch}
-.footer-disclaimer{font-size:12.5px;color:var(--muted);margin-top:12px}
-.footer-mail{margin-top:8px;display:inline-block;font-size:13.5px;color:var(--body)}
-.footer-mail:hover{color:var(--ink)}
-.footer-col h3{font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);margin-bottom:12px}
-.footer-col ul{list-style:none}
-.footer-col li{margin:4px 0}
-.footer-col a{display:inline-block;padding:2px 0;font-size:13.5px;color:var(--body);text-decoration:none}
-.footer-col a:hover{color:var(--ink);text-decoration:underline}
-.footer-legal{grid-column:1/-1;border-top:1px solid var(--hairline);padding-top:16px;font-size:12.5px;color:var(--muted);max-width:none}
-
 @media (max-width:900px){
   .container{padding:0 20px}
-  .site-header .container{gap:16px}
-  .nav-links{gap:12px}
-  .header-cta .free-tag{display:none}
-  /* Between 560 and 900 the nav may wrap to a second line; the CTA label
-     must not — a two-word button squeezed to its narrowest word is illegible. */
-  .header-cta .btn{white-space:nowrap}
   .hero{padding-top:40px}
   .hero .container,.timeline .container,.pack .container,.faq .container{grid-template-columns:1fr;gap:32px}
   .hero h1{font-size:clamp(36px,8vw,48px)}
@@ -208,33 +174,15 @@ code{font-family:var(--mono);font-size:.92em}
   .closing-cta-panel{padding:24px;flex-direction:column;align-items:flex-start}
   .closing-actions{width:100%;flex-direction:column;align-items:stretch}
   .closing-actions .btn{width:100%}
-  .footer-grid{grid-template-columns:1fr 1fr;gap:32px}
-  .brand-name{font-size:13px}
 }
 
 @media (max-width:560px){
-  /* Two-row header: brand + CTA stay on the 58px bar, nav becomes a
-     full-bleed horizontally scrollable strip beneath it. Keeps every link
-     reachable without a hamburger — no JS, no extra markup. */
-  .site-header{height:auto}
-  .site-header .container{grid-template-columns:1fr auto;grid-template-rows:58px auto;gap:0 16px}
-  .brand{grid-row:1;grid-column:1}
-  .header-cta{grid-row:1;grid-column:2}
-  .site-header nav{grid-row:2;grid-column:1/-1;margin:0 -20px;border-top:1px solid var(--hairline)}
-  .nav-links{gap:0;overflow-x:auto;padding:0 10px;scrollbar-width:none}
-  .nav-links::-webkit-scrollbar{display:none}
-  .nav-links a{display:block;padding:12px 10px;white-space:nowrap}
-  [id]{scroll-margin-top:106px}
-  .footer-grid,.stats-grid{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:1fr}
   .stat-cell,.stat-cell:nth-child(-n+2){border-top:1px solid var(--hairline-soft);border-left:none}
   .stat-cell:first-child{border-top:none}
   .order-header{flex-direction:column;align-items:flex-start}
   .order-price-block{text-align:left}
   .btn{min-height:44px;padding:12px 18px}
-  /* Header CTA keeps its compact padding (it sits in the 58px header) but
-     must still hit the 44px touch minimum; the unconditional .header-cta .btn
-     rule outranks the .btn fix above, so repeat the floor at its specificity. */
-  .header-cta .btn{min-height:44px}
 }
 
 /* Secondary offers under the pack CTA */
