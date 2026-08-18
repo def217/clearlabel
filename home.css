@@ -39,7 +39,7 @@ code{font-family:var(--mono);font-size:.92em}
 .site-header{position:sticky;top:0;z-index:100;height:58px;background:rgba(244,242,236,.94);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border-bottom:1px solid var(--hairline)}
 .site-header .container{display:flex;align-items:center;height:100%;gap:32px}
 .brand{display:flex;align-items:center;gap:8px;flex:0 0 auto}
-.brand-mark{width:11px;height:11px;background:var(--blue)}
+.brand-mark{width:16px;height:16px;color:var(--blue)}
 .brand-name{font-family:var(--mono);font-size:14px;letter-spacing:.06em;color:var(--ink);white-space:nowrap}
 .nav-links{display:flex;gap:22px;margin-left:auto;list-style:none}
 .nav-links a{font-size:13.5px;color:#4f4c44;text-decoration:none}
@@ -214,6 +214,10 @@ code{font-family:var(--mono);font-size:.92em}
   .order-header{flex-direction:column;align-items:flex-start}
   .order-price-block{text-align:left}
   .btn{min-height:44px;padding:12px 18px}
+  /* Header CTA keeps its compact padding (it sits in the 58px header) but
+     must still hit the 44px touch minimum; the unconditional .header-cta .btn
+     rule outranks the .btn fix above, so repeat the floor at its specificity. */
+  .header-cta .btn{min-height:44px}
 }
 
 /* Secondary offers under the pack CTA */
