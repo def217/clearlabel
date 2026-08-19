@@ -5,6 +5,7 @@ import {
   LINK_LABELS,
   SIGNATURE_NAME,
   SIGNATURE_ROLE,
+  STUDY_URL,
 } from './mail-html.mjs';
 
 // A full draft with the two known footer lines, so footer replacement is exercised
@@ -180,4 +181,26 @@ test('renders the text wordmark header', () => {
   const { html } = textToHtml(withFooter('Body line'));
   assert.ok(html.includes('ClearLabel <span style="color:#22407c">·</span>'));
   assert.ok(html.includes('EU COMPLIANCE TOOLS'));
+});
+
+test('auto-links the "883-site study" phrase, carrying utm params from the first clearlabel.eu URL', () => {
+  const { html, textBody } = textToHtml(withFooter(
+    'Our 883-site study found gaps in job ads.\n\nFree scanner: https://clearlabel.eu/?utm_source=outreach&utm_medium=email&utm_campaign=aug19-agency&utm_content=soledis.com'
+  ));
+  assert.ok(html.includes(
+    '<a href="https://clearlabel.eu/study/?utm_source=outreach&amp;utm_medium=email&amp;utm_campaign=aug19-agency&amp;utm_content=soledis.com" style="color:#22407c">883-site study</a>'
+  ), 'study phrase linked with utm params carried over from the scanner URL');
+  assert.ok(!textBody.includes('clearlabel.eu/study/'), 'textBody has no study URL');
+});
+
+test('auto-links the "883-site study" phrase to a bare study URL when no utm URL is present', () => {
+  const { html } = textToHtml(withFooter('Our 883-site study found gaps in job ads.'));
+  assert.ok(html.includes(
+    `<a href="${STUDY_URL}" style="color:#22407c">883-site study</a>`
+  ), 'study phrase linked to the bare study URL');
+});
+
+test('does not inject a study link when the "883-site study" phrase is absent', () => {
+  const { html } = textToHtml(withFooter('Just a normal email with no special phrase.'));
+  assert.ok(!html.includes(STUDY_URL), 'no study link injected');
 });

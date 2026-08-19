@@ -17,6 +17,8 @@ export const LINK_LABELS = new Map([
   ['https://clearlabel.eu/study/', 'the 883-site study'],
 ]);
 
+export const STUDY_URL = 'https://clearlabel.eu/study/';
+
 export const SIGNATURE_NAME = 'Jonas';
 export const SIGNATURE_ROLE = 'Founder, ClearLabel';
 
@@ -98,12 +100,60 @@ const bodyHtml = (escapedBody) => {
     .join('\n');
 };
 
+// Auto-link the literal phrase "883-site study" (first occurrence only) to
+// the study page, once escaping and URL linkification are already done.
+// Skipped if the phrase falls inside an existing <a>...</a> (e.g. the "the
+// 883-site study" label that labelFor renders for a bare study URL already
+// present in the body).
+const STUDY_PHRASE = '883-site study';
+const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'];
+
+const isInsideAnchor = (html, index) => {
+  const lastOpen = html.lastIndexOf('<a', index);
+  const lastClose = html.lastIndexOf('</a>', index);
+  return lastOpen !== -1 && lastOpen > lastClose;
+};
+
+// First clearlabel.eu URL in the raw body carrying utm params: those same
+// values are carried over to the study link. None found: bare STUDY_URL.
+const studyHref = (rawBody) => {
+  const urls = rawBody.match(URL_RE) || [];
+  for (const raw of urls) {
+    let url = raw;
+    while (url.length && TRAIL.includes(url[url.length - 1])) {
+      url = url.slice(0, -1);
+    }
+    if (!url.startsWith('https://clearlabel.eu')) continue;
+    let parsed;
+    try {
+      parsed = new URL(url);
+    } catch {
+      continue;
+    }
+    const params = new URLSearchParams();
+    for (const key of UTM_KEYS) {
+      const value = parsed.searchParams.get(key);
+      if (value !== null) params.set(key, value);
+    }
+    if (params.toString()) return `${STUDY_URL}?${params.toString()}`;
+  }
+  return STUDY_URL;
+};
+
+const linkStudyPhrase = (html, rawBody) => {
+  const index = html.indexOf(STUDY_PHRASE);
+  if (index === -1 || isInsideAnchor(html, index)) return html;
+  const href = studyHref(rawBody).replace(/&/g, '&amp;');
+  const anchor = `<a href="${href}" style="color:#22407c">${STUDY_PHRASE}</a>`;
+  return html.slice(0, index) + anchor + html.slice(index + STUDY_PHRASE.length);
+};
+
 export const textToHtml = (text, opts = {}) => {
   const m = text.match(/^Subject:\s*([^\r\n]+)(?:\r?\n)+([\s\S]*)$/);
   const subject = m ? m[1].trim() : '';
   const textBody = (m ? m[2] : text).trim();
 
-  const body = bodyHtml(escapeHtml(textBody));
+  const body = linkStudyPhrase(bodyHtml(escapeHtml(textBody)), textBody);
 
   const html = [
     '<div style="font-family:Georgia,\'Times New Roman\',serif;max-width:560px;margin:0 auto;color:#1b1a16">',
