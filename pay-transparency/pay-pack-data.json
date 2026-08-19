@@ -1,0 +1,25 @@
+{
+  "source": "ops/paytransparency-legal-table.md (Directive (EU) 2023/970, CELEX:32023L0970)",
+  "disclaimer": "This document is a drafting aid produced by ClearLabel. It is not legal advice and ClearLabel is not a law firm. Review it against your own circumstances and, where your exposure is material, have a qualified adviser in your member state confirm it.",
+  "rangeClause": {
+    "heading": "Compliant salary-range clause",
+    "en": "The initial pay for this position is {{CURRENCY}} {{RANGE}}, set on objective, gender-neutral criteria (Directive (EU) 2023/970, Art 5(1)).",
+    "de": "Das Einstiegsgehalt für diese Stelle beträgt {{CURRENCY}} {{RANGE}}, festgelegt nach objektiven, geschlechtsneutralen Kriterien (Richtlinie (EU) 2023/970, Art. 5 Abs. 1).",
+    "fr": "La rémunération initiale pour ce poste est de {{CURRENCY}} {{RANGE}}, fixée sur la base de critères objectifs et neutres du point de vue du genre (directive (UE) 2023/970, art. 5, par. 1)."
+  },
+  "genderNeutralStatement": {
+    "heading": "Gender-neutral pay-criteria statement",
+    "body": "{{ORG}} sets the initial pay and any range for this role using objective, gender-neutral criteria (Directive (EU) 2023/970, Art 5(1)). Criteria considered: [experience], [qualifications], [responsibilities], [performance]. Sex or gender is not a criterion."
+  },
+  "interviewerOnePager": {
+    "heading": "Interviewer one-pager",
+    "mayNotAskHeading": "What you may not ask (Art 5(2))",
+    "mayNotAsk": "Do not ask applicants about their pay history during their current or previous employment relationships (Art 5(2)). This includes current salary, previous salary, and salary history.",
+    "mustReachHeading": "What must reach the applicant before the interview (Art 5(1))",
+    "mustReach": "The applicant has the right to receive, from the prospective employer, information about the initial pay or its range, based on objective, gender-neutral criteria (Art 5(1)). Provide this before the interview, such as in the published job vacancy notice."
+  },
+  "contractChecklist": {
+    "heading": "Contract checklist: remove pay-secrecy clauses",
+    "paySecrecy": "Workers shall not be prevented from disclosing their pay. Member States shall put in place measures to prohibit contractual terms that restrict workers from disclosing information about their pay (Art 7(5)). Remove or do not include any clause that limits an employee from discussing pay."
+  }
+}
