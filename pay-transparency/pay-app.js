@@ -41,7 +41,14 @@ const renderResults = (results) => {
   }
 };
 
+const MIN_AD_LENGTH = 40;
+
 $('#adform').addEventListener('submit', (e) => {
   e.preventDefault();
-  renderResults(assessAd($('#adtext').value));
+  const text = $('#adtext').value.trim();
+  if (text.length < MIN_AD_LENGTH) {
+    renderResults([{ check: 'Nothing to check yet', status: 'advice', message: 'Paste the full job ad text above first. The check runs locally in your browser.' }]);
+    return;
+  }
+  renderResults(assessAd(text));
 });
