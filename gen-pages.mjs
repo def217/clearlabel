@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 // WARNING before regenerating:
-// - TODAY constant rewrites every emitted "Last reviewed" date and sitemap lastmod to the run date.
-// - Favicon/brand-svg path data here has drifted from the checked-in vendor pages - diff before overwrite.
+// - TODAY is computed at run time (YYYY-MM-DD) and rewrites every emitted "Last reviewed" date.
+// - sitemap.xml and robots.txt are hand-maintained; this script does not write them.
 // - Chrome (header/footer/head links/Clarity) is synced to site-chrome canonical blocks as of 2026-08-18;
 //   if the site chrome changes again, update these templates first.
 /** Generates one Article 50 guidance page per vendor from data/vendors.json. */
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 
 const BASE = 'https://clearlabel.eu';
-const TODAY = '2026-08-16';
+const TODAY = new Date().toISOString().slice(0, 10);
 
 const DISCLOSURE = {
   en: "You're chatting with an AI assistant. It can make mistakes — ask for a human at any time.",
@@ -162,7 +162,7 @@ const page = (v, all) => {
 <link rel="stylesheet" href="/fonts-plex.css">
 <link rel="stylesheet" href="/site-chrome.css">
 <link rel="stylesheet" href="../styles.css">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%2322407c'/%3E%3Cpath d='M18.6 12.4 12.4 18.6a1.6 1.6 0 0 1-2.3 0L4.5 13V4.5H13l5.6 5.6a1.6 1.6 0 0 1 0 2.3Z' fill='none' stroke='%23fff' stroke-width='1.7' stroke-linejoin='round'/%3E%3Ccircle cx='8.4' cy='8.4' r='1.15' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%2322407c'/%3E%3Cg fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 3h6l4 4v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7l4-4Z'/%3E%3Ccircle cx='12' cy='7.5' r='1.5'/%3E%3Cpath d='m8.75 13.5 2.4 2.5 4.1-4.5'/%3E%3C/g%3E%3C/svg%3E">
 <script type="application/ld+json">${JSON.stringify(faqLd)}</script>
 ${CLARITY}
 </head>
@@ -252,7 +252,7 @@ const hub = (vendors) => {
 <link rel="stylesheet" href="/fonts-plex.css">
 <link rel="stylesheet" href="/site-chrome.css">
 <link rel="stylesheet" href="../styles.css">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%2322407c'/%3E%3Cpath d='M18.6 12.4 12.4 18.6a1.6 1.6 0 0 1-2.3 0L4.5 13V4.5H13l5.6 5.6a1.6 1.6 0 0 1 0 2.3Z' fill='none' stroke='%23fff' stroke-width='1.7' stroke-linejoin='round'/%3E%3Ccircle cx='8.4' cy='8.4' r='1.15' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%2322407c'/%3E%3Cg fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 3h6l4 4v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7l4-4Z'/%3E%3Ccircle cx='12' cy='7.5' r='1.5'/%3E%3Cpath d='m8.75 13.5 2.4 2.5 4.1-4.5'/%3E%3C/g%3E%3C/svg%3E">
 ${CLARITY}
 </head><body>
 ${CHROME_HEADER}
@@ -275,24 +275,8 @@ const main = async () => {
   await Promise.all(db.vendors.map((v) => writeFile(`vendors/${v.id}.html`, page(v, db.vendors))));
   await writeFile('vendors/index.html', hub(db.vendors));
 
-  const urls = [
-    { loc: `${BASE}/`, pri: '1.0' },
-    { loc: `${BASE}/vendors/`, pri: '0.9' },
-    { loc: `${BASE}/study/`, pri: '0.9' },
-    { loc: `${BASE}/label/`, pri: '0.9' },
-    { loc: `${BASE}/guides/chatbot-disclosure/`, pri: '0.8' },
-    { loc: `${BASE}/guides/december-2026-deadline/`, pri: '0.8' },
-    { loc: `${BASE}/ai-transparency/`, pri: '0.6' },
-    ...db.vendors.map((v) => ({ loc: `${BASE}/vendors/${v.id}.html`, pri: '0.8' })),
-  ];
-  await writeFile(
-    'sitemap.xml',
-    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls
-      .map((u) => `  <url><loc>${u.loc}</loc><lastmod>${TODAY}</lastmod><priority>${u.pri}</priority></url>`)
-      .join('\n')}\n</urlset>\n`
-  );
-  await writeFile('robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${BASE}/sitemap.xml\n`);
-  console.log(`generated ${db.vendors.length} vendor pages + hub + sitemap (${urls.length} urls)`);
+  // sitemap.xml and robots.txt are hand-maintained; this script does not generate them.
+  console.log(`generated ${db.vendors.length} vendor pages + hub`);
 };
 
 main().catch((e) => { console.error(e); process.exit(1); });
