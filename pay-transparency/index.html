@@ -17,12 +17,12 @@
 <style>
   /* /pay-transparency/ page-local styles; extends styles.css, does not override its tokens. */
   [hidden]{display:none!important}
-  .adform{display:flex;flex-direction:column;gap:14px;padding:4px 24px 22px}
-  .adform label{font-size:13.5px;color:var(--muted);font-weight:600}
-  .adform textarea{width:100%;min-height:180px;font-family:var(--mono);font-size:14px;line-height:1.5;padding:12px 14px;border:1px solid var(--ink);border-radius:2px;background:var(--page);color:var(--ink);resize:vertical}
-  .adform textarea::placeholder{color:var(--muted);opacity:.75}
-  #adtext{background:#fff;cursor:text;font:inherit;font-size:15px}
-  #adtext:focus{outline:2px solid currentColor;outline-offset:2px}
+  .payform{display:flex;flex-direction:column;gap:14px;padding:4px 24px 22px}
+  .payform label{font-size:13.5px;color:var(--muted);font-weight:600}
+  .payform textarea{width:100%;min-height:180px;font-family:var(--mono);font-size:14px;line-height:1.5;padding:12px 14px;border:1px solid var(--ink);border-radius:2px;background:var(--page);color:var(--ink);resize:vertical}
+  .payform textarea::placeholder{color:var(--muted);opacity:.75}
+  #jobtext{background:#fff;cursor:text;font:inherit;font-size:15px}
+  #jobtext:focus{outline:2px solid currentColor;outline-offset:2px}
   .check-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:8px}
   @media(max-width:900px){.check-grid{grid-template-columns:1fr}}
 </style>
@@ -74,9 +74,9 @@
 <div class="wrap">
   <div class="scanner" id="check-panel">
     <div class="scanner-head"><h2 style="font-size:22px">Check a job ad</h2></div>
-    <form class="adform" id="adform" data-clarity-mask="true">
-      <label for="adtext">Paste the full job-ad text</label>
-      <textarea id="adtext" name="adtext" placeholder="Paste the ad text here. It is checked locally and never uploaded." spellcheck="false" data-clarity-mask="true"></textarea>
+    <form class="payform" id="payform" data-clarity-mask="true">
+      <label for="jobtext">Paste the full job-ad text</label>
+      <textarea id="jobtext" name="jobtext" placeholder="Paste the ad text here. It is checked locally and never uploaded." spellcheck="false" data-clarity-mask="true"></textarea>
       <button class="btn" id="check" type="submit">Check this ad</button>
       <p class="hint">Client-side only: the ad text you paste never leaves your browser.</p>
     </form>

@@ -1,5 +1,5 @@
-// ad-check.test.mjs
-// node --test suite for ad-check.mjs. May use node: imports.
+// pay-rules.test.mjs
+// node --test suite for pay-rules.mjs. May use node: imports.
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
@@ -8,7 +8,7 @@ import {
   checkGenderNeutralTitle,
   assessAd,
   MESSAGES,
-} from "./ad-check.mjs";
+} from "./pay-rules.mjs";
 
 // --- detectSalaryRange -----------------------------------------------------
 

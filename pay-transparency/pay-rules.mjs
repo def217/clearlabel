@@ -1,4 +1,4 @@
-// ad-check.mjs
+// pay-rules.mjs
 //
 // Pure, dependency-free decision logic for the pay-transparency job-ad scanner.
 // Browser-compatible (no node: imports, no I/O). Every legal fact and every

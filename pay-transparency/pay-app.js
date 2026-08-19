@@ -1,8 +1,8 @@
-import { assessAd } from './ad-check.mjs';
+import { assessAd } from './pay-rules.mjs';
 
 // Free pay-transparency job-ad check. Client-side only, no fetch, no upload:
-// the pasted ad is analysed by ad-check.mjs in this tab and never leaves the
-// browser. Every legal fact comes from ad-check.mjs, sourced from
+// the pasted ad is analysed by pay-rules.mjs in this tab and never leaves the
+// browser. Every legal fact comes from pay-rules.mjs, sourced from
 // ops/paytransparency-legal-table.md; nothing is invented from model memory.
 
 const $ = (s) => document.querySelector(s);
@@ -43,9 +43,9 @@ const renderResults = (results) => {
 
 const MIN_AD_LENGTH = 40;
 
-$('#adform').addEventListener('submit', (e) => {
+$('#payform').addEventListener('submit', (e) => {
   e.preventDefault();
-  const text = $('#adtext').value.trim();
+  const text = $('#jobtext').value.trim();
   if (text.length < MIN_AD_LENGTH) {
     renderResults([{ check: 'Nothing to check yet', status: 'advice', message: 'Paste the full job ad text above first. The check runs locally in your browser.' }]);
     return;
