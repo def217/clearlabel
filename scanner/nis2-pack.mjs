@@ -16,6 +16,22 @@
 const DISCLAIMER =
   'This document is a drafting aid produced by ClearLabel. It is not legal advice and ClearLabel is not a law firm. Review it against your own circumstances and, where your exposure is material, have a qualified adviser in your member state confirm it.';
 
+const SAMPLE_BANNER = '> SAMPLE. Built from a demo scan, not from your site. Buy the pack to generate these documents from your own scan.';
+
+// Inserts the sample banner as its own line directly under the doc's H1, with
+// a blank line on both sides so it never lazily absorbs the line that follows
+// (a markdown blockquote otherwise swallows an immediately-following line).
+const withSampleBanner = (content) => {
+  const i = content.indexOf('\n');
+  const h1 = i === -1 ? content : content.slice(0, i);
+  const rest = i === -1 ? '' : content.slice(i + 1).replace(/^\n+/, '');
+  return `${h1}\n\n${SAMPLE_BANNER}\n\n${rest}`;
+};
+
+// Sample zips must not pass as real compliance evidence. Stamp every .md file;
+// the CSV and JSON artifacts are exempt.
+const stampSample = (f) => (f.name.endsWith('.md') ? { ...f, content: withSampleBanner(f.content) } : f);
+
 const SIZE_BAND_LABELS = Object.freeze({
   'micro-small': 'Micro or small (below the medium-enterprise floor)',
   medium: 'Medium-sized',
@@ -314,7 +330,7 @@ Re-assess at least annually, and again whenever your sector, size, captures or s
 ${DISCLAIMER}
 `;
 
-export const buildNis2Pack = (answers, verdict, now = new Date()) => {
+export const buildNis2Pack = (answers, verdict, now = new Date(), options = {}) => {
   const ctx = {
     sectorName: answers?.sectorName ?? '',
     subsectorName: answers?.subsectorName ?? '',
@@ -327,7 +343,7 @@ export const buildNis2Pack = (answers, verdict, now = new Date()) => {
     obligations: verdict?.obligations ?? [],
     date: now.toISOString().slice(0, 10),
   };
-  return [
+  const docs = [
     { name: '00-START-HERE.md', content: startHere(ctx) },
     { name: '01-risk-management-checklist.md', content: checklist(ctx) },
     { name: '02-incident-reporting-runbook.md', content: runbook(ctx) },
@@ -335,4 +351,5 @@ export const buildNis2Pack = (answers, verdict, now = new Date()) => {
     { name: '04-management-accountability.md', content: accountability(ctx) },
     { name: '05-evidence-record.md', content: evidence(ctx) },
   ];
+  return options.sample ? docs.map(stampSample) : docs;
 };

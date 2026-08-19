@@ -105,3 +105,25 @@ test('two-arg call defaults to a current ISO date string', () => {
   assert.equal(pack.length, 6);
   assert.match(pack[0].content, /Generated \d{4}-\d{2}-\d{2} by ClearLabel/);
 });
+
+const SAMPLE_BANNER = '> SAMPLE. Built from a demo scan, not from your site. Buy the pack to generate these documents from your own scan.';
+
+test('sample:true stamps every emitted .md file with the banner', () => {
+  const pack = buildNis2Pack(answers, essential, FIXED, { sample: true });
+  assert.equal(pack.length, 6);
+  for (const f of pack) {
+    assert.ok(f.name.endsWith('.md'), `unexpected non-md file ${f.name}`);
+    assert.ok(f.content.includes(SAMPLE_BANNER), `${f.name} missing sample banner`);
+  }
+});
+
+test('sample option absent leaves the pack without any banner (licensed path unaffected)', () => {
+  const pack = buildNis2Pack(answers, essential, FIXED);
+  for (const f of pack) {
+    assert.ok(!f.content.includes('SAMPLE. Built from a demo scan'));
+  }
+});
+
+test('four-arg call with sample:false is byte-identical to the three-arg call', () => {
+  assert.deepEqual(buildNis2Pack(answers, essential, FIXED, { sample: false }), buildNis2Pack(answers, essential, FIXED));
+});

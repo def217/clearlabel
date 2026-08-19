@@ -18,6 +18,22 @@ export const DISCLOSURE = {
 const DISCLAIMER =
   'This document is a drafting aid produced by ClearLabel. It is not legal advice and ClearLabel is not a law firm. Review it against your own circumstances and, where your exposure is material, have a qualified adviser in your member state confirm it.';
 
+const SAMPLE_BANNER = '> SAMPLE. Built from a demo scan, not from your site. Buy the pack to generate these documents from your own scan.';
+
+// Inserts the sample banner as its own line directly under the doc's H1, with
+// a blank line on both sides so it never lazily absorbs the line that follows
+// (a markdown blockquote otherwise swallows an immediately-following line).
+const withSampleBanner = (content) => {
+  const i = content.indexOf('\n');
+  const h1 = i === -1 ? content : content.slice(0, i);
+  const rest = i === -1 ? '' : content.slice(i + 1).replace(/^\n+/, '');
+  return `${h1}\n\n${SAMPLE_BANNER}\n\n${rest}`;
+};
+
+// Sample zips must not pass as real compliance evidence. Stamp every .md file;
+// the CSV and JSON artifacts are exempt.
+const stampSample = (f) => (f.name.endsWith('.md') ? { ...f, content: withSampleBanner(f.content) } : f);
+
 const host = (url) => {
   try {
     return new URL(url).hostname;
@@ -296,7 +312,7 @@ ${DISCLAIMER}
 `;
 };
 
-export const buildPack = (scan, now = new Date(), branding = {}) => {
+export const buildPack = (scan, now = new Date(), branding = {}, options = {}) => {
   const agencyName = cleanAgencyName(branding?.agencyName);
   const ctx = {
     site: scan.url,
@@ -318,5 +334,6 @@ export const buildPack = (scan, now = new Date(), branding = {}) => {
   ];
   // Conservative: only add the cover when an agency name is actually present, so
   // existing two-arg callers keep byte-identical output.
-  return agencyName ? [{ name: '00-cover.md', content: cover(ctx) }, ...docs] : docs;
+  const withCover = agencyName ? [{ name: '00-cover.md', content: cover(ctx) }, ...docs] : docs;
+  return options.sample ? withCover.map(stampSample) : withCover;
 };

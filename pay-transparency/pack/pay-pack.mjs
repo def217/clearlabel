@@ -15,6 +15,23 @@
 const cleanOrgName = (raw) =>
   String(raw ?? "").replace(/[\r\n]+/g, " ").trim().slice(0, 120);
 
+const SAMPLE_BANNER = "> SAMPLE. Built from a demo scan, not from your site. Buy the pack to generate these documents from your own scan.";
+
+// Inserts the sample banner as its own line directly under the doc's H1, with
+// a blank line on both sides so it never lazily absorbs the line that follows
+// (a markdown blockquote otherwise swallows an immediately-following line).
+const withSampleBanner = (content) => {
+  const i = content.indexOf("\n");
+  const h1 = i === -1 ? content : content.slice(0, i);
+  const rest = i === -1 ? "" : content.slice(i + 1).replace(/^\n+/, "");
+  return `${h1}\n\n${SAMPLE_BANNER}\n\n${rest}`;
+};
+
+// Sample zips must not pass as real compliance evidence. Stamp every .md file;
+// this pack has no CSV/JSON artifacts to exempt, but the check is kept for
+// parity with the other two generators.
+const stampSample = (f) => (f.name.endsWith(".md") ? { ...f, content: withSampleBanner(f.content) } : f);
+
 export const buildPayPack = (data, opts = {}) => {
   const org = cleanOrgName(opts.orgName);
   const currency = String(opts.currency ?? "").trim() || "[CURRENCY]";
@@ -87,10 +104,11 @@ export const buildPayPack = (data, opts = {}) => {
     "",
   ].join("\n");
 
-  return [
+  const docs = [
     { name: "01-salary-range-clause.md", content: rangeClause },
     { name: "02-gender-neutral-pay-criteria.md", content: genderNeutral },
     { name: "03-interviewer-one-pager.md", content: interviewer },
     { name: "04-contract-checklist.md", content: contract },
   ];
+  return opts.sample ? docs.map(stampSample) : docs;
 };

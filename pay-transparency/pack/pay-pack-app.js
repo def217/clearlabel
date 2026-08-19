@@ -77,7 +77,7 @@ $('#sample').addEventListener('click', () => {
   btn.disabled = true;
   btn.innerHTML = '<span class="spin" style="border-color:var(--line);border-top-color:var(--accent)"></span>Building sample';
   try {
-    const demo = { orgName: '', currency: 'EUR', range: '45,000 - 55,000' };
+    const demo = { orgName: '', currency: 'EUR', range: '45,000 - 55,000', sample: true };
     download(makeZip(buildPayPack(data, demo)), 'clearlabel-pay-transparency-SAMPLE-pack.zip');
     say(note('likely-ok', 'Sample pack downloaded', `This is the full document set: ${DOCS_NOTE}. A real pack is identical but generated from your own currency and range.`));
   } finally {

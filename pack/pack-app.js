@@ -136,7 +136,7 @@ $('#sample').addEventListener('click', async () => {
       overall: 'action-required',
       findings: [],
     };
-    download(makeZip(buildPack(demo)), 'clearlabel-article50-SAMPLE-pack.zip');
+    download(makeZip(buildPack(demo, new Date(), undefined, { sample: true })), 'clearlabel-article50-SAMPLE-pack.zip');
     say(note('likely-ok', 'Sample pack downloaded', 'This is the full document set. A real pack is identical but generated from your own site, with your own vendors pre-filled.'));
   } finally {
     btn.disabled = false;

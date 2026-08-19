@@ -188,7 +188,7 @@ $('#sample').addEventListener('click', () => {
       captures: [],
       orgName: '',
     };
-    download(makeZip(buildNis2Pack(demo, evaluate(demoAnswers, data))), 'clearlabel-nis2-SAMPLE-pack.zip');
+    download(makeZip(buildNis2Pack(demo, evaluate(demoAnswers, data), new Date(), { sample: true })), 'clearlabel-nis2-SAMPLE-pack.zip');
     say(note('likely-ok', 'Sample pack downloaded', `This is the full document set — ${DOCS_NOTE}. A real pack is identical but generated from your own answers, with your organisation name pre-filled.`));
   } finally {
     btn.disabled = false;

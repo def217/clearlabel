@@ -52,3 +52,28 @@ test('agencyName is capped at 120 characters', () => {
   assert.ok(match);
   assert.equal(match[1], 'A'.repeat(120));
 });
+
+const SAMPLE_BANNER = '> SAMPLE. Built from a demo scan, not from your site. Buy the pack to generate these documents from your own scan.';
+
+test('sample:true stamps every .md file with the banner, CSV/JSON exempt', () => {
+  const pack = buildPack(scan, NOW, {}, { sample: true });
+  for (const f of pack) {
+    if (f.name.endsWith('.md')) {
+      assert.ok(f.content.includes(SAMPLE_BANNER), `${f.name} missing sample banner`);
+    } else {
+      assert.ok(!f.content.includes(SAMPLE_BANNER), `${f.name} should not carry the sample banner`);
+    }
+  }
+});
+
+test('sample option absent leaves the pack without any banner (licensed path unaffected)', () => {
+  const withoutOptions = buildPack(scan, NOW, {});
+  const withFalseSample = buildPack(scan, NOW, {}, { sample: false });
+  for (const f of [...withoutOptions, ...withFalseSample]) {
+    assert.ok(!f.content.includes('SAMPLE. Built from a demo scan'));
+  }
+});
+
+test('four-arg call with sample:false is byte-identical to the three-arg call', () => {
+  assert.deepEqual(buildPack(scan, NOW, {}, { sample: false }), buildPack(scan, NOW, {}));
+});
