@@ -213,7 +213,7 @@ ${CHROME_HEADER}
   <div class="wrap">
     <div class="offer">
       <h3 style="margin-top:0">Check what your live site is actually doing</h3>
-      <p>The scan reads your public HTML, fingerprints ${esc(v.name)} and 35 other vendors, and looks for disclosure wording in ten EU languages. Free, no signup, runs in your browser.</p>
+      <p>The scan reads your public HTML, fingerprints ${esc(v.name)} and 35 other vendors, and looks for disclosure wording in twelve EU languages. Free, no signup, runs in your browser.</p>
       <a class="btn" href="../#scan" style="display:inline-block;text-decoration:none">Scan your site free</a>
     </div>
   </div>
