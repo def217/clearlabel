@@ -15,15 +15,20 @@
  * Batch lines are {"id": "<domain>", "ok": true, "text": "Subject: ...\n\n<body>"}
  * (the shape study/outreach-batch.jsonl already uses). Recipient defaults to
  * info@<domain>; a line may override with an explicit "to" field.
+ *
+ * Each send is multipart/alternative: the original text plus an HTML part
+ * derived from it at send time (tools/mail-html.mjs). The draft JSONL format
+ * is unchanged; HTML is never persisted.
  */
 import { readFile, appendFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { loadSuppression, domainOf } from './suppression.mjs';
 import { loadEnv } from './env.mjs';
+import { textToHtml } from './mail-html.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
-const FROM = 'ClearLabel <info@clearlabel.eu>';
+const FROM = 'Jonas from ClearLabel <info@clearlabel.eu>';
 const API = 'https://api.cloudflare.com/client/v4';
 const PAUSE_MS = 3000; // no burst sending: 25 mails should take a leisurely minute, not a second
 const LEDGER = join(HERE, '..', 'study', 'sent-log.jsonl');
@@ -61,14 +66,22 @@ const ledgerDate = (sentAt) => {
   return Number.isNaN(d.getTime()) ? sentAt : d.toISOString().slice(0, 10);
 };
 
-const sendOne = async (env, { to, subject, body }) => {
+const sendOne = async (env, { to, subject, body, html }) => {
+  const payload = {
+    from: FROM,
+    to,
+    subject,
+    text: body,
+    headers: { 'List-Unsubscribe': '<mailto:info@clearlabel.eu?subject=unsubscribe>' },
+  };
+  if (html) payload.html = html;
   const res = await fetch(`${API}/accounts/${env.CF_ACCOUNT_ID}/email/sending/send`, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${env.CF_EMAIL_API_TOKEN}`,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ from: FROM, to, subject, text: body }),
+    body: JSON.stringify(payload),
   });
   const json = await res.json().catch(() => ({}));
   return { ok: res.ok && json.success !== false, status: res.status, detail: JSON.stringify(json).slice(0, 200) };
@@ -114,7 +127,7 @@ const main = async () => {
     .filter((d) => d && d.ok && d.text)
     .map((d) => {
       const parts = splitDraft(d.text);
-      return parts ? { id: d.id, to: d.to ?? `info@${d.id}`, ...parts } : null;
+      return parts ? { id: d.id, to: d.to ?? `info@${d.id}`, text: d.text, ...parts } : null;
     })
     .filter(Boolean);
 
@@ -122,6 +135,7 @@ const main = async () => {
   let sentCount = 0;
   let skippedCount = 0;
   let suppressedCount = 0;
+  let htmlCount = 0;
   for (const draft of drafts) {
     if (suppressed.has(String(draft.id).trim().toLowerCase()) || suppressed.has(domainOf(draft.to))) {
       suppressedCount += 1;
@@ -135,10 +149,13 @@ const main = async () => {
     }
     if (!live) {
       sentCount += 1;
+      textToHtml(draft.text); // derive HTML at "send" time; validates the draft renders
+      htmlCount += 1;
       console.log(`would send: ${draft.to} | ${draft.subject}`);
       continue;
     }
-    const r = await sendOne(env, draft);
+    const { html } = textToHtml(draft.text);
+    const r = await sendOne(env, { to: draft.to, subject: draft.subject, body: draft.body, html });
     if (r.ok) {
       // Append immediately: a crash mid-run must not lose already-sent entries.
       await appendLedger({ id: draft.id, to: draft.to, sentAt: new Date().toISOString() });
@@ -150,6 +167,9 @@ const main = async () => {
   console.log(live
     ? `done: ${sentCount} sent, ${skippedCount} skipped, ${suppressedCount} suppressed`
     : `dry run: ${sentCount} would send, ${skippedCount} would skip, ${suppressedCount} suppressed`);
+  if (!live) {
+    console.log(`html: derived for ${htmlCount} drafts`);
+  }
 };
 
 main().catch((err) => { console.error('fatal:', err.message); process.exit(1); });
