@@ -20,20 +20,13 @@ import { readFile, appendFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { loadSuppression, domainOf } from './suppression.mjs';
+import { loadEnv } from './env.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const FROM = 'ClearLabel <info@clearlabel.eu>';
 const API = 'https://api.cloudflare.com/client/v4';
 const PAUSE_MS = 3000; // no burst sending: 25 mails should take a leisurely minute, not a second
 const LEDGER = join(HERE, '..', 'study', 'sent-log.jsonl');
-
-const loadEnv = async () => {
-  const body = await readFile(join(HERE, '..', '.env'), 'utf8');
-  return Object.fromEntries(
-    body.split('\n').filter((l) => l.includes('=') && !l.startsWith('#'))
-      .map((l) => [l.slice(0, l.indexOf('=')).trim(), l.slice(l.indexOf('=') + 1).trim()])
-  );
-};
 
 const splitDraft = (text) => {
   const m = text.match(/^Subject:\s*(.+)\n+([\s\S]+)$/);
@@ -83,7 +76,7 @@ const sendOne = async (env, { to, subject, body }) => {
 
 const main = async () => {
   const args = process.argv.slice(2);
-  const env = await loadEnv();
+  const env = await loadEnv(HERE);
   if (!env.CF_ACCOUNT_ID || !env.CF_EMAIL_API_TOKEN) {
     console.error('Missing CF_ACCOUNT_ID or CF_EMAIL_API_TOKEN in .env — nothing sent.');
     process.exit(1);

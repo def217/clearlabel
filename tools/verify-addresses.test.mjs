@@ -9,6 +9,13 @@ import {
   normalizeDomain,
   classifyProvider,
   pageCategoryOf,
+  verifyDomain,
+  isBotWall,
+  proxyUrlFor,
+  createProxyBudget,
+  PROXY_MAX_REQUESTS,
+  PROXY_MIN_GAP_MS,
+  BOT_WALL_MARKERS,
 } from './verify-addresses.mjs';
 
 // ---- extraction -----------------------------------------------------------
@@ -151,4 +158,132 @@ test('pageCategoryOf', () => {
   assert.equal(pageCategoryOf('/impressum'), 'contact');
   assert.equal(pageCategoryOf('/privacy'), 'info');
   assert.equal(pageCategoryOf('/'), 'info');
+});
+
+// ---- reader-proxy fallback ------------------------------------------------
+
+test('bot wall: every marker detected in a short body', () => {
+  for (const marker of BOT_WALL_MARKERS) {
+    assert.equal(
+      isBotWall({ status: 200, html: `<html><body>${marker}</body></html>` }, null),
+      true,
+      `marker: ${marker}`,
+    );
+  }
+});
+
+test('bot wall: markers match case-insensitively', () => {
+  assert.equal(isBotWall({ status: 200, html: '<title>Just a moment...</title>' }, null), true);
+  assert.equal(isBotWall({ status: 200, html: '<h1>Attention Required</h1>' }, null), true);
+});
+
+test('bot wall: short challenge body detected, short plain page is not', () => {
+  assert.equal(isBotWall({ status: 200, html: 'cf-challenge please wait' }, null), true);
+  assert.equal(isBotWall({ status: 200, html: 'ok' }, null), false);
+});
+
+test('bot wall: plain 200 page is not a bot wall', () => {
+  const body = 'This is a normal contact page with real content. '.repeat(40);
+  assert.equal(isBotWall({ status: 200, html: body }, null), false);
+});
+
+test('bot wall: status codes 403/429/503 trigger regardless of body size', () => {
+  const big = 'x'.repeat(2000);
+  for (const status of [403, 429, 503]) {
+    assert.equal(isBotWall({ status, html: big }, null), true, `status ${status}`);
+  }
+});
+
+test('bot wall: network error triggers, other statuses do not', () => {
+  assert.equal(isBotWall(null, new Error('fetch failed')), true);
+  assert.equal(isBotWall({ status: 404, html: 'not found' }, null), false);
+});
+
+test('proxyUrlFor: prefixes reader proxy keeping original scheme', () => {
+  assert.equal(
+    proxyUrlFor('https://example.com/impressum'),
+    'https://r.jina.ai/https://example.com/impressum',
+  );
+  assert.equal(proxyUrlFor('http://example.com/kontakt'), 'https://r.jina.ai/http://example.com/kontakt');
+});
+
+test('proxy constants: budget and gap are exported with expected values', () => {
+  assert.equal(PROXY_MAX_REQUESTS, 30);
+  assert.equal(PROXY_MIN_GAP_MS, 2000);
+});
+
+test('proxy budget: enforces max requests', async () => {
+  const budget = createProxyBudget({ max: 3, minGapMs: 0, sleep: async () => {} });
+  assert.equal(await budget.reserve(), true);
+  assert.equal(await budget.reserve(), true);
+  assert.equal(await budget.reserve(), true);
+  assert.equal(await budget.reserve(), false);
+  assert.equal(budget.used(), 3);
+});
+
+test('proxy budget: enforces minimum gap between consecutive requests', async () => {
+  const sleeps = [];
+  let now = 0;
+  const budget = createProxyBudget({
+    max: 10,
+    minGapMs: 2000,
+    sleep: async (ms) => { sleeps.push(ms); now += ms; },
+    now: () => now,
+  });
+  await budget.reserve(); // first request: no gap to wait for
+  await budget.reserve(); // second request: must wait the full gap
+  assert.deepEqual(sleeps, [2000]);
+  assert.equal(budget.used(), 2);
+});
+
+test('verifyDomain: direct fetch keeps the current record shape (no via field)', async () => {
+  const rec = await verifyDomain('shop.example.de', {
+    fetchPage: async (url) => ({
+      status: 200,
+      html: '<a href="mailto:kontakt@shop.example.de">Kontakt</a>',
+      finalUrl: url,
+    }),
+    fetchViaProxy: async () => { throw new Error('proxy should not be called'); },
+    hasMailServer: async () => true,
+    proxyBudget: createProxyBudget({ max: 0, minGapMs: 0, sleep: async () => {} }),
+    sleep: async () => {},
+  });
+  assert.equal(rec.email, 'kontakt@shop.example.de');
+  assert.equal(Object.prototype.hasOwnProperty.call(rec, 'via'), false);
+});
+
+test('verifyDomain: bot-wall page is retried once via proxy and marked reader-proxy', async () => {
+  const proxyCalls = [];
+  const rec = await verifyDomain('shop.example.de', {
+    fetchPage: async (url) => (
+      url.endsWith('/impressum')
+        ? { status: 403, html: '<html><title>Just a moment...</title></html>', finalUrl: url }
+        : { status: 404, html: '', finalUrl: url }
+    ),
+    fetchViaProxy: async (url) => {
+      proxyCalls.push(url);
+      return { status: 200, html: 'Kontakt: info@shop.example.de', finalUrl: 'https://shop.example.de/impressum' };
+    },
+    hasMailServer: async () => true,
+    proxyBudget: createProxyBudget({ max: 30, minGapMs: 0, sleep: async () => {} }),
+    sleep: async () => {},
+  });
+  assert.equal(rec.email, 'info@shop.example.de');
+  assert.equal(rec.via, 'reader-proxy');
+  assert.equal(proxyCalls.length, 1, 'bot-walled URL proxied exactly once');
+  assert.equal(proxyCalls[0], 'https://shop.example.de/impressum');
+});
+
+test('verifyDomain: exhausted proxy budget leaves direct failures alone', async () => {
+  const proxyCalls = [];
+  const rec = await verifyDomain('shop.example.de', {
+    fetchPage: async () => ({ status: 503, html: '', finalUrl: 'https://shop.example.de/impressum' }),
+    fetchViaProxy: async (url) => { proxyCalls.push(url); return { status: 200, html: 'x@shop.example.de', finalUrl: url }; },
+    hasMailServer: async () => true,
+    proxyBudget: createProxyBudget({ max: 0, minGapMs: 0, sleep: async () => {} }),
+    sleep: async () => {},
+  });
+  assert.equal(proxyCalls.length, 0);
+  assert.equal(rec.email, null);
+  assert.equal(rec.reason, 'no-contact-page');
 });

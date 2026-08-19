@@ -13,3 +13,7 @@ study/sent-log.jsonl
 study/suppression.jsonl
 study/replies-log.jsonl
 study/verified-addresses.jsonl
+study/verified-*.jsonl
+study/candidates-agencies.csv
+study/outreach-drafts-*.jsonl
+study/batch4-pending.csv

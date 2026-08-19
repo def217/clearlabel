@@ -11,23 +11,15 @@
  *   node tools/inbox.mjs --read <uid>       # full parsed JSON for one message, then marks it \Seen
  *   node tools/inbox.mjs --health           # connect and print mailbox message count
  */
-import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
-import { dirname, join } from 'node:path';
+import { dirname } from 'node:path';
 import { ImapFlow } from 'imapflow';
 import { simpleParser } from 'mailparser';
+import { loadEnv } from './env.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const DEFAULT_PORT = 993;
 const TEXT_LIMIT = 4000;
-
-const loadEnv = async () => {
-  const body = await readFile(join(HERE, '..', '.env'), 'utf8');
-  return Object.fromEntries(
-    body.split('\n').filter((l) => l.includes('=') && !l.startsWith('#'))
-      .map((l) => [l.slice(0, l.indexOf('=')).trim(), l.slice(l.indexOf('=') + 1).trim()])
-  );
-};
 
 const newClient = (env) =>
   new ImapFlow({
@@ -80,7 +72,7 @@ const health = async (client) => {
 
 const main = async () => {
   const args = process.argv.slice(2);
-  const env = await loadEnv();
+  const env = await loadEnv(HERE);
   if (!env.IMAP_HOST || !env.IMAP_USER || !env.IMAP_PASS) {
     console.error('inbox: IMAP_* env missing (see OWNER-ACTIONS)');
     process.exit(1);

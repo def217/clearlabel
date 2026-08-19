@@ -18,19 +18,12 @@ import { readFile, appendFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { loadSuppression, domainOf } from './suppression.mjs';
+import { loadEnv } from './env.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const FROM = 'ClearLabel <info@clearlabel.eu>';
 const API = 'https://api.cloudflare.com/client/v4';
 const REPLIES_LOG = join(HERE, '..', 'study', 'replies-log.jsonl');
-
-const loadEnv = async () => {
-  const body = await readFile(join(HERE, '..', '.env'), 'utf8');
-  return Object.fromEntries(
-    body.split('\n').filter((l) => l.includes('=') && !l.startsWith('#'))
-      .map((l) => [l.slice(0, l.indexOf('=')).trim(), l.slice(l.indexOf('=') + 1).trim()])
-  );
-};
 
 const sendOne = async (env, { to, subject, body, inReplyTo, references }) => {
   const payload = { from: FROM, to, subject, text: body };
@@ -75,7 +68,7 @@ const main = async () => {
     process.exit(1);
   }
 
-  const env = await loadEnv();
+  const env = await loadEnv(HERE);
   if (!env.CF_ACCOUNT_ID || !env.CF_EMAIL_API_TOKEN) {
     console.error('Missing CF_ACCOUNT_ID or CF_EMAIL_API_TOKEN in .env — nothing sent.');
     process.exit(1);

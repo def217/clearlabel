@@ -27,7 +27,14 @@ import {
   pageCategoryOf,
   domainOfEmail,
   fetchPage,
+  fetchPageViaProxy,
   hasMailServer,
+  isBotWall,
+  proxyUrlFor,
+  createProxyBudget,
+  PROXY_MAX_REQUESTS,
+  PROXY_MIN_GAP_MS,
+  BOT_WALL_MARKERS,
   verifyDomain,
 } from './verify-addresses-lib.mjs';
 
@@ -42,7 +49,14 @@ export {
   pageCategoryOf,
   domainOfEmail,
   fetchPage,
+  fetchPageViaProxy,
   hasMailServer,
+  isBotWall,
+  proxyUrlFor,
+  createProxyBudget,
+  PROXY_MAX_REQUESTS,
+  PROXY_MIN_GAP_MS,
+  BOT_WALL_MARKERS,
   verifyDomain,
 };
 
@@ -100,9 +114,13 @@ const main = async () => {
 
   await mkdir(dirname(outFile), { recursive: true });
 
+  // One shared reader-proxy budget for the whole run (30 requests, 2s apart),
+  // so no domain alone can exhaust the proxy quota.
+  const proxyBudget = createProxyBudget();
+
   // Domains are deduped, so no two workers ever hit the same host concurrently.
   const results = await mapPool(batch, concurrency, async (domain) => {
-    const rec = await verifyDomain(domain, { verbose });
+    const rec = await verifyDomain(domain, { verbose, proxyBudget });
     // Append + flush per domain: a crash loses nothing already written.
     await appendFile(outFile, JSON.stringify(rec) + '\n');
     if (verbose) console.error(rec.email ? `  ok ${domain} -> ${rec.email}` : `  none ${domain} (${rec.reason})`);

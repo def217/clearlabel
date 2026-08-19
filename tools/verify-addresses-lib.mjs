@@ -21,6 +21,28 @@ const FETCH_TIMEOUT_MS = 10_000;
 const SAME_DOMAIN_DELAY_MS = 1_000;
 const USER_AGENT = 'ClearLabel-AddressCheck/1.0 (+https://clearlabel.eu)';
 
+// ---- reader-proxy fallback ------------------------------------------------
+// The public reader proxy (r.jina.ai) fetches pages behind bot walls and
+// returns markdown/plain text. Budget and gap are per-run caps: the proxy
+// rate-limits aggressively, so we never exceed them.
+const PROXY_PREFIX = 'https://r.jina.ai/';
+export const PROXY_MAX_REQUESTS = 30;
+export const PROXY_MIN_GAP_MS = 2_000;
+const PROXY_VIA = 'reader-proxy';
+const CHALLENGE_BODY_MAX_BYTES = 500;
+const BOT_WALL_STATUSES = new Set([403, 429, 503]);
+// Lower-case markers, matched case-insensitively against a short body.
+export const BOT_WALL_MARKERS = [
+  'cf-challenge',
+  'just a moment',
+  'attention required',
+  'checking your browser',
+  'enable javascript',
+  'please enable cookies',
+  'access denied',
+  'challenge-platform',
+];
+
 // Non-exhaustive; just the majors we are most likely to see on contact pages.
 const FREEMAIL_DOMAINS = new Set([
   'gmail.com', 'googlemail.com', 'outlook.com', 'hotmail.com', 'live.com', 'msn.com',
@@ -226,6 +248,24 @@ const parseCsv = (lines) => {
   return out;
 };
 
+/**
+ * True when a fetch should be retried through the reader proxy: a network
+ * error, an explicit bot-wall status (403/429/503), or a short body (under
+ * 500 bytes) carrying a known challenge marker. Pure: no I/O.
+ */
+export const isBotWall = (page, error) => {
+  if (error) return true;
+  if (!page) return false;
+  if (BOT_WALL_STATUSES.has(page.status)) return true;
+  const body = String(page.html ?? '');
+  if (Buffer.byteLength(body, 'utf8') >= CHALLENGE_BODY_MAX_BYTES) return false;
+  const lower = body.toLowerCase();
+  return BOT_WALL_MARKERS.some((marker) => lower.includes(marker));
+};
+
+/** Build the reader-proxy URL, keeping the original scheme inside. */
+export const proxyUrlFor = (url) => `${PROXY_PREFIX}${url}`;
+
 // ---- network / per-domain -------------------------------------------------
 
 export const hasMailServer = async (domain) => {
@@ -260,7 +300,61 @@ export const fetchPage = async (url) => {
   }
 };
 
+/**
+ * Fetch a URL through the public reader proxy (r.jina.ai). Responses are
+ * markdown/plain text, not HTML, so callers must run email extraction on the
+ * text as-is rather than requiring an HTML parse. Returns the same
+ * { status, html, finalUrl } shape as fetchPage for a uniform caller.
+ */
+export const fetchPageViaProxy = async (url) => {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+  try {
+    const res = await fetch(proxyUrlFor(url), {
+      redirect: 'follow',
+      signal: controller.signal,
+      headers: {
+        'user-agent': USER_AGENT,
+        accept: 'text/markdown,text/plain,text/html;q=0.8',
+      },
+    });
+    const text = await res.text();
+    return { status: res.status, html: text, finalUrl: url };
+  } finally {
+    clearTimeout(timer);
+  }
+};
+
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+/**
+ * Per-run proxy throttle. Encapsulates mutable counters in a closure (no shared
+ * object mutation) and serializes reservations so the minimum gap holds even
+ * across concurrent workers. `sleep`/`now` are injectable for tests.
+ */
+export const createProxyBudget = ({
+  max = PROXY_MAX_REQUESTS,
+  minGapMs = PROXY_MIN_GAP_MS,
+  sleep: sleepImpl = sleep,
+  now = Date.now,
+} = {}) => {
+  let used = 0;
+  let lastAt = -Infinity;
+  let chain = Promise.resolve();
+  const reserve = () => {
+    const run = chain.then(async () => {
+      if (used >= max) return false;
+      const elapsed = now() - lastAt;
+      if (elapsed < minGapMs) await sleepImpl(minGapMs - elapsed);
+      used += 1;
+      lastAt = now();
+      return true;
+    });
+    chain = run.then(() => undefined, () => undefined);
+    return run;
+  };
+  return { reserve, used: () => used };
+};
 
 const nullResult = (domain, reason) => ({
   domain,
@@ -282,20 +376,43 @@ const confidentHit = (candidates) =>
 
 /**
  * Verify one domain. Never throws: any failure becomes a null-email line.
- * `fetchPage` is injectable so tests can supply a stub.
+ * `fetchPage`/`fetchViaProxy`/`hasMailServer` are injectable so tests can
+ * supply stubs; `proxyBudget` carries the per-run proxy throttle across domains.
  */
-export const verifyDomain = async (domain, { fetchPage: fetchImpl = fetchPage, verbose = false } = {}) => {
+export const verifyDomain = async (domain, {
+  fetchPage: fetchImpl = fetchPage,
+  fetchViaProxy: proxyFetchImpl = fetchPageViaProxy,
+  hasMailServer: mxImpl = hasMailServer,
+  proxyBudget = createProxyBudget(),
+  sleep: sleepImpl = sleep,
+  verbose = false,
+} = {}) => {
   try {
     const candidates = [];
     let fetched = 0;
     let anyContent = false;
     let anyNetworkError = false;
 
+    // Fetch one URL; when it hits a bot wall, retry that URL exactly once via
+    // the reader proxy (budget permitting). Returns { page, error, via } where
+    // `via` is PROXY_VIA only when the returned page came from the proxy.
+    const fetchOne = async (url) => {
+      const { page, error } = await tryFetch(fetchImpl, url);
+      if (!isBotWall(page, error)) return { page, error, via: null };
+      const reserved = await proxyBudget.reserve();
+      if (!reserved) return { page, error, via: null };
+      const { page: proxied, error: proxyError } = await tryFetch(proxyFetchImpl, url);
+      if (proxyError || !proxied || proxied.status < 200 || proxied.status >= 300) {
+        return { page, error, via: null };
+      }
+      return { page: proxied, error: null, via: PROXY_VIA };
+    };
+
     for (const path of CANDIDATE_PATHS) {
       if (fetched >= MAX_FETCHES_PER_DOMAIN) break;
       const url = `https://${domain}${path}`;
       fetched += 1;
-      const { page, error } = await tryFetch(fetchImpl, url);
+      const { page, error, via } = await fetchOne(url);
       if (error) {
         anyNetworkError = true;
         if (verbose) console.error(`  ${domain}: ${path} -> ${error.message}`);
@@ -303,23 +420,35 @@ export const verifyDomain = async (domain, { fetchPage: fetchImpl = fetchPage, v
         if (verbose) console.error(`  ${domain}: ${path} -> HTTP ${page.status}`);
       } else {
         anyContent = true;
+        if (verbose && via) console.error(`  ${domain}: ${path} -> reader-proxy`);
         for (const c of extractEmails(page.html, { scannedDomain: domain })) {
-          candidates.push({ ...c, sourceUrl: page.finalUrl, pageCategory: pageCategoryOf(path) });
+          candidates.push({
+            ...c,
+            sourceUrl: via ? url : page.finalUrl,
+            pageCategory: pageCategoryOf(path),
+            ...(via ? { via } : {}),
+          });
         }
         if (confidentHit(candidates)) break;
       }
-      if (fetched < MAX_FETCHES_PER_DOMAIN) await sleep(SAME_DOMAIN_DELAY_MS);
+      if (fetched < MAX_FETCHES_PER_DOMAIN) await sleepImpl(SAME_DOMAIN_DELAY_MS);
     }
 
     // Homepage fallback when no candidate path yielded a page at all.
     if (!anyContent) {
-      if (fetched > 0) await sleep(SAME_DOMAIN_DELAY_MS);
-      const { page, error } = await tryFetch(fetchImpl, `https://${domain}/`);
+      if (fetched > 0) await sleepImpl(SAME_DOMAIN_DELAY_MS);
+      const homeUrl = `https://${domain}/`;
+      const { page, error, via } = await fetchOne(homeUrl);
       if (error) anyNetworkError = true;
       else if (page.status >= 200 && page.status < 300) {
         anyContent = true;
         for (const c of extractEmails(page.html, { scannedDomain: domain })) {
-          candidates.push({ ...c, sourceUrl: page.finalUrl, pageCategory: 'info' });
+          candidates.push({
+            ...c,
+            sourceUrl: via ? homeUrl : page.finalUrl,
+            pageCategory: 'info',
+            ...(via ? { via } : {}),
+          });
         }
       }
     }
@@ -328,7 +457,8 @@ export const verifyDomain = async (domain, { fetchPage: fetchImpl = fetchPage, v
     if (candidates.length === 0) return nullResult(domain, 'no-email-found');
 
     for (const c of rankCandidates(candidates)) {
-      if (await hasMailServer(domainOfEmail(c.email))) {
+      // MX checks stay pure DNS — never routed through the proxy.
+      if (await mxImpl(domainOfEmail(c.email))) {
         return {
           domain,
           email: c.email,
@@ -337,6 +467,7 @@ export const verifyDomain = async (domain, { fetchPage: fetchImpl = fetchPage, v
           confidence: confidenceOf(c),
           provider: c.provider,
           mx: true,
+          ...(c.via ? { via: c.via } : {}),
           checkedAt: new Date().toISOString(),
         };
       }
