@@ -6,6 +6,8 @@ node_modules/
 .env.*
 !.env.example
 study/prospects.json
+study/prospects-*.jsonl
+study/prospects-*.csv
 study/outreach-batch.jsonl
 study/outreach-drafts.jsonl
 study/sent-*.jsonl

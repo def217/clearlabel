@@ -12,6 +12,7 @@ jobs:
           set -eu
           FOUND=$(git ls-files -- \
             'study/candidates-*' \
+            'study/prospects*' \
             'study/results*' \
             'study/*verified*' \
             'study/sent-*' \
