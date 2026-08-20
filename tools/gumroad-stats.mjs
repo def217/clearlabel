@@ -35,7 +35,10 @@ const buildSalesUrl = (token, pageKey) => {
 
 const nextSalesUrl = (token, json) => {
   if (json.next_page_url) {
-    const url = new URL(json.next_page_url);
+    const url = new URL(json.next_page_url, 'https://api.gumroad.com');
+    if (url.hostname !== 'api.gumroad.com') {
+      throw new Error(`api error: unexpected pagination host ${url.hostname}`);
+    }
     if (!url.searchParams.get('access_token')) {
       url.searchParams.set('access_token', token);
     }
@@ -95,7 +98,7 @@ const aggregate = (sales) => {
     }
   }
 
-  const byProduct = {};
+  const byProduct = Object.create(null);
   for (const [name, v] of byProductCents) {
     byProduct[name] = { count: v.count, revenueEur: round2(v.cents / 100) };
   }
