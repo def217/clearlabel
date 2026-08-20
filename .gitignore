@@ -17,3 +17,9 @@ study/verified-*.jsonl
 study/candidates-agencies.csv
 study/outreach-drafts-*.jsonl
 study/batch4-pending.csv
+study/candidates-*.csv
+study/results-*.jsonl
+study/lt-*.csv
+study/outreach-drafts-*.jsonl
+study/batch*-pending.csv
+study/batch*-qualified.csv
