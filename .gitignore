@@ -23,3 +23,13 @@ study/lt-*.csv
 study/outreach-drafts-*.jsonl
 study/batch*-pending.csv
 study/batch*-qualified.csv
+study/results.jsonl
+study/results-final.jsonl
+study/all-known-domains.txt
+study/ecommerce-verified.csv
+study/retry.csv
+study/*.log
+study/candidates-*.csv
+study/lt-*.csv
+study/batch*-pending.csv
+study/batch*-qualified.csv
