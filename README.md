@@ -23,7 +23,7 @@ If you enabled an AI agent in Zendesk, Intercom, Gorgias, Tidio, Crisp or HubSpo
 ## What the scanner does
 
 1. Fetches the public HTML of a URL.
-2. Fingerprints known conversational-AI vendors (37 and counting).
+2. Fingerprints known conversational-AI vendors (36 and counting).
 3. Searches visible page copy for AI-disclosure wording in **10 EU languages**.
 4. Reports per-article findings with an explicit confidence level.
 
