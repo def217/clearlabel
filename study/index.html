@@ -8,6 +8,15 @@
 <link rel="canonical" href="https://clearlabel.eu/study/">
 <meta property="og:title" content="We scanned 883 EU websites for AI Act Article 50 compliance">
 <meta property="og:description" content="92% of EU sites running a chat widget show no AI disclosure. Only 0.4% carry machine-readable AI content marking.">
+<!-- Perf fix 2026-08-20: site-chrome.css and styles.css each pull this in via
+     @import (styles.css also re-imports fonts-plex.css, already linked
+     above), which the browser can only discover after downloading and
+     parsing the importing file, adding a serial round trip to the
+     render-blocking chain. Linking it directly here lets it fetch in
+     parallel with the others; the @imports stay in place and just resolve
+     from cache once this request lands, so styles.css (shared with
+     /label/, /pack/, /vendors/, /nis2/, /guides/) does not need to change. -->
+<link rel="stylesheet" href="/tokens.css">
 <link rel="stylesheet" href="/fonts-plex.css">
 <link rel="stylesheet" href="/site-chrome.css">
 <link rel="stylesheet" href="../styles.css">
