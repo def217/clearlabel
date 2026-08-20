@@ -26,6 +26,24 @@ const TIMEOUT_MS = 15000;
 const DEFAULT_DELAY_MS = 2000;
 const UA = 'ClearLabelBot/1.0';
 
+/** Contact/help paths worth trying, by ccTLD. Kept to three to limit load. */
+const PATHS = {
+  de: ['/kontakt', '/hilfe', '/service'], at: ['/kontakt', '/hilfe', '/service'],
+  fr: ['/contact', '/aide', '/nous-contacter'], be: ['/contact', '/help', '/kontakt'],
+  nl: ['/contact', '/klantenservice', '/help'], es: ['/contacto', '/ayuda', '/atencion-al-cliente'],
+  it: ['/contatti', '/assistenza', '/aiuto'], pt: ['/contato', '/contactos', '/ajuda'],
+  pl: ['/kontakt', '/pomoc', '/obsluga-klienta'], se: ['/kontakt', '/hjalp', '/kundservice'],
+  dk: ['/kontakt', '/hjaelp', '/kundeservice'], fi: ['/yhteystiedot', '/asiakaspalvelu', '/ohje'],
+  cz: ['/kontakt', '/napoveda', '/podpora'], sk: ['/kontakt', '/pomoc', '/podpora'],
+  hu: ['/kapcsolat', '/segitseg', '/ugyfelszolgalat'], ro: ['/contact', '/ajutor', '/suport'],
+  gr: ['/contact', '/epikoinonia', '/help'], bg: ['/contact', '/kontakti', '/pomosht'],
+  hr: ['/kontakt', '/pomoc', '/podrska'], si: ['/kontakt', '/pomoc', '/podpora'],
+  lt: ['/kontaktai', '/pagalba', '/contact'], lv: ['/kontakti', '/palidziba', '/contact'],
+  ee: ['/kontakt', '/abi', '/contact'], ie: ['/contact', '/help', '/support'],
+  lu: ['/contact', '/kontakt', '/aide'], eu: ['/contact', '/help', '/support'],
+};
+const DEFAULT_PATHS = ['/contact', '/help', '/support'];
+
 const arg = (argv, name) => {
   const i = argv.indexOf(`--${name}`);
   return i > -1 && argv[i + 1] !== undefined ? argv[i + 1] : null;
@@ -54,11 +72,11 @@ const parseJsonl = (body) => {
   return { rows, malformed };
 };
 
-const fetchHomepage = async (domain) => {
+const fetchPage = async (domain, path = '/') => {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
   try {
-    const res = await fetch(`https://${domain}/`, {
+    const res = await fetch(`https://${domain}${path}`, {
       redirect: 'follow',
       signal: controller.signal,
       headers: { 'User-Agent': UA, Accept: 'text/html,application/xhtml+xml' },
@@ -72,12 +90,45 @@ const fetchHomepage = async (domain) => {
   }
 };
 
-const freshScan = async (domain, db) => {
+/** Immutable union of two arrays, deduped on a field (lang / id). */
+const unionBy = (a, b, key) => {
+  const seen = new Set(a.map((x) => x[key]));
+  return [...a, ...b.filter((x) => !seen.has(x[key]))];
+};
+
+const freshScan = async (domain, cctld, db, delayMs) => {
   const scannedAt = new Date().toISOString();
-  const page = await fetchHomepage(domain);
-  if (!page.ok) return { scannedAt, ok: false, error: page.error };
-  const { vendors, disclosures, contentSignals, overall, findings } = scanHtml(page.html, db);
-  return { scannedAt, ok: true, overall, vendors, disclosures, contentSignals, findings };
+  const home = await fetchPage(domain);
+  if (!home.ok) return { scannedAt, ok: false, error: home.error };
+
+  const homeScan = scanHtml(home.html, db);
+  const pagesRead = ['/'];
+  // Only spend extra requests when the homepage showed nothing.
+  let vendorScan = homeScan;
+  if (homeScan.vendors.length === 0) {
+    for (const path of (PATHS[cctld] || DEFAULT_PATHS)) {
+      await wait(delayMs);
+      const page = await fetchPage(domain, path);
+      if (!page.ok) continue;
+      pagesRead.push(path);
+      const scan = scanHtml(page.html, db);
+      if (scan.vendors.length > 0) {
+        vendorScan = scan;
+        break;
+      }
+    }
+  }
+
+  return {
+    scannedAt,
+    ok: true,
+    overall: vendorScan.overall,
+    vendors: vendorScan.vendors,
+    disclosures: unionBy(homeScan.disclosures, vendorScan.disclosures, 'lang'),
+    contentSignals: unionBy(homeScan.contentSignals, vendorScan.contentSignals, 'id'),
+    findings: vendorScan.findings,
+    pagesRead,
+  };
 };
 
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -116,7 +167,7 @@ const main = async () => {
   let freshOk = 0;
   let freshFail = 0;
   for (const [index, prospect] of batch.entries()) {
-    const fresh = await freshScan(prospect.domain, db);
+    const fresh = await freshScan(prospect.domain, prospect.cctld, db, delayMs);
     if (fresh.ok) freshOk += 1; else freshFail += 1;
     // Append + flush per domain: a crash mid-run must not lose work already done.
     await appendFile(outFile, `${JSON.stringify({ ...prospect, fresh })}\n`);
