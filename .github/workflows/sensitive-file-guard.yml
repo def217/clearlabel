@@ -1,0 +1,37 @@
+name: sensitive-file-guard
+
+on: [push, pull_request]
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fail if sensitive data files are tracked
+        run: |
+          set -eu
+          FOUND=$(git ls-files -- \
+            'study/candidates-*' \
+            'study/results*' \
+            'study/*verified*' \
+            'study/sent-*' \
+            'study/sent-log*' \
+            'study/suppression*' \
+            'study/replies*' \
+            'study/outreach-*' \
+            'study/batch*' \
+            'study/lt-*' \
+            'study/all-known-domains*' \
+            'study/retry.csv' \
+            'study/*.log' \
+            '.env' \
+            '*.env' \
+            '**/.env' \
+            || true)
+          if [ -n "$FOUND" ]; then
+            echo "BLOCKED: sensitive files are tracked in this public repo:"
+            echo "$FOUND"
+            echo "Remove with: git rm --cached <file>  (and check git history)"
+            exit 1
+          fi
+          echo "clean: no sensitive data files tracked"

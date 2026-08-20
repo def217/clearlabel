@@ -1,0 +1,21 @@
+#!/bin/sh
+# Blocks committing prospect/scan/credential files to this PUBLIC repo.
+# Installed via: git config core.hooksPath .githooks
+# Server-side twin: .github/workflows/sensitive-file-guard.yml
+set -eu
+
+STAGED=$(git diff --cached --name-only --diff-filter=ACR)
+[ -z "$STAGED" ] && exit 0
+
+BLOCKED=$(printf '%s\n' "$STAGED" | grep -E \
+  '^study/(candidates-|results|sent-|sent-log|suppression|replies|outreach-|batch|lt-|all-known-domains|retry\.csv)|^study/.*verified|^study/.*\.log$|(^|/)\.env$|\.env$' \
+  || true)
+
+if [ -n "$BLOCKED" ]; then
+  echo "pre-commit BLOCKED: these files must never be committed to the public repo:" >&2
+  printf '%s\n' "$BLOCKED" >&2
+  echo "If one is genuinely safe (aggregate, no emails, no per-domain verdicts)," >&2
+  echo "rename it outside the blocked patterns deliberately." >&2
+  exit 1
+fi
+exit 0
