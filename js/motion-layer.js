@@ -57,8 +57,19 @@ const writeCounts = () => {
 /* ------------------------------------------------------------------ */
 const targets = $all('[data-reveal]');
 
+/* This module is injected after window.load, so every target has already
+   painted once. Split the targets at init: ones already intersecting the
+   viewport are left untouched (no hide, no reveal) so the hero never
+   blinks out and back in; only below-the-fold targets are hidden and
+   revealed on scroll. */
+const isInViewport = (el) => {
+  const rect = el.getBoundingClientRect();
+  return rect.top < window.innerHeight && rect.bottom > 0;
+};
+const pendingTargets = targets.filter((el) => !isInViewport(el));
+
 const revealAll = () => {
-  targets.forEach((el) => {
+  pendingTargets.forEach((el) => {
     el.style.opacity = '1';
     el.style.transform = 'none';
   });
@@ -69,7 +80,7 @@ const revealAll = () => {
    below, or a background tab would arm the hidden state after the
    failsafe had already run. */
 if (!REDUCED) {
-  targets.forEach((el) => {
+  pendingTargets.forEach((el) => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(14px)';
   });
@@ -104,7 +115,7 @@ if (REDUCED) {
 }
 
 if (!REDUCED) {
-  targets.forEach((el) => {
+  pendingTargets.forEach((el) => {
     inView(el, () => {
       animate(el, { opacity: 1, y: 0 }, {
         duration: 0.66,
