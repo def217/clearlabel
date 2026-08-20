@@ -4,7 +4,8 @@
  * SEED MODE: first two qualifying prospects, one line per seed address, "to" = seed, subject prefixed "[SEED] ".
  */
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
-import { dirname } from 'node:path';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 // ---- constants -----------------------------------------------------------
 const AI_NATIVE_PHRASE = 'a chat product built on an AI model';
@@ -99,11 +100,23 @@ const fillSlots = (template, slots) => {
   return out;
 };
 const collapseBlankLines = (text) => text.replace(/\n{3,}/g, '\n\n');
+// Reflow hard-wrapped copy after slot filling: within each paragraph, join the
+// wrapped lines into one line with single spaces; keep exactly one blank line
+// between paragraphs.
+export const reflow = (text) => text
+  .split(/\n[ \t]*\n+/)
+  .map((paragraph) => paragraph
+    .split('\n')
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .join(' '))
+  .filter(Boolean)
+  .join('\n\n');
 const buildMessage = (row, index, copy) => {
   const slots = buildSlots(row);
-  const subject = fillSlots(copy.subjects[SUBJECT_KEYS[index % 3]], slots);
-  const body = fillSlots(copy.bodies[BODY_KEYS[index % 3]], slots);
-  const footer = fillSlots(copy.footer, slots);
+  const subject = fillSlots(copy.subjects[SUBJECT_KEYS[index % 3]], slots).trim();
+  const body = reflow(fillSlots(copy.bodies[BODY_KEYS[index % 3]], slots));
+  const footer = reflow(fillSlots(copy.footer, slots));
   if (PLACEHOLDER_RE.test(`Subject: ${subject}\n\n${body}\n\n${footer}`)) return null;
   return Object.freeze({ subject, body, footer });
 };
@@ -187,7 +200,9 @@ const main = async () => {
   );
 };
 
-main().catch((err) => {
-  console.error('fatal:', err.message);
-  process.exit(1);
-});
+if (process.argv[1] && fileURLToPath(import.meta.url) === resolve(process.argv[1])) {
+  main().catch((err) => {
+    console.error('fatal:', err.message);
+    process.exit(1);
+  });
+}

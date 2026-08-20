@@ -36,6 +36,13 @@ const escapeHtml = (s) => s
   .replace(/"/g, '&quot;')
   .replace(/'/g, '&#39;');
 
+// **bold** pairs → <strong>…</strong>. Non-greedy and pairs-only: a lone ** has
+// no partner and stays literal. Runs on already-escaped text.
+const BOLD_RE = /\*\*(.+?)\*\*/g;
+const markBold = (escaped) => escaped.replace(BOLD_RE, '<strong>$1</strong>');
+// Plain-text side: drop the ** markers, keep the inner text.
+export const stripBoldMarkers = (text) => text.replace(BOLD_RE, '$1');
+
 const labelFor = (href) => {
   for (const [prefix, label] of LINK_LABELS) {
     if (href.startsWith(prefix)) return label;
@@ -153,7 +160,7 @@ export const textToHtml = (text, opts = {}) => {
   const subject = m ? m[1].trim() : '';
   const textBody = (m ? m[2] : text).trim();
 
-  const body = linkStudyPhrase(bodyHtml(escapeHtml(textBody)), textBody);
+  const body = linkStudyPhrase(bodyHtml(markBold(escapeHtml(textBody))), textBody);
 
   const html = [
     '<div style="font-family:Georgia,\'Times New Roman\',serif;max-width:560px;margin:0 auto;color:#1b1a16">',

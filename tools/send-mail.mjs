@@ -25,7 +25,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { loadSuppression, domainOf } from './suppression.mjs';
 import { loadEnv } from './env.mjs';
-import { textToHtml } from './mail-html.mjs';
+import { textToHtml, stripBoldMarkers } from './mail-html.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const FROM = 'Jonas from ClearLabel <info@clearlabel.eu>';
@@ -71,7 +71,7 @@ const sendOne = async (env, { to, subject, body, html }) => {
     from: FROM,
     to,
     subject,
-    text: body,
+    text: stripBoldMarkers(body),
     headers: { 'List-Unsubscribe': '<mailto:info@clearlabel.eu?subject=unsubscribe>' },
   };
   if (html) payload.html = html;
