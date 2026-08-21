@@ -161,6 +161,7 @@ const page = (v, all) => {
 <link rel="canonical" href="${BASE}/vendors/${v.id}.html">
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(desc)}">
+<link rel="stylesheet" href="/tokens.css">
 <link rel="stylesheet" href="/fonts-plex.css">
 <link rel="stylesheet" href="/site-chrome.css">
 <link rel="stylesheet" href="../styles.css">
@@ -251,6 +252,7 @@ const hub = (vendors) => {
 <title>AI chat vendors and EU AI Act Article 50 — disclosure guide by vendor</title>
 <meta name="description" content="Where the AI disclosure goes in Intercom, Zendesk, Crisp, Tidio, Gorgias, HubSpot, Chatbase and 29 more — plus whether Article 50(1) applies to each.">
 <link rel="canonical" href="${BASE}/vendors/">
+<link rel="stylesheet" href="/tokens.css">
 <link rel="stylesheet" href="/fonts-plex.css">
 <link rel="stylesheet" href="/site-chrome.css">
 <link rel="stylesheet" href="../styles.css">
