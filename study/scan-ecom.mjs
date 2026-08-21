@@ -142,3 +142,4 @@ const workers = Array.from({ length: CONCURRENCY }, async () => {
 });
 await Promise.all(workers);
 console.log(`DONE ${done}/${rows.length}`);
+process.exit(0);
