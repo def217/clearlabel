@@ -5,10 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ClearLabel</title>
 <meta name="robots" content="noindex">
-<meta http-equiv="refresh" content="0;url=/agencies/">
+<noscript><meta http-equiv="refresh" content="0;url=/agencies/"></noscript>
 </head>
 <body>
-<script>location.replace("/agencies/");</script>
+<script>
+var _go = false;
+function go() {
+  if (_go) return;
+  _go = true;
+  location.replace("/agencies/");
+}
+var s = document.createElement("script");
+s.src = "https://static.cloudflareinsights.com/beacon.min.js";
+s.setAttribute("data-cf-beacon", '{"token": "621bef7b2c064047a614e54e630b07c8"}');
+s.onload = go;
+s.onerror = go;
+document.head.appendChild(s);
+setTimeout(go, 600);
+</script>
 <p>Redirecting to <a href="/agencies/">clearlabel.eu/agencies</a>.</p>
 </body>
 </html>

@@ -25,6 +25,7 @@ jobs:
             'study/frame-*' \
             'study/all-known-domains*' \
             'study/retry.csv' \
+            'study/archive/**' \
             'study/*.log' \
             '.env' \
             '*.env' \

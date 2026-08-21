@@ -8,7 +8,7 @@ STAGED=$(git diff --cached --name-only --diff-filter=ACR)
 [ -z "$STAGED" ] && exit 0
 
 BLOCKED=$(printf '%s\n' "$STAGED" | grep -E \
-  '^study/(prospects|candidates-|results|sent-|sent-log|suppression|replies|outreach-|batch|lt-|frame-|all-known-domains|retry\.csv)|^study/.*verified|^study/.*\.log$|(^|/)\.env$|\.env$' \
+  '^study/(archive/|prospects|candidates-|results|sent-|sent-log|suppression|replies|outreach-|batch|lt-|frame-|all-known-domains|retry\.csv)|^study/.*verified|^study/.*\.log$|(^|/)\.env$|\.env$' \
   || true)
 
 if [ -n "$BLOCKED" ]; then

@@ -36,3 +36,4 @@ study/lt-*.csv
 study/batch*-pending.csv
 study/batch*-qualified.csv
 study/frame-*.csv
+study/archive/
