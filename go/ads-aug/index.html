@@ -9,6 +9,8 @@
 </head>
 <body>
 <script>
+var BEACON_GRACE_MS = 800;
+var MAX_WAIT_MS = 1500;
 var _go = false;
 function go() {
   if (_go) return;
@@ -18,10 +20,10 @@ function go() {
 var s = document.createElement("script");
 s.src = "https://static.cloudflareinsights.com/beacon.min.js";
 s.setAttribute("data-cf-beacon", '{"token": "621bef7b2c064047a614e54e630b07c8"}');
-s.onload = go;
+s.onload = function () { setTimeout(go, BEACON_GRACE_MS); };
 s.onerror = go;
 document.head.appendChild(s);
-setTimeout(go, 600);
+setTimeout(go, MAX_WAIT_MS);
 </script>
 <p>Redirecting to <a href="/">clearlabel.eu</a>.</p>
 </body>
